@@ -11,7 +11,7 @@ public class Task2 {
         z = x - y;
 
         System.out.print("Вызвана функция subtraction() с параметрами x = ");
-        System.out.println(x);
+        System.out.print(x);
         System.out.print(", y = ");
         System.out.println(y);
         System.out.print("Результат z = ");

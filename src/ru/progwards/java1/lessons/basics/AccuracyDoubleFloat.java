@@ -21,9 +21,7 @@ public class AccuracyDoubleFloat {
     }
 
     public static double calculateAccuracy(double radius) {
-        double a = volumeBallDouble(radius);
-        double b = volumeBallFloat((float) radius);
-        return volumeBallDouble(radius) - volumeBallFloat((float) radius);
+        return volumeBallFloat((float) radius) - volumeBallDouble(radius);
     }
 
 }

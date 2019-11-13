@@ -12,12 +12,12 @@ public class AccuracyDoubleFloat {
         System.out.println(calculateAccuracy(earthRadius));
     }
 
-    public static double volumeBallDouble(double radius) {
-        return 4 * Math.PI * Math.pow(radius, 3) / 3;
+    public static double volumeBallDouble(double r) {
+        return 4 * PI * r * r * r / 3;
     }
 
-    public static float volumeBallFloat(float radius) {
-        return (float) (4 * Math.PI * Math.pow(radius, 3) / 3);
+    public static float volumeBallFloat(float r) {
+        return (float) (4 *  PI * r * r * r / 3);
     }
 
     public static double calculateAccuracy(double radius) {

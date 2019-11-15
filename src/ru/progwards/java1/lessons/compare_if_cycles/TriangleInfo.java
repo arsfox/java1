@@ -3,7 +3,7 @@ package ru.progwards.java1.lessons.compare_if_cycles;
 public class TriangleInfo {
 
     public static void main(String[] args){
-        System.out.println(isIsoscelesTriangle(133, 12, 12));
+        System.out.println(isRightTriangle(12, 12, 16));
     }
 
     public static boolean isTriangle(int a, int b, int c) {

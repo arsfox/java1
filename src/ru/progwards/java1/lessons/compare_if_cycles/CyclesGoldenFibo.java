@@ -14,7 +14,7 @@ public class CyclesGoldenFibo {
             for (int c = 1; c < 101; c++) {
                 if(isGoldenTriangle(i, i, c)) {
                     System.out.print("Triangle egde "+i);
-                    System.out.println(" Triangle base "+i);
+                    System.out.println(" Triangle base "+c);
                 }
             }
         }

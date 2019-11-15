@@ -2,17 +2,20 @@ package ru.progwards.java1.lessons.compare_if_cycles;
 
 public class CyclesGoldenFibo {
 
-    static final float MAX_RATIO = 1.61903f;
-    static final float MIN_RATIO = 1.61703f;
+    private static final double MAX_RATIO = 1.61903f;
+    private static final double MIN_RATIO = 1.61703f;
 
     public static void main(String[] args){
         for (int i = 1; i < 16; i++){
-//            System.out.println(fiboNumber(i));
+            System.out.println(fiboNumber(i));
         }
 
         for (int i = 1; i < 101; i++){
             for (int c = 1; c < 101; c++) {
-                System.out.println(isGoldenTriangle(i, i, c));
+                if(isGoldenTriangle(i, i, c)) {
+                    System.out.print("Triangle egde "+i);
+                    System.out.println(" Triangle base "+i);
+                }
             }
         }
     }
@@ -20,10 +23,7 @@ public class CyclesGoldenFibo {
     public static boolean containsDigit(int number, int digit) {
         String numberString = String.valueOf(number);
         String digitString = String.valueOf(digit);
-        if (numberString.contains(digitString)) {
-            return true;
-        }
-        return false;
+        return numberString.contains(digitString);
     }
 
     public static int fiboNumber(int n) {
@@ -45,17 +45,11 @@ public class CyclesGoldenFibo {
     }
 
     public static boolean isGoldenTriangle(int a, int b, int c){
-        if(TriangleInfo.isIsoscelesTriangle(a, b, c)) return false;
-        float edge = Math.min(a, Math.min(b, c));
-        float base = Math.max(a, Math.max(b, c));
+        if (!TriangleInfo.isIsoscelesTriangle(a, b, c)) return false;
+        double edge = Math.min(a, Math.min(b, c));
+        double base = Math.max(a, Math.max(b, c));
+        double ratio = base / edge;
 
-        float ratio = base / edge;
-
-        System.out.println(MIN_RATIO+" "+ratio+" "+MAX_RATIO);
-
-        if(ratio < MAX_RATIO && ratio > MIN_RATIO) {
-            return true;
-        }
-        return false;
+        return ratio < MAX_RATIO && ratio > MIN_RATIO;
     }
 }

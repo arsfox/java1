@@ -16,6 +16,7 @@ public class TriangleSimpleInfo {
         } else {
             return a;
         }
+        //Math.max(a, Math.max(b, c));
     }
 
     public static int minSide(int a, int b, int c) {
@@ -28,6 +29,7 @@ public class TriangleSimpleInfo {
         } else {
             return a;
         }
+        //Math.min(a, Math.min(b, c));
     }
 
     public static boolean isIsoscelesTriangle(int a, int b, int c) {

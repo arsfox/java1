@@ -32,7 +32,7 @@ public class TriangleSimpleInfo {
         //Math.min(a, Math.min(b, c));
     }
 
-    public static boolean isIsoscelesTriangle(int a, int b, int c) {
-        return (a == b || b == c || a == c);
+    public static boolean isEquilateralTriangle(int a, int b, int c) {
+        return a == b && a == c;
     }
 }

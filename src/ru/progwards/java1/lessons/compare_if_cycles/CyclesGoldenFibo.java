@@ -2,8 +2,8 @@ package ru.progwards.java1.lessons.compare_if_cycles;
 
 public class CyclesGoldenFibo {
 
-    private static final double MAX_RATIO = 1.61903f;
-    private static final double MIN_RATIO = 1.61703f;
+    private static final double MAX_RATIO = 1.61903D;
+    private static final double MIN_RATIO = 1.61703D;
 
     public static void main(String[] args){
         for (int i = 1; i < 16; i++){

@@ -36,9 +36,7 @@ public class TriangleInfo {
             return false;
         }
 
-        boolean result = Math.pow(cathetOne, 2) + Math.pow(cathetTwo, 2) == Math.pow(hypotenuse, 2);
-
-        return result;
+        return cathetOne * cathetOne + cathetTwo * cathetTwo == hypotenuse * hypotenuse;
     }
 
     public static boolean isIsoscelesTriangle(int a, int b, int c) {

@@ -2,8 +2,8 @@ package ru.progwards.java1.lessons.compare_if_cycles;
 
 public class CyclesGoldenFibo {
 
-    private static final double MAX_RATIO = 1.61903D;
-    private static final double MIN_RATIO = 1.61703D;
+    private static final double MAX_RATIO = 1.61903;
+    private static final double MIN_RATIO = 1.61703;
 
     public static void main(String[] args){
         for (int i = 1; i < 16; i++){
@@ -45,11 +45,28 @@ public class CyclesGoldenFibo {
     }
 
     public static boolean isGoldenTriangle(int a, int b, int c){
-        if (!TriangleInfo.isIsoscelesTriangle(a, b, c)) return false;
-        double edge = Math.min(a, Math.min(b, c));
-        double base = Math.max(a, Math.max(b, c));
-        double ratio = base / edge;
+        if (TriangleInfo.isIsoscelesTriangle(a, b, c)) {
+            double edge = a;
+            double base = c;
+            if(a == b) {
+                edge = a;
+                base = c;
+            } else if (a == c) {
+                edge = a;
+                base = b;
+            } else if (b == c) {
+                edge = b;
+                base = a;
+            }
 
-        return ratio < MAX_RATIO && ratio > MIN_RATIO;
+            double ratio = edge / base;
+            return ratio < MAX_RATIO && ratio > MIN_RATIO;
+
+        }
+        return false;
+
+
+
+
     }
 }

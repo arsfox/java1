@@ -2,6 +2,11 @@ package ru.progwards.java1.lessons.classes;
 
 public class Hamster extends Animal {
 
+    public Hamster()
+    {
+        super(0.03d);
+    }
+
     public AnimalKind getKind() {
         return AnimalKind.HAMSTER;
     }

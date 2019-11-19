@@ -5,7 +5,13 @@ package ru.progwards.java1.lessons.classes;
  */
 public class Animal {
 
-    double weight;
+    public double weight;
+    public enum AnimalKind {
+        ANIMAL, COW, HAMSTER, DUCK
+    }
+    public enum FoodKind {
+        UNKNOWN, HAY, CORN
+    }
 
     public Animal(double weight) {
         this.weight = weight;
@@ -32,6 +38,6 @@ public class Animal {
     }
 
     public double calculateFoodWeight() {
-        return getWeight() * getFoodCoeff();
+        return weight * getFoodCoeff();
     }
 }

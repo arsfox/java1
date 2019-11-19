@@ -7,16 +7,21 @@ public class Animal {
 
     double weight;
 
-    public Animal(double weight) {
+    AnimalKind AnimalKind;
+    FoodKind FoodKind;
+
+    Animal(double weight) {
         this.weight = weight;
+        AnimalKind = AnimalKind.ANIMAL;
+        FoodKind = FoodKind.UNKNOWN;
     }
 
     public AnimalKind getKind(){
-        return AnimalKind.ANIMAL;
+        return AnimalKind;
     }
 
     public FoodKind getFoodKind() {
-        return FoodKind.UNKNOWN;
+        return FoodKind;
     }
 
     public String toString() {

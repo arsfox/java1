@@ -1,22 +1,22 @@
-package ru.progwards.java1.lessons.ru.progwards.java1.lessons.classes;
+package ru.progwards.java1.lessons.classes;
 
-public class Cow extends Animal {
+public class Hamster extends Animal {
 
-    public Cow(double weight) {
+    public Hamster(double weight) {
         super(weight);
     }
 
     public AnimalKind getKind() {
-        return AnimalKind.COW;
+        return AnimalKind.HAMSTER;
     }
 
     public FoodKind getFoodKind() {
-        return FoodKind.HAY;
+        return FoodKind.CORN;
     }
 
     @Override
     public double getFoodCoeff() {
-        return 0.05d;
+        return 0.03d;
     }
 
     @Override

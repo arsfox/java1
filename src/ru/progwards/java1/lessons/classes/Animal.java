@@ -25,12 +25,13 @@ public class Animal {
         return FoodKind.UNKNOWN;
     }
 
+    @Override
     public String toString() {
-        return "I am <"+ getKind() +">, eat <"+ getFoodKind() +"> <"+calculateFoodWeight()+">";
+        return "I am <"+ getKind().toString() +">, eat <"+ getFoodKind().toString() +"> <"+calculateFoodWeight()+">";
     }
 
     public double getWeight() {
-        return 1d;
+        return weight;
     }
 
     public double getFoodCoeff() {
@@ -38,6 +39,6 @@ public class Animal {
     }
 
     public double calculateFoodWeight() {
-        return weight * getFoodCoeff();
+        return getWeight() * getFoodCoeff();
     }
 }

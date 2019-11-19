@@ -34,11 +34,6 @@ public class ComplexNum {
     }
 
     public String toString() {
-        if(b < 0){
-            return a+""+b+"i";
-        } else {
             return a+"+"+b+"i";
-        }
-
     }
 }

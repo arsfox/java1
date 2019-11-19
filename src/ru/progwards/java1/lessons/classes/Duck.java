@@ -14,12 +14,10 @@ public class Duck extends Animal {
         return FoodKind.CORN;
     }
 
-    @Override
     public double getFoodCoeff() {
         return 0.04d;
     }
 
-    @Override
     public double getWeight() {
         return weight;
     }

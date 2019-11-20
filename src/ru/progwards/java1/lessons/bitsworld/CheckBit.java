@@ -11,15 +11,14 @@ public class CheckBit {
 
     public static int checkBit(byte value, int bitNumber) {
         int valueInt;
-        int result = 0;
+        int result;
 
         int i = 0;
         do {
             valueInt = value;
             result = valueInt & 1;
             value >>= 1;
-            i++;
-        } while (bitNumber > i);
+        } while (bitNumber > i++);
 
         return result;
     }

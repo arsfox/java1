@@ -6,8 +6,7 @@ package ru.progwards.java1.lessons.bitsworld;
 public class SumBits {
 
     public static void main(String[] args) {
-        System.out.println(sumBits((byte) 0b1001001));
-        System.out.println(Integer.bitCount((byte) 0b1001001));
+
     }
 
     public static int sumBits(byte value) {
@@ -16,7 +15,7 @@ public class SumBits {
         valueInt = value;
         result += valueInt & 1;
 
-        for (int i = 0; i < Integer.bitCount(value); i++){
+        for (int i = 0; i < 8; i++){
             value >>= 1;
             valueInt = value;
             result += valueInt & 1;

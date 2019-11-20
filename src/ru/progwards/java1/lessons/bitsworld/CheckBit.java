@@ -6,21 +6,21 @@ package ru.progwards.java1.lessons.bitsworld;
 public class CheckBit {
 
     public static void main(String[] args) {
-        System.out.println(checkBit((byte) 0b0010011, 3));
+        System.out.println(checkBit((byte) 0b00100111, 4));
     }
 
     public static int checkBit(byte value, int bitNumber) {
         int valueInt;
         int result = 0;
-        valueInt = value;
-        if (bitNumber == 0) {
-            return valueInt & 1;
-        }
 
-        for (int i = 0; i <= bitNumber; i++){
+        int i = 0;
+        do {
+            valueInt = value;
+            result = valueInt & 1;
             value >>= 1;
-            result = value;
-        }
+            i++;
+        } while (bitNumber > i);
+
         return result;
     }
 }

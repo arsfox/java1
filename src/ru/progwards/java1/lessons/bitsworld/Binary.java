@@ -5,7 +5,7 @@ package ru.progwards.java1.lessons.bitsworld;
  */
 public class Binary {
 
-    int num;
+    byte num;
 
     public Binary(byte num) {
         this.num = num;
@@ -13,6 +13,13 @@ public class Binary {
 
     @Override
     public String toString() {
-        return "";
+        String result = "";
+        System.out.println(num);
+        for (int i = 7; i >= 0; i--) {
+            int reminder = (num >> i);
+            int binary = reminder & 0b00000001;
+            result += binary;
+        }
+        return result;
     }
 }

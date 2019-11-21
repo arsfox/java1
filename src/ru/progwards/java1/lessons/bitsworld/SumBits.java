@@ -6,16 +6,14 @@ package ru.progwards.java1.lessons.bitsworld;
 public class SumBits {
 
     public static void main(String[] args) {
-
+ 
     }
 
     public static int sumBits(byte value) {
         int result = 0;
         int n = value;
         for (int i = 0; i < 8; i++) {
-            int na = n >> i;
-            int nr = na & 1;
-            result += nr;
+            result += (n >> i) & 1;
         }
         return result;
     }

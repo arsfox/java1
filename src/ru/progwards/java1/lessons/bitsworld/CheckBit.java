@@ -6,7 +6,7 @@ package ru.progwards.java1.lessons.bitsworld;
 public class CheckBit {
 
     public static void main(String[] args) {
-        System.out.println(checkBit((byte)-114, 0));
+        System.out.println(checkBit((byte)-114, 1));
         int a = 142;
         byte b = (byte) a;
         System.out.println(b);
@@ -16,7 +16,7 @@ public class CheckBit {
     public static int checkBit(byte value, int bitNumber) {
         int result = 0;
         int n = value;
-        for (int i = 0; i < bitNumber; i++) {
+        for (int i = 1; i < bitNumber; i++) {
             result = (n >> i) & 1;
         }
         return result;

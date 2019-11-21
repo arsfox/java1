@@ -6,20 +6,15 @@ package ru.progwards.java1.lessons.bitsworld;
 public class CheckBit {
 
     public static void main(String[] args) {
-        System.out.println(checkBit((byte) 0b00100111, 40));
+
     }
 
     public static int checkBit(byte value, int bitNumber) {
-        int valueInt;
-        int result;
-
-        int i = 0;
-        do {
-            valueInt = value;
-            result = valueInt & 1;
-            value >>= 1;
-        } while (bitNumber > i++);
-
+        int result = 0;
+        int n = value;
+        for (int i = 0; i < bitNumber; i++) {
+            result = (n >> i) & 1;
+        }
         return result;
     }
 }

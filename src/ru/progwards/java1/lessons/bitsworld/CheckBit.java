@@ -6,7 +6,11 @@ package ru.progwards.java1.lessons.bitsworld;
 public class CheckBit {
 
     public static void main(String[] args) {
-
+        System.out.println(checkBit((byte)-114, 0));
+        int a = 142;
+        byte b = (byte) a;
+        System.out.println(b);
+        System.out.println(Integer.toBinaryString(a));
     }
 
     public static int checkBit(byte value, int bitNumber) {

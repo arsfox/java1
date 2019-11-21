@@ -10,16 +10,15 @@ public class SumBits {
     }
 
     public static int sumBits(byte value) {
-        int valueInt;
         int result = 0;
-        valueInt = value;
-        result += valueInt & 1;
-
-        for (int i = 0; i < 8; i++){
-            value >>= 1;
-            valueInt = value;
-            result += valueInt & 1;
+        int n = value;
+        for (int i = 0; i < 8; i++) {
+            int na = n >> i;
+            int nr = na & 1;
+            result += nr;
         }
         return result;
     }
+
 }
+

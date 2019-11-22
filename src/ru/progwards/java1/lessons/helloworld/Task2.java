@@ -1,9 +1,10 @@
 package ru.progwards.java1.lessons.helloworld;
 
+import ru.progwards.java1.lessons.arrays.Eratosthenes;
+
 public class Task2 {
 
     public static void main(String[] args) {
-        subtraction(89, 55);
     }
 
     public static void subtraction(int x, int y) {

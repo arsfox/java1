@@ -6,11 +6,7 @@ package ru.progwards.java1.lessons.arrays;
 public class DIntArray {
 
     private int[] intArray;
-
-    public DIntArray(int[] intArray) {
-        this.intArray = intArray;
-    }
-
+ 
     public void add(int num) {
         int[] intArrayCopy = new int[intArray.length + 1];
         System.arraycopy(intArray, 0, intArrayCopy, 0, intArray.length);

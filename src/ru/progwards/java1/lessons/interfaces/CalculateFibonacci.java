@@ -7,11 +7,9 @@ public class CalculateFibonacci {
 
     private static CacheInfo lastFibo;
 
-    public CalculateFibonacci() {
-        lastFibo = new CacheInfo();
-    }
-
     public static int fiboNumber(int n) {
+
+        lastFibo = new CacheInfo();
 
         if (lastFibo.n == n){
             return lastFibo.fibo;

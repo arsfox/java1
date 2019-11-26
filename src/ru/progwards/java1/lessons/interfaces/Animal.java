@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Created by Arseniy on 18.11.2019.
  */
-public class Animal implements FoodCompare{
+public class Animal implements FoodCompare, Comparable<Animal>{
 
     public double weight;
 
@@ -67,6 +67,11 @@ public class Animal implements FoodCompare{
 
     @Override
     public int сompareFoodPrice(Animal animal) {
+        return Double.compare(getWeight(), getWeight());
+    }
+
+    @Override
+    public int compareTo(Animal animal) {
         if (getWeight() < animal.getWeight()) {
             return -1;
         }

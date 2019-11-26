@@ -66,7 +66,7 @@ public class Animal implements FoodCompare, Comparable<Animal>{
     }
 
     @Override
-    public int сompareFoodPrice(Animal animal) {
+    public int compareFoodPrice(Animal animal) {
         return Double.compare(getWeight(), getWeight());
     }
 

@@ -2,9 +2,9 @@ package ru.progwards.java1.lessons.interfaces;
 
 public class Cow extends Animal {
 
-    public Cow()
+    public Cow(Double weight)
     {
-        super(0.05d);
+        super(weight);
     }
 
     public AnimalKind getKind() {

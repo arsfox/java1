@@ -2,9 +2,9 @@ package ru.progwards.java1.lessons.interfaces;
 
 public class Duck extends Animal {
 
-    public Duck()
+    public Duck(Double weight)
     {
-        super(0.04d);
+        super(weight);
     }
 
     @Override

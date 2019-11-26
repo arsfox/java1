@@ -2,9 +2,9 @@ package ru.progwards.java1.lessons.interfaces;
 
 public class Hamster extends Animal {
 
-    public Hamster()
+    public Hamster(Double weight)
     {
-        super(0.03d);
+        super(weight);
     }
 
     @Override

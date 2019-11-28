@@ -7,6 +7,10 @@ public class SumBits {
 
     public static void main(String[] args) {
 
+        int a = 142;
+        byte b = (byte) a;
+        System.out.println(b);
+        System.out.println(Integer.toBinaryString(a));
     }
 
     public static int sumBits(byte value) {

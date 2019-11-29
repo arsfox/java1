@@ -5,8 +5,15 @@ package ru.progwards.java1.lessons.bigints;
  */
 public class ByteInteger extends AbsInteger {
 
-    public ByteInteger(byte byteInteger) {
+    byte byteInteger;
 
+    public ByteInteger(byte byteInteger) {
+        this.byteInteger = byteInteger;
+    }
+
+    @Override
+    public String toString(){
+        return String.valueOf(this.byteInteger);
     }
 
 }

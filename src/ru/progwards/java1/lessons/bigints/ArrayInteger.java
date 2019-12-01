@@ -37,7 +37,10 @@ public class ArrayInteger {
     }
 
     public boolean add(ArrayInteger num) {
+        int count = Math.max(this.digits.length, num.digits.length);
 
+        System.out.println(count);
+        return true;
     }
 
 

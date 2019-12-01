@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 public class AbsInteger {
 
-    public AbsInteger add(AbsInteger num1, AbsInteger num2) {
+    static public AbsInteger add(AbsInteger num1, AbsInteger num2) {
         BigInteger bigNum1 = new BigInteger(num1.toString());
         BigInteger bigNum2 = new BigInteger(num2.toString());
 

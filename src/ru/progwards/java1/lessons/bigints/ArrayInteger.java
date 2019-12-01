@@ -32,13 +32,14 @@ public class ArrayInteger {
             BigInteger t = r.multiply(digitsIter);
             result = result.add(t);
         }
-//        System.out.println(result.divide(new BigInteger("10")));
+        System.out.println(result.divide(new BigInteger("10")));
         return new BigDecimal("1");
     }
 
 //    TODO It's not ready yet
     public boolean add(ArrayInteger num) {
         int count = Math.max(this.digits.length, num.digits.length);
+
 
         System.out.println(count);
         return true;

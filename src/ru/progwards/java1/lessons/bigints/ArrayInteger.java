@@ -36,6 +36,7 @@ public class ArrayInteger {
         return new BigDecimal("1");
     }
 
+//    TODO It's not ready yet
     public boolean add(ArrayInteger num) {
         int count = Math.max(this.digits.length, num.digits.length);
 

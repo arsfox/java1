@@ -40,6 +40,9 @@ public class ArrayInteger {
     public boolean add(ArrayInteger num) {
         int count = Math.max(this.digits.length, num.digits.length);
 
+        for (int i = 0; i < count; i++){
+
+        }
 
         System.out.println(count);
         return true;

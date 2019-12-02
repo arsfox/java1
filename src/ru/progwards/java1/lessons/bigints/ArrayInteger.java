@@ -1,7 +1,5 @@
 package ru.progwards.java1.lessons.bigints;
 
-import ru.progwards.java1.lessons.bigints.DIntArray;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -39,16 +37,27 @@ public class ArrayInteger {
 
 
     public boolean add(ArrayInteger num) {
-        if (digits.length != num.digits.length){
+        if (digits.length < num.digits.length){
             num.fromInt(new BigDecimal("0"));
             return false;
         }
 
         DIntArray dIntArray = new DIntArray();
 
+        byte[] memArray = new byte[digits.length];
+        Arrays.fill(memArray, (byte) 0);
+
+        for (int c = 0; c < memArray.length; c ++){
+            if(c < num.digits.length) {
+                memArray[c] = num.digits[c];
+            }
+        }
+
+        System.out.println(Arrays.toString(memArray));
+
         boolean tenths = false;
         for (int i = 0; i < digits.length; i++){
-            int result = digits[i] + num.digits[i];
+            int result = digits[i] + memArray[i];
             if(tenths){
                 result += 1;
                 tenths = false;
@@ -58,11 +67,12 @@ public class ArrayInteger {
                 tenths = true;
             }
             dIntArray.add(result);
-        }
+       }
        for (int i = 0; i < digits.length; i++){
            digits[i] = (byte) dIntArray.at(i);
        }
-        return true;
+       System.out.println(Arrays.toString(digits));
+       return true;
     }
 
 

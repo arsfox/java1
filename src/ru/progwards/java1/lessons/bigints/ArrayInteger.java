@@ -1,9 +1,10 @@
 package ru.progwards.java1.lessons.bigints;
 
-import ru.progwards.java1.lessons.arrays.DIntArray;
+import ru.progwards.java1.lessons.bigints.DIntArray;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class ArrayInteger {
 

@@ -34,8 +34,7 @@ public class ArrayInteger {
             BigInteger t = r.multiply(digitsIter);
             result = result.add(t);
         }
-        System.out.println(result.divide(new BigInteger("10")));
-        return new BigDecimal(result.toString());
+        return new BigDecimal(result.divide(new BigInteger("10")));
     }
 
 

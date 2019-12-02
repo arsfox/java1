@@ -49,4 +49,8 @@ public class DIntArray {
         return intArray[pos];
     }
 
+    public int[] get(){
+        return intArray;
+    }
+
 }

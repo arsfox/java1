@@ -1,8 +1,9 @@
 package ru.progwards.java1.lessons.bigints;
 
+import ru.progwards.java1.lessons.arrays.DIntArray;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
 
 public class ArrayInteger {
 
@@ -33,18 +34,34 @@ public class ArrayInteger {
             result = result.add(t);
         }
         System.out.println(result.divide(new BigInteger("10")));
-        return new BigDecimal("1");
+        return new BigDecimal(result.toString());
     }
 
-//    TODO It's not ready yet
+
     public boolean add(ArrayInteger num) {
-        int count = Math.max(this.digits.length, num.digits.length);
-
-        for (int i = 0; i < count; i++){
-
+        if (digits.length != num.digits.length){
+            num.fromInt(new BigDecimal("0"));
+            return false;
         }
 
-        System.out.println(count);
+        DIntArray dIntArray = new DIntArray();
+
+        boolean tenths = false;
+        for (int i = 0; i < digits.length; i++){
+            int result = digits[i] + num.digits[i];
+            if(tenths){
+                result += 1;
+                tenths = false;
+            }
+            if(result >= 10){
+                result = 0;
+                tenths = true;
+            }
+            dIntArray.add(result);
+        }
+       for (int i = 0; i < digits.length; i++){
+           digits[i] = (byte) dIntArray.at(i);
+       }
         return true;
     }
 

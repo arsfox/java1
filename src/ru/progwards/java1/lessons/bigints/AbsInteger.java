@@ -9,12 +9,25 @@ public class AbsInteger {
     static public AbsInteger add(AbsInteger num1, AbsInteger num2) {
         String operandOne = "";
         String operandTwo = "";
-        if(num1.getClass().equals(ByteInteger.class)) {
-            operandOne = num1.;
+
+        if(num1.getClass().equals(ByteInteger.class) && num2.getClass().equals(ByteInteger.class)) {
+            operandOne = String.valueOf(new ByteInteger((byte) num1.getInt()));
+            operandTwo = String.valueOf(new ByteInteger((byte) num2.getInt()));
+        } else if (num1.getClass().equals(ByteInteger.class)) {
+            operandOne = String.valueOf(new ByteInteger((byte) num1.getInt()));
+            operandTwo = num2.toString();
+        } else if (num2.getClass().equals(ByteInteger.class)) {
+            operandTwo = String.valueOf(new ByteInteger((byte) num2.getInt()));
+            operandOne = num1.toString();
         } else {
             operandOne = num1.toString();
             operandTwo = num2.toString();
         }
+
+        BigInteger bigNum1 = new BigInteger(operandOne);
+        BigInteger bigNum2 = new BigInteger(operandTwo);
+
+        BigInteger bigResult = bigNum1.add(bigNum2);
 
         int result = bigResult.intValue();
 
@@ -27,6 +40,9 @@ public class AbsInteger {
         }
     }
 
+    public int getInt() {
+        return 0;
+    }
 
 
 }

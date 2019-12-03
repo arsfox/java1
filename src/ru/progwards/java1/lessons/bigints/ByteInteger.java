@@ -12,6 +12,11 @@ public class ByteInteger extends AbsInteger {
     }
 
     @Override
+    public int getInt() {
+        return byteInteger;
+    }
+
+    @Override
     public String toString(){
         return String.valueOf(this.byteInteger);
     }

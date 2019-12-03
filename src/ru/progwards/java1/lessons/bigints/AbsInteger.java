@@ -34,7 +34,6 @@ public class AbsInteger {
         } else if (result < 32768 && result > -32769) {
             return new ShortInteger((short) result);
         } else {
-            System.out.println("IntInteger");
             return new IntInteger(result);
         }
     }

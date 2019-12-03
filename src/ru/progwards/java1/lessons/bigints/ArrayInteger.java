@@ -21,7 +21,8 @@ public class ArrayInteger {
             digits[count] = valueInteger.remainder(BigInteger.valueOf(10)).byteValueExact();
             count++;
         }
-//        System.out.println(Arrays.toString(digits));
+        System.out.print("fromInt: ");
+        System.out.println(Arrays.toString(digits));
     }
 
     public BigDecimal toInt() {
@@ -47,31 +48,30 @@ public class ArrayInteger {
         byte[] memArray = new byte[digits.length];
         Arrays.fill(memArray, (byte) 0);
 
+
+
         for (int c = 0; c < memArray.length; c ++){
             if(c < num.digits.length) {
                 memArray[c] = num.digits[c];
             }
         }
-
-        System.out.println(Arrays.toString(memArray));
+        int dNum = 0;
+        int result = 0;
 
         boolean tenths = false;
         for (int i = 0; i < digits.length; i++){
-            int result = digits[i] + memArray[i];
-            if(tenths){
-                result += 1;
-                tenths = false;
-            }
-            if(result >= 10){
-                result = 0;
-                tenths = true;
-            }
+             result = digits[i] + memArray[i] + dNum;
+             dNum = result / 10;
+             if (result > 9) {
+                 result = result % 10;
+             }
+
             dIntArray.add(result);
        }
        for (int i = 0; i < digits.length; i++){
            digits[i] = (byte) dIntArray.at(i);
        }
-       System.out.println(Arrays.toString(digits));
+
        return true;
     }
 

@@ -13,7 +13,7 @@ public class ByteInteger extends AbsInteger {
 
     @Override
     public int getInt() {
-        return byteInteger;
+        return this.byteInteger;
     }
 
     @Override

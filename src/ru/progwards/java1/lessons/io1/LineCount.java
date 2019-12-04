@@ -13,7 +13,7 @@ public class LineCount {
             int count = 0;
             while (scanner.hasNextLine()) {
                 String str = scanner.nextLine();
-                if(str.equals("\n")){
+                if(str.equals("")){
                     count++;
                 }
             }

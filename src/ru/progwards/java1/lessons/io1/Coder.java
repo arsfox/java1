@@ -20,7 +20,7 @@ public class Coder {
                 outFileString += codeChar;
                 symbol = bufferedReader.read();
             }
-
+            bufferedReader.close();
             setText(outFileName, outFileString);
         } catch (FileNotFoundException e) {
             try {

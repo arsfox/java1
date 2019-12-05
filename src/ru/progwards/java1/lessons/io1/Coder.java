@@ -21,17 +21,17 @@ public class Coder {
                 symbol = bufferedReader.read();
             }
 
-            setText(outFileName);
+            setText(outFileName, outFileString);
         } catch (FileNotFoundException e) {
             try {
-                setText(e.getMessage());
+                setText(logName, e.getMessage());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             e.printStackTrace();
         } catch (IOException e) {
             try {
-                setText(e.getMessage());
+                setText(logName, e.getMessage());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -39,9 +39,9 @@ public class Coder {
         }
     }
 
-    private static void setText(String fileName) throws IOException {
+    private static void setText(String fileName, String text) throws IOException {
         FileWriter writer = new FileWriter(fileName, false);
-        writer.write(fileName);
+        writer.write(text);
         writer.close();
     }
 

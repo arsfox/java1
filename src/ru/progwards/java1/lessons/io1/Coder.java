@@ -17,7 +17,9 @@ public class Coder {
             int symbol = bufferedReader.read();
             while (symbol != -1) {
                 symbol = bufferedReader.read();
-                outFileString += code[symbol];
+                if(code.length < symbol){
+                    outFileString += code[symbol];
+                }
             }
             bufferedReader.close();
             setText(outFileName, outFileString);

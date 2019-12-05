@@ -17,9 +17,18 @@ public class Coder {
             int symbol = bufferedReader.read();
             while (symbol != -1) {
                 symbol = bufferedReader.read();
-                if(code.length < symbol){
-                    outFileString += code[symbol];
+                try {
+                    if(symbol != -1){
+                        outFileString += code[symbol];
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    try {
+                        setText(logName, e.getMessage());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
+
             }
             bufferedReader.close();
             setText(outFileName, outFileString);

@@ -18,9 +18,7 @@ public class Coder {
             while (symbol != -1) {
                 symbol = bufferedReader.read();
                 try {
-                    if(symbol != -1){
-                        outFileString += code[symbol];
-                    }
+                outFileString += code[symbol];
                 } catch (ArrayIndexOutOfBoundsException e) {
                     try {
                         setText(logName, e.getMessage());

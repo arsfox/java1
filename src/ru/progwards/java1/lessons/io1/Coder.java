@@ -19,37 +19,29 @@ public class Coder {
                 try {
                 outFileString += code[symbol];
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    try {
-                        setText(logName, e.getMessage());
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+                    setText(logName, e.getMessage());
                 }
                 symbol = bufferedReader.read();
             }
             bufferedReader.close();
             setText(outFileName, outFileString);
         } catch (FileNotFoundException e) {
-            try {
                 setText(logName, e.getMessage());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            e.printStackTrace();
         } catch (IOException e) {
-            try {
                 setText(logName, e.getMessage());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            e.printStackTrace();
         }
     }
 
-    private static void setText(String fileName, String text) throws IOException {
-        FileWriter writer = new FileWriter(fileName, false);
-        writer.write(text);
-        writer.close();
+    private static void setText(String fileName, String text)  {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(fileName, false);
+            writer.write(text);
+            writer.close();
+        } catch (IOException e) {
+            setText(fileName, e.getMessage()); // =)
+        }
+
     }
 
 }

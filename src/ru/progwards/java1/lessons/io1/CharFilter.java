@@ -10,6 +10,9 @@ public class CharFilter {
 
     public static void filterFile(String inFileName, String outFileName, String filter) throws IOException {
         FileReader fileReader = new FileReader(inFileName);
+        FileWriter writer = new FileWriter(outFileName, false);
+        try {
+
         Scanner scanner = new Scanner(fileReader);
         String outFileString = "";
         while ((scanner.hasNextLine())) {
@@ -24,8 +27,13 @@ public class CharFilter {
                 outFileString += out;
             }
         }
-        FileWriter writer = new FileWriter(outFileName, false);
         writer.write(outFileString);
-        writer.close();
+
+        } catch (IOException e) {
+            throw new IOException(e);
+        } finally {
+            fileReader.close();
+            writer.close();
+        }
     }
 }

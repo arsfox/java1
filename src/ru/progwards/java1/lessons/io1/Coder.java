@@ -16,7 +16,6 @@ public class Coder {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(inFileName));
             int symbol = bufferedReader.read();
             while (symbol != -1) {
-                symbol = bufferedReader.read();
                 try {
                 outFileString += code[symbol];
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -26,7 +25,7 @@ public class Coder {
                         ex.printStackTrace();
                     }
                 }
-
+                symbol = bufferedReader.read();
             }
             bufferedReader.close();
             setText(outFileName, outFileString);

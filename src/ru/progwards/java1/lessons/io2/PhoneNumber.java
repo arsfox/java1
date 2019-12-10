@@ -33,6 +33,7 @@ public class PhoneNumber {
         }
 
         number = "+7"+number;
+
         char[] numberArray = number.toCharArray();
         number = "";
         for (int count = 0; count < numberArray.length; count++) {

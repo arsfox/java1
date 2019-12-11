@@ -8,9 +8,10 @@ import java.util.Scanner;
 
 public class Censor {
 
-    public static void censorFile(String inoutFileName, String[] obscene)  {
+    public static void censorFile(String inoutFileName, String[] obscene) throws CensorException {
 
-        try(FileReader reader = new FileReader(inoutFileName)) {
+        try {
+            FileReader reader = new FileReader(inoutFileName);
             Scanner scanner = new Scanner(reader);
             String resultLines = "";
             while (scanner.hasNextLine()) {
@@ -21,15 +22,14 @@ public class Censor {
                 }
                 resultLines += wordReplaceBuffer;
             }
-            try(FileWriter writer = new FileWriter(inoutFileName, false)) {
-                writer.write("");
-                writer.write(resultLines);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+            FileWriter writer = new FileWriter(inoutFileName, false);
+            writer.write("");
+            writer.write(resultLines);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CensorException(inoutFileName);
         }
+
 
     }
 
@@ -41,6 +41,26 @@ public class Censor {
             starInt--;
         }
         return star;
+    }
+
+    public static class CensorException extends Exception {
+        private String exceptionMess = this.getMessage();
+        private String filename;
+
+        public CensorException(String filename){
+            super();
+            this.filename = filename;
+        }
+
+        @Override
+        public String getMessage() {
+            return filename+":"+super.getMessage();
+        }
+
+        @Override
+        public String toString() {
+            return filename+":"+exceptionMess;
+        }
     }
 
 }

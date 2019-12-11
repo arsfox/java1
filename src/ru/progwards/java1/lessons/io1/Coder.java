@@ -18,6 +18,8 @@ public class Coder {
             }
             bufferedReader.close();
             setText(outFileName, outFileString);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            setText(logName, e.getMessage());
         } catch (IOException e) {
             setText(logName, e.getMessage());
         }

@@ -5,7 +5,7 @@ package ru.progwards.java1.lessons.io2;
  */
 public class PhoneNumber {
 
-    public static String format(String phone) {
+    public static String format(String phone) throws Exception {
         String number = "";
         char[] numArray = phone.toCharArray();
         for (int i = 0; i < numArray.length; i++) {
@@ -16,11 +16,7 @@ public class PhoneNumber {
         }
 
         if((number.length() < 10)||(number.length() > 11)){
-            try {
                 throw new Exception("Wrong number length");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
         if((number.substring(0, 1).equals("8"))&&(number.length() > 9)) {

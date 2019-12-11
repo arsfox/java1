@@ -27,7 +27,7 @@ public class Censor {
             writer.write("");
             writer.write(resultLines);
             writer.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new CensorException(inoutFileName);
         }
 

@@ -22,10 +22,11 @@ public class Censor {
                 }
                 resultLines += wordReplaceBuffer;
             }
-
+            reader.close();
             FileWriter writer = new FileWriter(inoutFileName, false);
             writer.write("");
             writer.write(resultLines);
+            writer.close();
         } catch (IOException e) {
             throw new CensorException(inoutFileName);
         }

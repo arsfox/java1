@@ -11,9 +11,10 @@ public class PhoneNumber {
         for (int i = 0; i < numArray.length; i++) {
             if (Character.isDigit(numArray[i])) {
                 number += numArray[i];
+
             }
         }
-
+      
         if((number.length() < 10)||(number.length() > 11)){
             try {
                 throw new Exception("Wrong number length");
@@ -25,7 +26,7 @@ public class PhoneNumber {
         if((number.substring(0, 1).equals("8"))&&(number.length() == 11)) {
             number = number.substring(1);
         } else
-        if((number.substring(0, 1).equals("7"))&&(number.length() == 11)) {
+        if((number.length() == 10)&&(number.substring(0, 1).equals("7"))) {
             number = number.substring(1);
         } else
         if((number.substring(0, 2).equals("+7"))&&(number.length() == 12)) {

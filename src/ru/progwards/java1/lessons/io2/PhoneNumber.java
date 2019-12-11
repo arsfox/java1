@@ -26,10 +26,10 @@ public class PhoneNumber {
         if((number.substring(0, 1).equals("8"))&&(number.length() > 9)) {
             number = number.substring(1);
         } else
-        if((number.length() == 12)&&(number.substring(0, 1).equals("7"))) {
+        if((number.length() > 9)&&(number.substring(0, 1).equals("7"))) {
             number = number.substring(1);
         } else
-        if((number.substring(0, 2).equals("+7"))&&(number.length() == 12)) {
+        if((number.substring(0, 2).equals("+7"))) {
             number = number.substring(2);
         }
 

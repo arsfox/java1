@@ -15,7 +15,7 @@ public class ArrayIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return this.currentPosition <= this.array.length -1 ;
+        return this.currentPosition <= this.array.length -1;
     }
 
     @Override

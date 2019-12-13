@@ -4,29 +4,36 @@ import java.util.Iterator;
 
 public class MatrixIterator<T> implements Iterator<T> {
 
-    private T[] array;
-    private int lengthParent;
-    private int lengthChild;
-    private int currentPositionParent;
-    private int currentPositionChild;
+    private T[][] array;
+    private int matrixSize, posiniton, posinitonX, posinitonY;
 
-    MatrixIterator(T[] array) {
+
+    MatrixIterator(T[][] array) {
         this.array = array;
-        this.currentPositionParent = 0;
-        this.currentPositionChild = 0;
+        this.posiniton = 0;
+        this.matrixSize = countElements(array);
+        posinitonX = 0;
+        posinitonY = 0;
     }
 
     @Override
     public boolean hasNext() {
-        return this.currentPositionParent <= this.array.length -1 ;
+        return this.posiniton < this.matrixSize;
     }
 
     @Override
     public T next() {
-//        T result = this.array[this.currentPosition];
-//        this.currentPosition += 1;
+        T element = this.array[posinitonX][posinitonY];
+        
         return null;
     }
 
+    private int countElements(T[][] matrix) {
+        int count = 0;
+        for (T[] item : matrix) {
+            count += item.length;
+        }
+        return count;
+    }
 
 }

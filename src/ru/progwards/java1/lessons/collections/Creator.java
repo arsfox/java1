@@ -2,6 +2,8 @@ package ru.progwards.java1.lessons.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Arseniy on 12.12.2019.
@@ -26,6 +28,7 @@ public class Creator {
                 collection.add(i);
            }
         }
+        Collections.reverse((List<?>) collection);
         return collection;
     }
 

@@ -14,7 +14,7 @@ public class Finder {
         Collection<Integer> collectionSumms = new ArrayList<Integer>();
         int bufferMin = Collections.max(numbers);
         int bufferPosition = 0;
-        for (int i = 0; i <= collectionArray.size(); i++) {
+        for (int i = 0; i < collectionArray.size()-1; i++) {
             int summ = collectionArray.get(i) + collectionArray.get(i + 1);
             if(summ < bufferMin) {
                 bufferMin = summ;

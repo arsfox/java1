@@ -30,8 +30,6 @@ public class Censor {
         } catch (Exception e) {
             throw new CensorException(inoutFileName);
         }
-
-
     }
 
     private static String getStar(String word){

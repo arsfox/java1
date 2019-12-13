@@ -9,8 +9,8 @@ import java.util.Collection;
 public class Creator {
 
     public static Collection<Integer> fillEven(int n) {
-        Collection<Integer> collection = new ArrayList<Integer>();
-        for (int i = 0; i < n; i++) {
+        Collection<Integer> collection = new ArrayList<Integer>(n);
+        for (int i = 0; collection.size() < n; i++) {
             if(i % 2 == 0){
                 collection.add(i);
             }
@@ -20,9 +20,10 @@ public class Creator {
 
     public static Collection<Integer> fillOdd(int n) {
         Collection<Integer> collection = new ArrayList<Integer>();
-        for (int i = n; i >= 1; i--) {
+        for (int i = n; i >= 1;) {
             if(i % 2 != 0){
                 collection.add(i);
+                i--;
             }
         }
         return collection;
@@ -30,7 +31,7 @@ public class Creator {
 
     public static Collection<Integer> fill3(int n) {
         Collection<Integer> collection = new ArrayList<Integer>();
-        for (int i = 0; i < n; i+=3) {
+        for (int i = 0; collection.size() < n; i+=3) {
             collection.add(i);
             collection.add(i*i);
             collection.add(i*i*i);

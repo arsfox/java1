@@ -10,8 +10,21 @@ import java.util.Collections;
 public class Finder {
 
     public static Collection<Integer> findMinSumPair(Collection<Integer> numbers) {
-        Collection<Integer> collection = new ArrayList<Integer>();
-        return collection;
+        ArrayList<Integer> collectionArray = (ArrayList) numbers;
+        Collection<Integer> collectionSumms = new ArrayList<Integer>();
+        int bufferMin = Collections.max(numbers);
+        int bufferPosition = 0;
+        for (int i = 0; i < collectionArray.size(); i++) {
+            int summ = collectionArray.get(i) + collectionArray.get(i + 1);
+            if(summ < bufferMin) {
+                bufferMin = summ;
+                bufferPosition = i;
+            }
+        }
+        collectionSumms.add(bufferPosition);
+        collectionSumms.add(bufferPosition + 1);
+
+        return collectionSumms;
     }
 
     public static Collection<Integer> findLocalMax(Collection<Integer> numbers) {
@@ -26,6 +39,7 @@ public class Finder {
             if (mun != i){
                 return false;
             }
+            i++;
         }
         return true;
     }

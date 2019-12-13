@@ -52,6 +52,16 @@ public class Finder {
     }
 
     public static String findSimilar(Collection<String> names) {
+        ArrayList<String> namesArray = (ArrayList) names;
+        int[] rating = new int[namesArray.size()];
+
+        for (int i = 0; i < namesArray.size(); i++) {
+            int bufferRating = 0;
+            for (String name: names) {
+                if(namesArray.get(i).)
+            }
+        }
+
         return "";
     }
 

@@ -53,16 +53,21 @@ public class Finder {
 
     public static String findSimilar(Collection<String> names) {
         ArrayList<String> namesArray = (ArrayList) names;
-        int[] rating = new int[namesArray.size()];
-
+        int maxIndex = 0;
+        int maxBufferRating = 0;
         for (int i = 0; i < namesArray.size(); i++) {
             int bufferRating = 0;
             for (String name: names) {
-                if(namesArray.get(i).)
+                if(namesArray.get(i).equals(name)) {
+                    bufferRating += 1;
+                }
+            }
+            if(maxBufferRating < bufferRating) {
+                maxIndex = i;
+                maxBufferRating = bufferRating;
             }
         }
-
-        return "";
+        return namesArray.get(maxIndex)+':'+maxBufferRating;
     }
 
 }

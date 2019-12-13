@@ -28,7 +28,14 @@ public class Finder {
     }
 
     public static Collection<Integer> findLocalMax(Collection<Integer> numbers) {
+        ArrayList<Integer> collectionArray = (ArrayList) numbers;
         Collection<Integer> collection = new ArrayList<Integer>();
+
+//        for (int i = 0; i < ; i++) {
+//
+//        }
+        
+
         return collection;
     }
 

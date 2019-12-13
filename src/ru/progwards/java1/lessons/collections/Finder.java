@@ -31,7 +31,7 @@ public class Finder {
         ArrayList<Integer> collectionArray = (ArrayList<Integer>) numbers;
         Collection<Integer> collection = new ArrayList<Integer>();
 
-        for (int i = 0; i < collectionArray.size() -1; i++) {
+        for (int i = 1; i < collectionArray.size() -1; i++) {
             if(collectionArray.get(i - 1) < collectionArray.get(i) && collectionArray.get(i) > collectionArray.get(i + 1)) {
                 collection.add(i);
             }

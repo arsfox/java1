@@ -55,7 +55,7 @@ public class Finder {
         ArrayList<String> namesArray = (ArrayList) names;
         int maxIndex = 0;
         int maxBufferRating = 0;
-        for (int i = 0; i < namesArray.size(); i++) {
+        for (int i = namesArray.size(); i > 0; i--) {
             int bufferRating = 0;
             for (String name: names) {
                 if(namesArray.get(i).equals(name)) {

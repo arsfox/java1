@@ -20,13 +20,11 @@ public class Creator {
 
     public static Collection<Integer> fillOdd(int n) {
         Collection<Integer> collection = new ArrayList<Integer>();
-        for (int i = n; collection.size() < n; i--) {
+
+        for (int i = 0; i < n*2; i++) {
             if(i % 2 != 0){
-                collection.add(i);
-            }
-            if(i<1){
-                break;
-            }
+                System.out.println(i);
+           }
         }
         return collection;
     }
@@ -34,7 +32,7 @@ public class Creator {
     public static Collection<Integer> fill3(int n) {
         Collection<Integer> collection = new ArrayList<Integer>();
         int count = 0;
-        for (int i = 0; count < n; i+=3) {
+        for (int i = 0; count < n; i++) {
             collection.add(i);
             collection.add(i*i);
             collection.add(i*i*i);

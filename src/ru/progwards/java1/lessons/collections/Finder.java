@@ -31,11 +31,11 @@ public class Finder {
         ArrayList<Integer> collectionArray = (ArrayList) numbers;
         Collection<Integer> collection = new ArrayList<Integer>();
 
-//        for (int i = 0; i < ; i++) {
-//
-//        }
-        
-
+        for (int i = 0; i < collectionArray.size() -1; i++) {
+            if(collectionArray.get(i - 1) < collectionArray.get(i) && collectionArray.get(i) > collectionArray.get(i + 1)) {
+                collection.add(i);
+            }
+        }
         return collection;
     }
 
@@ -50,4 +50,9 @@ public class Finder {
         }
         return true;
     }
+
+    public static String findSimilar(Collection<String> names) {
+        return "";
+    }
+
 }

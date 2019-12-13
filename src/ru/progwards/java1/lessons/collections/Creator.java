@@ -23,7 +23,7 @@ public class Creator {
 
         for (int i = 0; i < n*2; i++) {
             if(i % 2 != 0){
-                System.out.println(i);
+                collection.add(i);
            }
         }
         return collection;

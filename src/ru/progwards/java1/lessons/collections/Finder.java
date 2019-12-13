@@ -33,7 +33,7 @@ public class Finder {
 
         for (int i = 1; i < collectionArray.size() -1; i++) {
             if(collectionArray.get(i - 1) < collectionArray.get(i) && collectionArray.get(i) > collectionArray.get(i + 1)) {
-                collection.add(i);
+                collection.add(collectionArray.get(i));
             }
         }
         return collection;

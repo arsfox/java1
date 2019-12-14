@@ -24,8 +24,15 @@ public class MatrixIterator<T> implements Iterator<T> {
     @Override
     public T next() {
         T element = this.array[posinitonX][posinitonY];
-        
-        return null;
+
+        if(this.array[posinitonX].length >= 0) {
+            posinitonY++;
+        } else {
+            posinitonY = 0;
+            posinitonX++;
+        }
+        posiniton++;
+        return element;
     }
 
     private int countElements(T[][] matrix) {

@@ -12,6 +12,7 @@ public class MatrixIterator<T> implements Iterator<T> {
         this.array = array;
         this.posiniton = 0;
         this.matrixSize = countElements(array);
+        System.out.println(matrixSize);
         posinitonX = 0;
         posinitonY = 0;
     }
@@ -25,7 +26,7 @@ public class MatrixIterator<T> implements Iterator<T> {
     public T next() {
         T element = this.array[posinitonX][posinitonY];
 
-        if(this.array[posinitonX].length > 0) {
+        if(posinitonY < 1) {
             posinitonY++;
         } else {
             posinitonY = 0;

@@ -25,7 +25,7 @@ public class MatrixIterator<T> implements Iterator<T> {
     public T next() {
         T element = this.array[posinitonX][posinitonY];
 
-        if(this.array[posinitonX].length >= 0) {
+        if(this.array[posinitonX].length > 0) {
             posinitonY++;
         } else {
             posinitonY = 0;

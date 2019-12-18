@@ -1,9 +1,11 @@
 package ru.progwards.java1.SeaBattle.ars_fox;
 
 import ru.progwards.java1.SeaBattle.SeaBattle;
-import ru.progwards.java1.SeaBattle.SeaBattle.FireResult;
+
+import java.util.HashSet;
 
 public class SeaBattleAlg {
+
     // Тестовое поле создаётся конструктором
     //     SeaBattle seaBattle = new SeaBattle(true);
     //
@@ -30,22 +32,48 @@ public class SeaBattleAlg {
     //         8|X|.|.|.|.|.|.|X|.|.|
     //         9|X|.|.|.|X|.|.|.|.|.|
 
+    HashSet<Coordinate> shootDownCell;
+
     public void battleAlgorithm(SeaBattle seaBattle) {
-        // пример алгоритма:
-        // стрельба по всем квадратам поля полным перебором
+        shootDownCell = new HashSet<>();
+
+        // min 20
+
         for (int y = 0; y < seaBattle.getSizeX(); y++) {
             for (int x = 0; x < seaBattle.getSizeY(); x++) {
                 SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
+//                System.out.println(fireResult);
             }
         }
     }
 
     // функция для отладки
+    // по линкорам 0:3 - 3:0, 0:7 - 7:0, 2:9 - 9:2, 6:9 - 9:6
+
     public static void main(String[] args) {
         System.out.println("Sea battle");
         SeaBattle seaBattle = new SeaBattle(true);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
-        System.out.println(seaBattle.getResult());
+        System.out.println(seaBattle);
+//        System.out.println(seaBattle.getResult());
     }
+}
+
+class Coordinate {
+    int x, y;
+
+    public Coordinate(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
 }
 

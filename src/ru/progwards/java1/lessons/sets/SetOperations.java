@@ -11,4 +11,22 @@ public class SetOperations {
         return result;
     }
 
+    public static Set<Integer> intersection(Set<Integer> set1, Set<Integer> set2) {
+        HashSet<Integer> result = new HashSet<>(set1);
+        result.retainAll(set2);
+        return result;
+    }
+
+    public static Set<Integer> difference(Set<Integer> set1, Set<Integer> set2) {
+        HashSet<Integer> result = new HashSet<>(set1);
+        result.removeAll(set2);
+        return result;
+    }
+
+    public static Set<Integer> symDifference(Set<Integer> set1, Set<Integer> set2) {
+        HashSet<Integer> result = new HashSet<>(set1);
+
+        return result;
+    }
+
 }

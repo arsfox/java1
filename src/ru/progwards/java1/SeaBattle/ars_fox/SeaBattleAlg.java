@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 public class SeaBattleAlg {
 
+
     // Тестовое поле создаётся конструктором
     //     SeaBattle seaBattle = new SeaBattle(true);
     //
@@ -31,18 +32,38 @@ public class SeaBattleAlg {
     //         7|X|.|X|.|.|.|.|Х|.|X|
     //         8|X|.|.|.|.|.|.|X|.|.|
     //         9|X|.|.|.|X|.|.|.|.|.|
+    //
 
-    HashSet<Coordinate> shootDownCell;
+    static HashSet<Coordinate> coordinateToShoot = new HashSet<>();
+    static HashSet<Coordinate> shootDownCell = new HashSet<>();
+
+    int counterRightShoot = 0;
+    final int CounterMaxRightShoot = 20;
+
+    public static void killShip() {
+        // kill Linkor
+        moveSightDiagonally(0, 3);
+        moveSightDiagonally(0, 7);
+        moveSightDiagonally(2, 9);
+        moveSightDiagonally(6, 9);
+    }
+
+    // form left bottom to right top
+    public static void moveSightDiagonally(int x, int y){
+        while ((x < 10)&(y > -1)) {
+            coordinateToShoot.add(new Coordinate(x, y));
+            y--;
+            x++;
+        }
+    }
 
     public void battleAlgorithm(SeaBattle seaBattle) {
-        shootDownCell = new HashSet<>();
-
-        // min 20
-
+        // min 20 shooters
+        System.out.println(coordinateToShoot.isEmpty());
         for (int y = 0; y < seaBattle.getSizeX(); y++) {
             for (int x = 0; x < seaBattle.getSizeY(); x++) {
                 SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
-//                System.out.println(fireResult);
+                System.out.println(fireResult);
             }
         }
     }
@@ -51,12 +72,20 @@ public class SeaBattleAlg {
     // по линкорам 0:3 - 3:0, 0:7 - 7:0, 2:9 - 9:2, 6:9 - 9:6
 
     public static void main(String[] args) {
-        System.out.println("Sea battle");
+//        System.out.println("Sea battle");
         SeaBattle seaBattle = new SeaBattle(true);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
-        System.out.println(seaBattle);
+//        System.out.println(seaBattle);
 //        System.out.println(seaBattle.getResult());
+
     }
+}
+
+enum shootStatus {
+    DISABLE,
+    HIT,
+    MISS,
+    DESTROYED
 }
 
 class Coordinate {

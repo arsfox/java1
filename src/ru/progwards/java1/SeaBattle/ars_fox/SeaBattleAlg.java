@@ -3,7 +3,6 @@ package ru.progwards.java1.SeaBattle.ars_fox;
 import ru.progwards.java1.SeaBattle.SeaBattle;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class SeaBattleAlg {
 
@@ -67,13 +66,27 @@ public class SeaBattleAlg {
         }
     }
 
-    public static boolean isValidCoords(int x, int y){
-        return (x > -1)&&(x < 10)&&(y > -1)&&(y < 10);
+    public static boolean isValidCoordsToFier(Coordinate cc){
+        if(shootDownCell.contains(cc)) return false;
+        return (cc.getX() > 0)&&(cc.getX() < 9)&&(cc.getY() > 0)&&(cc.getY() < 9);
     }
 
-    public static Coordinate trackingShip(int x, int y) {
+    public static Coordinate trackingShip(Coordinate cc, SeaBattle seaBattle) {
 
-        return new Coordinate(x, y);
+        //north
+        int i = 0;
+        while (true) {
+            i++;
+            if(!isValidCoordsToFier(new Coordinate(cc.getX() + i, cc.getY()))) break;
+            if(seaBattle.fire(cc.getX() + i, cc.getY()) == SeaBattle.FireResult.DESTROYED){
+
+            }
+        }
+
+
+        }
+
+        return new Coordinate(1, 1);
     }
 
     // функция для отладки
@@ -85,14 +98,13 @@ public class SeaBattleAlg {
     // 5 - если выстрел успешный и != DESTROYED, записать место, записать все точки по диагонали, сократить счетчик выстрелов по короблям
     // 6 - поиск направления
     // 7 - направление найдено стрелять по нему пока выстрел не будет DESTROYED и не будет больше 4х раз, и сокращять счетчик выстрелов
-    // 7.1 - учитывать что линкор один, трехпалубных два и т д, и не делать больше выстрелов в ряд, если какой либор крупный корабыль потоплен
     // 8 - записать все точки вокруг что бы не стрелять по ним
 
     public void battleAlgorithm(SeaBattle seaBattle) {
         generateMatrixCoordinate();
         // min 20 shooters
         for (Coordinate cc: coordinateToShoot) {
-            if(counterRightShoot < CounterMaxRightShoot) {
+            if(counterRightShoot <= CounterMaxRightShoot) {
                 if(!shootDownCell.contains(cc)) {
 
                     SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
@@ -107,7 +119,7 @@ public class SeaBattleAlg {
 
                     if(fireResult.equals(SeaBattle.FireResult.HIT)) {
 
-                        //north
+                        trackingShip(cc, seaBattle);
 
                     }
                 }
@@ -126,18 +138,11 @@ public class SeaBattleAlg {
     }
 
     public static void main(String[] args) {
-//        System.out.println("Sea battle");
-//        SeaBattle seaBattle = new SeaBattle(true);
-//        new SeaBattleAlg().battleAlgorithm(seaBattle);
-//        System.out.println(seaBattle);
-//        System.out.println(seaBattle.getResult());
-        shootDownCell.add(new Coordinate(1, 1));
-        shootDownCell.add(new Coordinate(1, 1));
-        shootDownCell.add(new Coordinate(2, 2));
-        shootDownCell.add(new Coordinate(2, 2));
-        shootDownCell.add(new Coordinate(2, 1));
-        shootDownCell.add(new Coordinate(1, 2));
-        System.out.println(shootDownCell);
+        System.out.println("Sea battle");
+        SeaBattle seaBattle = new SeaBattle(true);
+        new SeaBattleAlg().battleAlgorithm(seaBattle);
+        System.out.println(seaBattle);
+        System.out.println(seaBattle.getResult());
 
 
     }

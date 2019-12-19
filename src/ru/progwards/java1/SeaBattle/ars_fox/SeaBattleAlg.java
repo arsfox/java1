@@ -38,7 +38,7 @@ public class SeaBattleAlg {
 
     static ArrayList<Coordinate> coordinateToShoot = new ArrayList<>();
 
-    int counterRightShoot = 0;
+    static int  counterRightShoot = 0;
     final int CounterMaxRightShoot = 20;
 
     public static void generateMatrixCoordinate() {
@@ -79,8 +79,10 @@ public class SeaBattleAlg {
             i++;
             if(!isValidCoordsToFier(new Coordinate(cc.getX() + i, cc.getY()))) break;
             if(seaBattle.fire(cc.getX() + i, cc.getY()) == SeaBattle.FireResult.DESTROYED){
-
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(cc.getX() + i, cc.getY()));
             }
+
         }
 
 

@@ -35,7 +35,7 @@ public class SeaBattleAlg {
     //         9|X|.|.|.|X|.|.|.|.|.|
     //
 
-    static HashSet<Coordinate> shootDownCell = new HashSet<>();
+    static ArrayList<Coordinate> shootDownCell = new ArrayList<>();
 
     static ArrayList<Coordinate> coordinateToShoot = new ArrayList<>();
 
@@ -67,6 +67,15 @@ public class SeaBattleAlg {
         }
     }
 
+    public static boolean isValidCoords(int x, int y){
+        return (x > -1)&&(x < 10)&&(y > -1)&&(y < 10);
+    }
+
+    public static Coordinate trackingShip(int x, int y) {
+
+        return new Coordinate(x, y);
+    }
+
     // функция для отладки
     // по линкорам 0:3 - 3:0, 0:7 - 7:0, 2:9 - 9:2, 6:9 - 9:6
     // 1 - проверить не сделанно ли максимальное колличество HIT или DESTROYED выстрелов
@@ -92,7 +101,13 @@ public class SeaBattleAlg {
                         counterRightShoot++;
                     }
 
+                    if (fireResult.equals(SeaBattle.FireResult.DESTROYED)) {
+                        shootDownCell.add(cc);
+                    }
+
                     if(fireResult.equals(SeaBattle.FireResult.HIT)) {
+
+                        //north
 
                     }
                 }
@@ -111,11 +126,19 @@ public class SeaBattleAlg {
     }
 
     public static void main(String[] args) {
-        System.out.println("Sea battle");
-        SeaBattle seaBattle = new SeaBattle(true);
-        new SeaBattleAlg().battleAlgorithm(seaBattle);
-        System.out.println(seaBattle);
-        System.out.println(seaBattle.getResult());
+//        System.out.println("Sea battle");
+//        SeaBattle seaBattle = new SeaBattle(true);
+//        new SeaBattleAlg().battleAlgorithm(seaBattle);
+//        System.out.println(seaBattle);
+//        System.out.println(seaBattle.getResult());
+        shootDownCell.add(new Coordinate(1, 1));
+        shootDownCell.add(new Coordinate(1, 1));
+        shootDownCell.add(new Coordinate(2, 2));
+        shootDownCell.add(new Coordinate(2, 2));
+        shootDownCell.add(new Coordinate(2, 1));
+        shootDownCell.add(new Coordinate(1, 2));
+        System.out.println(shootDownCell);
+
 
     }
 }
@@ -141,6 +164,24 @@ class Coordinate {
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return x+ " "+y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate сoordinate = (Coordinate) o;
+        if(Integer.compare(this.getX(), сoordinate.getX()) == 0) {
+            if(Integer.compare(this.getY(), сoordinate.getY()) == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

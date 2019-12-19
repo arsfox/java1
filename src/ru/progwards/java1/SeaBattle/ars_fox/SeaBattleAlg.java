@@ -2,6 +2,7 @@ package ru.progwards.java1.SeaBattle.ars_fox;
 
 import ru.progwards.java1.SeaBattle.SeaBattle;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class SeaBattleAlg {
@@ -34,18 +35,27 @@ public class SeaBattleAlg {
     //         9|X|.|.|.|X|.|.|.|.|.|
     //
 
-    static HashSet<Coordinate> coordinateToShoot = new HashSet<>();
     static HashSet<Coordinate> shootDownCell = new HashSet<>();
+
+    static ArrayList<Coordinate> coordinateToShoot = new ArrayList<>();
 
     int counterRightShoot = 0;
     final int CounterMaxRightShoot = 20;
 
-    public static void killShip() {
-        // kill Linkor
+    public static void generateMatrixCoordinate() {
+        // четырёхпалубный
         moveSightDiagonally(0, 3);
         moveSightDiagonally(0, 7);
         moveSightDiagonally(2, 9);
         moveSightDiagonally(6, 9);
+        // трёхпалубные и двухпалубные
+//        moveSightDiagonally(0, 1);
+//        moveSightDiagonally(0, 5);
+//        moveSightDiagonally(0, 9);
+//        moveSightDiagonally(4, 9);
+//        moveSightDiagonally(8, 9);
+        // однопалубные
+        // - перебор всего за исключением
     }
 
     // form left bottom to right top
@@ -57,26 +67,55 @@ public class SeaBattleAlg {
         }
     }
 
-    public void battleAlgorithm(SeaBattle seaBattle) {
-        // min 20 shooters
-        System.out.println(coordinateToShoot.isEmpty());
-        for (int y = 0; y < seaBattle.getSizeX(); y++) {
-            for (int x = 0; x < seaBattle.getSizeY(); x++) {
-                SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
-                System.out.println(fireResult);
-            }
-        }
-    }
-
     // функция для отладки
     // по линкорам 0:3 - 3:0, 0:7 - 7:0, 2:9 - 9:2, 6:9 - 9:6
+    // 1 - проверить не сделанно ли максимальное колличество HIT или DESTROYED выстрелов
+    // 2 - проверить был би выстрел по этой клетке
+    // 3 - выстрелить
+    // 4 - если выстрел неусешный, записать все точки и идти дальше - continue - >
+    // 5 - если выстрел успешный и != DESTROYED, записать место, записать все точки по диагонали, сократить счетчик выстрелов по короблям
+    // 6 - поиск направления
+    // 7 - направление найдено стрелять по нему пока выстрел не будет DESTROYED и не будет больше 4х раз, и сокращять счетчик выстрелов
+    // 7.1 - учитывать что линкор один, трехпалубных два и т д, и не делать больше выстрелов в ряд, если какой либор крупный корабыль потомлен
+    // 8 - записать все точки вокрук что бы не стрелять по нима
+
+    public void battleAlgorithm(SeaBattle seaBattle) {
+        generateMatrixCoordinate();
+        // min 20 shooters
+        for (Coordinate cc: coordinateToShoot) {
+            if(counterRightShoot < CounterMaxRightShoot) {
+                if(!shootDownCell.contains(cc)) {
+
+                    SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
+
+                    if (fireResult.equals(SeaBattle.FireResult.DESTROYED) || fireResult.equals(SeaBattle.FireResult.HIT)) {
+                        counterRightShoot++;
+                    }
+
+                    if(fireResult.equals(SeaBattle.FireResult.HIT)) {
+
+                    }
+                }
+            }
+            System.out.println(cc.getX()+" "+cc.getY());
+//            SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
+//            System.out.println(fireResult);
+        }
+
+//        for (int y = 0; y < seaBattle.getSizeX(); y++) {
+//            for (int x = 0; x < seaBattle.getSizeY(); x++) {
+//                SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
+//                System.out.println(fireResult);
+//            }
+//        }
+    }
 
     public static void main(String[] args) {
-//        System.out.println("Sea battle");
+        System.out.println("Sea battle");
         SeaBattle seaBattle = new SeaBattle(true);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
-//        System.out.println(seaBattle);
-//        System.out.println(seaBattle.getResult());
+        System.out.println(seaBattle);
+        System.out.println(seaBattle.getResult());
 
     }
 }

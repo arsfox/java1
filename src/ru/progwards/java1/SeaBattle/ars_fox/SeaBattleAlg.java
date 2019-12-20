@@ -71,24 +71,43 @@ public class SeaBattleAlg {
         return (cc.getX() > 0)&&(cc.getX() < 9)&&(cc.getY() > 0)&&(cc.getY() < 9);
     }
 
-    public static Coordinate trackingShip(Coordinate cc, SeaBattle seaBattle) {
-
+    public static void trackingShip(Coordinate cc, SeaBattle seaBattle) {
+        ArrayList<Coordinate> shipCoordinate = new ArrayList<>();
         //north
         int i = 0;
         while (true) {
             i++;
-            if(!isValidCoordsToFier(new Coordinate(cc.getX() + i, cc.getY()))) break;
-            if(seaBattle.fire(cc.getX() + i, cc.getY()) == SeaBattle.FireResult.DESTROYED){
+            Coordinate coordinate = new Coordinate(cc.getX() + i, cc.getY());
+
+            if(!isValidCoordsToFier(coordinate)) break;
+
+            SeaBattle.FireResult fireResult = seaBattle.fire(coordinate.getX(), coordinate.getY());
+
+            if(fireResult == SeaBattle.FireResult.DESTROYED){
                 counterRightShoot++;
-                shootDownCell.add(new Coordinate(cc.getX() + i, cc.getY()));
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                // TODO метод обрисовки коробля
+                return;
             }
 
+            if(fireResult == SeaBattle.FireResult.HIT){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+            }
         }
 
 
-        }
 
-        return new Coordinate(1, 1);
+        // TODO метод обрисовки коробля
+
+
+
+
+
+
+
     }
 
     // функция для отладки

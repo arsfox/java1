@@ -77,7 +77,7 @@ public class SeaBattleAlg {
         int i = 0;
         while (true) {
             i++;
-            Coordinate coordinate = new Coordinate(cc.getX() + i, cc.getY());
+            Coordinate coordinate = new Coordinate(cc.getX(), cc.getY() - i);
 
             if(!isValidCoordsToFier(coordinate)) break;
 
@@ -91,6 +91,11 @@ public class SeaBattleAlg {
                 return;
             }
 
+            if(fireResult == SeaBattle.FireResult.MISS){
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                break;
+            }
+
             if(fireResult == SeaBattle.FireResult.HIT){
                 counterRightShoot++;
                 shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
@@ -98,17 +103,70 @@ public class SeaBattleAlg {
             }
         }
 
+        //south
+        int y = 0;
+        while (true) {
+            y++;
+            Coordinate coordinate = new Coordinate(cc.getX(), cc.getY() + y);
 
+            if(!isValidCoordsToFier(coordinate)) break;
 
+            SeaBattle.FireResult fireResult = seaBattle.fire(coordinate.getX(), coordinate.getY());
+
+            if(fireResult == SeaBattle.FireResult.DESTROYED){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                // TODO метод обрисовки коробля
+                return;
+            }
+
+            if(fireResult == SeaBattle.FireResult.MISS){
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                break;
+            }
+
+            if(fireResult == SeaBattle.FireResult.HIT){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+            }
+        }
+
+        //west
+        int x = 0;
+        while (true) {
+            x++;
+            Coordinate coordinate = new Coordinate(cc.getX() - x, cc.getY());
+
+            if(!isValidCoordsToFier(coordinate)) break;
+
+            SeaBattle.FireResult fireResult = seaBattle.fire(coordinate.getX(), coordinate.getY());
+
+            if(fireResult == SeaBattle.FireResult.DESTROYED){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                // TODO метод обрисовки коробля
+                return;
+            }
+
+            if(fireResult == SeaBattle.FireResult.MISS){
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                break;
+            }
+
+            if(fireResult == SeaBattle.FireResult.HIT){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+            }
+        }
         // TODO метод обрисовки коробля
 
-
-
-
-
-
-
     }
+
+
 
     // функция для отладки
     // по линкорам 0:3 - 3:0, 0:7 - 7:0, 2:9 - 9:2, 6:9 - 9:6

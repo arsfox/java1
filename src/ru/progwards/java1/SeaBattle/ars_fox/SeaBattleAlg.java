@@ -48,13 +48,23 @@ public class SeaBattleAlg {
         moveSightDiagonally(2, 9);
         moveSightDiagonally(6, 9);
         // трёхпалубные и двухпалубные
-//        moveSightDiagonally(0, 1);
-//        moveSightDiagonally(0, 5);
-//        moveSightDiagonally(0, 9);
-//        moveSightDiagonally(4, 9);
-//        moveSightDiagonally(8, 9);
+        moveSightDiagonally(0, 1);
+        moveSightDiagonally(0, 5);
+        moveSightDiagonally(0, 9);
+        moveSightDiagonally(4, 9);
+        moveSightDiagonally(8, 9);
         // однопалубные
         // - перебор всего за исключением
+        moveSightDiagonally(0,0 );
+        moveSightDiagonally(0,2);
+        moveSightDiagonally(0,4);
+        moveSightDiagonally(0,6);
+        moveSightDiagonally(0,8);
+        moveSightDiagonally(1,9);
+        moveSightDiagonally(3,9);
+        moveSightDiagonally(5,9);
+        moveSightDiagonally(7,9);
+        moveSightDiagonally(9,9);
     }
 
     // form left bottom to right top
@@ -73,6 +83,7 @@ public class SeaBattleAlg {
 
     public static void trackingShip(Coordinate cc, SeaBattle seaBattle) {
         ArrayList<Coordinate> shipCoordinate = new ArrayList<>();
+
         //north
         int i = 0;
         while (true) {
@@ -87,7 +98,7 @@ public class SeaBattleAlg {
                 counterRightShoot++;
                 shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
                 shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
-                // TODO метод обрисовки коробля
+                outlineShip(shipCoordinate);
                 return;
             }
 
@@ -117,7 +128,7 @@ public class SeaBattleAlg {
                 counterRightShoot++;
                 shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
                 shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
-                // TODO метод обрисовки коробля
+                outlineShip(shipCoordinate);
                 return;
             }
 
@@ -147,7 +158,7 @@ public class SeaBattleAlg {
                 counterRightShoot++;
                 shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
                 shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
-                // TODO метод обрисовки коробля
+                outlineShip(shipCoordinate);
                 return;
             }
 
@@ -162,10 +173,62 @@ public class SeaBattleAlg {
                 shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
             }
         }
-        // TODO метод обрисовки коробля
+
+        //east
+        int a = 0;
+        while (true) {
+            x++;
+            Coordinate coordinate = new Coordinate(cc.getX() + a, cc.getY());
+
+            if(!isValidCoordsToFier(coordinate)) break;
+
+            SeaBattle.FireResult fireResult = seaBattle.fire(coordinate.getX(), coordinate.getY());
+
+            if(fireResult == SeaBattle.FireResult.DESTROYED){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                outlineShip(shipCoordinate);
+                return;
+            }
+
+            if(fireResult == SeaBattle.FireResult.MISS){
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                break;
+            }
+
+            if(fireResult == SeaBattle.FireResult.HIT){
+                counterRightShoot++;
+                shootDownCell.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+                shipCoordinate.add(new Coordinate(coordinate.getX(), coordinate.getY()));
+            }
+        }
+
+        outlineShip(shipCoordinate);
 
     }
 
+    public static void outlineShip(ArrayList<Coordinate> shipCoordinate) {
+
+        if(shipCoordinate.size() <= 0) return;
+
+        shootDownCell.add(new Coordinate(shipCoordinate.get(0).getX()-1, shipCoordinate.get(0).getY()-1));
+        shootDownCell.add(new Coordinate(shipCoordinate.get(0).getX()+1, shipCoordinate.get(0).getY()-1));
+//        shootDownCell.add(new Coordinate(shipCoordinate.get(0).getX(), shipCoordinate.get(0).getY()-1));
+
+        for(Coordinate cc : shipCoordinate) {
+            shootDownCell.add(new Coordinate(cc.getX(), cc.getY()+1));
+            shootDownCell.add(new Coordinate(cc.getX(), cc.getY()-1));
+            shootDownCell.add(new Coordinate(cc.getX()+1, cc.getY()));
+            shootDownCell.add(new Coordinate(cc.getX()-1, cc.getY()));
+        }
+
+        int size = shipCoordinate.size() - 1;
+
+        shootDownCell.add(new Coordinate(shipCoordinate.get(size).getX()-1, shipCoordinate.get(size).getY()+1));
+        shootDownCell.add(new Coordinate(shipCoordinate.get(size).getX()+1, shipCoordinate.get(size).getY()+1));
+//        shootDownCell.add(new Coordinate(shipCoordinate.get(size).getX(), shipCoordinate.get(size).getY()+1));
+    }
 
 
     // функция для отладки
@@ -182,38 +245,35 @@ public class SeaBattleAlg {
     public void battleAlgorithm(SeaBattle seaBattle) {
         generateMatrixCoordinate();
         // min 20 shooters
-        for (Coordinate cc: coordinateToShoot) {
-            if(counterRightShoot <= CounterMaxRightShoot) {
-                if(!shootDownCell.contains(cc)) {
-
-                    SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
-
-                    if (fireResult.equals(SeaBattle.FireResult.DESTROYED) || fireResult.equals(SeaBattle.FireResult.HIT)) {
-                        counterRightShoot++;
-                    }
-
-                    if (fireResult.equals(SeaBattle.FireResult.DESTROYED)) {
-                        shootDownCell.add(cc);
-                    }
-
-                    if(fireResult.equals(SeaBattle.FireResult.HIT)) {
-
-                        trackingShip(cc, seaBattle);
-
-                    }
-                }
-            }
-            System.out.println(cc.getX()+" "+cc.getY());
-//            SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
-//            System.out.println(fireResult);
-        }
-
-//        for (int y = 0; y < seaBattle.getSizeX(); y++) {
-//            for (int x = 0; x < seaBattle.getSizeY(); x++) {
-//                SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
-//                System.out.println(fireResult);
+//        for (Coordinate cc: coordinateToShoot) {
+//            if(counterRightShoot <= CounterMaxRightShoot) {
+//                if(!shootDownCell.contains(cc)) {
+//
+//                    SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
+//
+//                    if (fireResult.equals(SeaBattle.FireResult.DESTROYED) || fireResult.equals(SeaBattle.FireResult.HIT)) {
+//                        counterRightShoot++;
+//                    }
+//
+//                    if (fireResult.equals(SeaBattle.FireResult.DESTROYED)) {
+//                        shootDownCell.add(cc);
+//                    }
+//
+//                    if(fireResult.equals(SeaBattle.FireResult.HIT)) {
+//
+//                        trackingShip(cc, seaBattle);
+//
+//                    }
+//                }
 //            }
 //        }
+
+        for (int y = 0; y < seaBattle.getSizeX(); y++) {
+            for (int x = 0; x < seaBattle.getSizeY(); x++) {
+                SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
+                System.out.println(fireResult);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -222,6 +282,7 @@ public class SeaBattleAlg {
         new SeaBattleAlg().battleAlgorithm(seaBattle);
         System.out.println(seaBattle);
         System.out.println(seaBattle.getResult());
+        System.out.println(counterRightShoot);
 
 
     }

@@ -246,13 +246,14 @@ public class SeaBattleAlg {
         generateMatrixCoordinate();
         // min 20 shooters
         for (Coordinate cc: coordinateToShoot) {
-//            if(counterRightShoot < CounterMaxRightShoot) {
+            if(counterRightShoot < CounterMaxRightShoot) {
                 if(!shootDownCell.contains(cc)) {
 
                     SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
 
                     if (fireResult.equals(SeaBattle.FireResult.DESTROYED) || fireResult.equals(SeaBattle.FireResult.HIT)) {
                         counterRightShoot++;
+                        shootDownCell.add(cc);
                     }
 
                     if (fireResult.equals(SeaBattle.FireResult.DESTROYED)) {
@@ -264,14 +265,17 @@ public class SeaBattleAlg {
                         trackingShip(cc, seaBattle);
 
                     }
-//                }
+                }
             }
         }
 
 //        for (int y = 0; y < seaBattle.getSizeX(); y++) {
 //            for (int x = 0; x < seaBattle.getSizeY(); x++) {
-//                SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
-//                System.out.println(fireResult);
+//                if(!shootDownCell.contains(new Coordinate(x, y))) {
+//                    SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
+//
+//                }
+//
 //            }
 //        }
     }

@@ -278,11 +278,9 @@ public class SeaBattleAlg {
 
     public static void main(String[] args) {
         System.out.println("Sea battle");
-        SeaBattle seaBattle = new SeaBattle();
+        SeaBattle seaBattle = new SeaBattle(true);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
-        System.out.println(seaBattle);
         System.out.println(seaBattle.getResult());
-        System.out.println(counterRightShoot);
 
 
     }

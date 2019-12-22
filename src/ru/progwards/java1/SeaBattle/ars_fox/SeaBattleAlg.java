@@ -246,7 +246,7 @@ public class SeaBattleAlg {
         generateMatrixCoordinate();
         // min 20 shooters
         for (Coordinate cc: coordinateToShoot) {
-            if(counterRightShoot < CounterMaxRightShoot) {
+//            if(counterRightShoot < CounterMaxRightShoot) {
                 if(!shootDownCell.contains(cc)) {
 
                     SeaBattle.FireResult fireResult = seaBattle.fire(cc.getX(), cc.getY());
@@ -264,7 +264,7 @@ public class SeaBattleAlg {
                         trackingShip(cc, seaBattle);
 
                     }
-                }
+//                }
             }
         }
 
@@ -278,9 +278,10 @@ public class SeaBattleAlg {
 
     public static void main(String[] args) {
         System.out.println("Sea battle");
-        SeaBattle seaBattle = new SeaBattle(true);
+        SeaBattle seaBattle = new SeaBattle();
         new SeaBattleAlg().battleAlgorithm(seaBattle);
         System.out.println(seaBattle.getResult());
+        System.out.println(seaBattle);
 
 
     }

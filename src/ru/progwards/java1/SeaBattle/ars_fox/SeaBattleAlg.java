@@ -46,12 +46,6 @@ public class SeaBattleAlg {
             if(fireResult != SeaBattle.FireResult.MISS){
                 this.counterRightShoot++;
             }
-            if(fireResult == FireResult.DESTROYED){
-                outline(new Coordinate(x, y));
-            }
-            if(fireResult == SeaBattle.FireResult.HIT){
-                trackingDirection(new Coordinate(x, y));
-            }
             shootingDownCell.add(new Coordinate(x, y));
             return fireResult;
         }
@@ -65,6 +59,7 @@ public class SeaBattleAlg {
     }
 
     private Direction trackingDirection(Coordinate cc) {
+        //рекурсия
         if(fire(cc.getX(), cc.getY()-1)!=FireResult.MISS) return Direction.NORTH;
         if(fire(cc.getX(), cc.getY()+1)!=FireResult.MISS) return Direction.SOUTH;
         if(fire(cc.getX()-1, cc.getY())!=FireResult.MISS) return Direction.WEST;
@@ -95,6 +90,9 @@ public class SeaBattleAlg {
 
         for (Coordinate cc : coordinateForShoot) {
             SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());
+            if(fireResult == SeaBattle.FireResult.HIT){
+                trackingDirection(new Coordinate(cc.getX(), cc.getY()));
+            }
         }
     }
 

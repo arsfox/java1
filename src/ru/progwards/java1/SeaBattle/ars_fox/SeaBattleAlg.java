@@ -59,12 +59,40 @@ public class SeaBattleAlg {
     }
 
     private Direction trackingDirection(Coordinate cc) {
-        //рекурсия
+
         if(fire(cc.getX(), cc.getY()-1)!=FireResult.MISS) return Direction.NORTH;
         if(fire(cc.getX(), cc.getY()+1)!=FireResult.MISS) return Direction.SOUTH;
         if(fire(cc.getX()-1, cc.getY())!=FireResult.MISS) return Direction.WEST;
         if(fire(cc.getX()+1, cc.getY())!=FireResult.MISS) return Direction.EAST;
         return null;
+    }
+
+    private void trackingShip(Coordinate cc) {
+        int x = 0, y = 0;
+        if(trackingDirection(cc) == Direction.NORTH){
+            shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()-1));
+            y = -1;
+        } else
+        if(trackingDirection(cc) == Direction.SOUTH) {
+            shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()+1));
+            y = 1;
+        } else
+        if(trackingDirection(cc) == Direction.WEST) {
+            shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()));
+            x = -1;
+        } else
+        if(trackingDirection(cc) == Direction.EAST) {
+            shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()));
+            x = 1;
+        }
+
+        while (true) {
+            SeaBattle.FireResult fireResult = fire(cc.getX() + x, cc.getY() + y);
+            if(fireResult != FireResult.HIT){
+                break;
+            }
+
+        }
     }
 
     void outline(Coordinate cc) {
@@ -78,7 +106,6 @@ public class SeaBattleAlg {
         shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()-1));
     }
 
-
     public void battleAlgorithm(SeaBattle seaBattle) {
         this.seaBattle = seaBattle;
 
@@ -90,11 +117,15 @@ public class SeaBattleAlg {
 
         for (Coordinate cc : coordinateForShoot) {
             SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());
+            if(fireResult == FireResult.DESTROYED){
+                outline(new Coordinate(cc.getX(), cc.getY()));
+            }
             if(fireResult == SeaBattle.FireResult.HIT){
-                trackingDirection(new Coordinate(cc.getX(), cc.getY()));
+                trackingShip(new Coordinate(cc.getX(), cc.getY()));
             }
         }
     }
+
 
 
 

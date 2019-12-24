@@ -227,7 +227,7 @@ public class SeaBattleAlg {
         }
     }
 
-    private static ArrayList<Integer> results = new ArrayList<>();
+//    private static ArrayList<Integer> results = new ArrayList<>();
 
     public static void main(String[] args) {
 //        System.out.println("Sea battle");
@@ -236,34 +236,37 @@ public class SeaBattleAlg {
 //        System.out.println(seaBattle);
 //        System.out.println(seaBattle.getResult());
 
-        for (int i = 0; i < 10000; i++) {
-            SeaBattle seaBattle = new SeaBattle();
-            new SeaBattleAlg().battleAlgorithm(seaBattle);
-//            System.out.println(seaBattle);
-            results.add((int) seaBattle.getResult());
-            System.out.println(seaBattle.getResult());
-        }
-
-        System.out.println();
-        System.out.println("MAX ");
-        System.out.print(Collections.max(results));
-        System.out.println();
-        System.out.println("MIN ");
-        System.out.print(Collections.min(results));
-        System.out.println();
-        System.out.println("AVG ");
-        System.out.print(getAVG(results));
+//        for (int i = 0; i < 10000; i++) {
+//            SeaBattle seaBattle = new SeaBattle();
+//            new SeaBattleAlg().battleAlgorithm(seaBattle);
+////            System.out.println(seaBattle);
+//            if((int) seaBattle.getResult() == 0) {
+//                System.exit(1);
+//            }
+//            results.add((int) seaBattle.getResult());
+//            System.out.println(seaBattle.getResult());
+//        }
+//
+//        System.out.println();
+//        System.out.println("MAX ");
+//        System.out.print(Collections.max(results));
+//        System.out.println();
+//        System.out.println("MIN ");
+//        System.out.print(Collections.min(results));
+//        System.out.println();
+//        System.out.println("AVG ");
+//        System.out.print(getAVG(results));
     }
 
-    static int getAVG(ArrayList<Integer> li){
-        int total = 0;
-        int avg = 0;
-        for(int i = 0; i < li.size(); i++){
-            total += li.get(i);
-            avg = total / li.size();
-        }
-        return avg;
-    }
+//    static int getAVG(ArrayList<Integer> li){
+//        int total = 0;
+//        int avg = 0;
+//        for(int i = 0; i < li.size(); i++){
+//            total += li.get(i);
+//            avg = total / li.size();
+//        }
+//        return avg;
+//    }
 
     public enum Direction{
         NORTH,

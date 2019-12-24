@@ -38,6 +38,7 @@ public class SeaBattleAlg {
     private SeaBattle seaBattle;
     private int counterRightShoot;
     private final int CounterMaxRightShoot = 20;
+    private Integer[][] coordinateForShootArr;
     private ArrayList<Coordinate> coordinateForShoot;
     private ArrayList<Coordinate> shootingDownCell;
 
@@ -83,14 +84,14 @@ public class SeaBattleAlg {
             if(fireResult != SeaBattle.FireResult.MISS){
                 this.counterRightShoot++;
             }
-            shootingDownCell.add(new Coordinate(x, y));
+            this.shootingDownCell.add(new Coordinate(x, y));
             return fireResult;
         }
         return FireResult.MISS;
     }
 
     private boolean isValidCoordsToFier(Coordinate cc){
-        if(shootingDownCell.contains(cc)) return false;
+        if(this.shootingDownCell.contains(cc)) return false;
         if(this.counterRightShoot >= this.CounterMaxRightShoot) return false;
         return (cc.getX() >= 0)&&(cc.getX() <= 9)&&(cc.getY() >= 0)&&(cc.getY() <= 9);
     }
@@ -152,22 +153,22 @@ public class SeaBattleAlg {
 
         if(direction == Direction.EAST) {
             coordinate = new Coordinate(cc.getX()+1, cc.getY());
-            shootingDownCell.add(coordinate);
+            this.shootingDownCell.add(coordinate);
             ship.add(coordinate);
             x = 1;
         } else if(direction == Direction.NORTH){
             coordinate = new Coordinate(cc.getX(), cc.getY()-1);
-            shootingDownCell.add(coordinate);
+            this.shootingDownCell.add(coordinate);
             ship.add(coordinate);
             y = -1;
         } else if(direction == Direction.SOUTH) {
             coordinate = new Coordinate(cc.getX(), cc.getY()+1);
-            shootingDownCell.add(coordinate);
+            this.shootingDownCell.add(coordinate);
             ship.add(coordinate);
             y = 1;
         } else if(direction == Direction.WEST) {
             coordinate = new Coordinate(cc.getX()-1, cc.getY());
-            shootingDownCell.add(coordinate);
+            this.shootingDownCell.add(coordinate);
             ship.add(coordinate);
             x = -1;
         }
@@ -195,14 +196,14 @@ public class SeaBattleAlg {
     }
 
     void outline(Coordinate cc) {
-        shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()-1));
-        shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()+1));
-        shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()));
-        shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()));
-        shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()-1));
-        shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()+1));
-        shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()+1));
-        shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()-1));
+        this.shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()-1));
+        this.shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()+1));
+        this.shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()));
+        this.shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()));
+        this.shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()-1));
+        this.shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()+1));
+        this.shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()+1));
+        this.shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()-1));
     }
 
     public void battleAlgorithm(SeaBattle seaBattle) {
@@ -214,12 +215,14 @@ public class SeaBattleAlg {
 //            }
 //        }
 
-        this.generateMatrixCoordinate();
+
         this.coordinateForShoot = new ArrayList<>();
         this.shootingDownCell = new ArrayList<>();
         this.counterRightShoot = 0;
 
-        for (Coordinate cc : coordinateForShoot) {
+        this.generateMatrixCoordinate();
+
+        for (Coordinate cc : this.coordinateForShoot) {
             SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());
             if(fireResult == FireResult.DESTROYED){
                 outline(new Coordinate(cc.getX(), cc.getY()));
@@ -245,7 +248,7 @@ public static double fight() {
     }
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        System.out.println(fightMany(10000));
+        System.out.println(fightMany(10));
         System.out.println(System.currentTimeMillis() - startTime);
     }
 

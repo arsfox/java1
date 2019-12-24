@@ -223,12 +223,14 @@ public class SeaBattleAlg {
         this.generateMatrixCoordinate();
 
         for (Coordinate cc : this.coordinateForShoot) {
-            SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());
-            if(fireResult == FireResult.DESTROYED){
-                outline(new Coordinate(cc.getX(), cc.getY()));
-            }
-            if(fireResult == SeaBattle.FireResult.HIT){
-                trackingShip(new Coordinate(cc.getX(), cc.getY()));
+            if(this.counterRightShoot <= this.CounterMaxRightShoot) {
+                SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());
+                if(fireResult == FireResult.DESTROYED){
+                    outline(new Coordinate(cc.getX(), cc.getY()));
+                }
+                if(fireResult == SeaBattle.FireResult.HIT){
+                    trackingShip(new Coordinate(cc.getX(), cc.getY()));
+                }
             }
         }
     }

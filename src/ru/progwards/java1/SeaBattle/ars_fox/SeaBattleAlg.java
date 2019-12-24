@@ -36,10 +36,10 @@ public class SeaBattleAlg {
     //         9|X|.|.|.|X|.|.|.|.|.|
 
     private SeaBattle seaBattle;
-    private int  counterRightShoot = 0;
+    private int counterRightShoot;
     private final int CounterMaxRightShoot = 20;
-    private ArrayList<Coordinate> coordinateForShoot = new ArrayList<>();
-    private ArrayList<Coordinate> shootingDownCell = new ArrayList<>();
+    private ArrayList<Coordinate> coordinateForShoot;
+    private ArrayList<Coordinate> shootingDownCell;
 
     public void generateMatrixCoordinate() {
         // четырёхпалубный
@@ -214,7 +214,10 @@ public class SeaBattleAlg {
 //            }
 //        }
 
-        generateMatrixCoordinate();
+        this.generateMatrixCoordinate();
+        this.coordinateForShoot = new ArrayList<>();
+        this.shootingDownCell = new ArrayList<>();
+        this.counterRightShoot = 0;
 
         for (Coordinate cc : coordinateForShoot) {
             SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());

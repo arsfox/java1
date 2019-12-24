@@ -227,46 +227,25 @@ public class SeaBattleAlg {
         }
     }
 
-//    private static ArrayList<Integer> results = new ArrayList<>();
 
+public static double fight() {
+    SeaBattle b = new SeaBattle();
+    SeaBattleAlg ba = new SeaBattleAlg();
+    ba.battleAlgorithm(b);
+    double result = b.getResult();
+    return result;
+}
+    public static double fightMany(int count) {
+        double sum = 0.0;
+        for (int i = count; i > 0; i--) sum += fight();
+        return (double) ((int) (sum / (double) count * 100)) / 100;
+    }
     public static void main(String[] args) {
-//        System.out.println("Sea battle");
-//        SeaBattle seaBattle = new SeaBattle(true);
-//        new SeaBattleAlg().battleAlgorithm(seaBattle);
-//        System.out.println(seaBattle);
-//        System.out.println(seaBattle.getResult());
-
-        for (int i = 0; i < 100; i++) {
-            SeaBattle seaBattle = new SeaBattle();
-            new SeaBattleAlg().battleAlgorithm(seaBattle);
-//            System.out.println(seaBattle);
-            if((int) seaBattle.getResult() == 0) {
-                System.exit(1);
-            }
-//            results.add((int) seaBattle.getResult());
-            System.out.println(seaBattle.getResult());
-        }
-//
-//        System.out.println();
-//        System.out.println("MAX ");
-//        System.out.print(Collections.max(results));
-//        System.out.println();
-//        System.out.println("MIN ");
-//        System.out.print(Collections.min(results));
-//        System.out.println();
-//        System.out.println("AVG ");
-//        System.out.print(getAVG(results));
+        long startTime = System.currentTimeMillis();
+        System.out.println(fightMany(10000));
+        System.out.println(System.currentTimeMillis() - startTime);
     }
 
-//    static int getAVG(ArrayList<Integer> li){
-//        int total = 0;
-//        int avg = 0;
-//        for(int i = 0; i < li.size(); i++){
-//            total += li.get(i);
-//            avg = total / li.size();
-//        }
-//        return avg;
-//    }
 
     public enum Direction{
         NORTH,

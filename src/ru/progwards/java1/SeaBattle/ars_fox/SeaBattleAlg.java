@@ -150,29 +150,26 @@ public class SeaBattleAlg {
             return;
         }
 
-        if(direction == Direction.NORTH){
-            coordinate = new Coordinate(cc.getX(), cc.getY()-1);
-            shootingDownCell.add(coordinate);
-            ship.add(coordinate);
-            y = -1;
-        } else
-        if(direction == Direction.SOUTH) {
-            coordinate = new Coordinate(cc.getX(), cc.getY()+1);
-            shootingDownCell.add(coordinate);
-            ship.add(coordinate);
-            y = 1;
-        } else
-        if(direction == Direction.WEST) {
-            coordinate = new Coordinate(cc.getX()-1, cc.getY());
-            shootingDownCell.add(coordinate);
-            ship.add(coordinate);
-            x = -1;
-        } else
         if(direction == Direction.EAST) {
             coordinate = new Coordinate(cc.getX()+1, cc.getY());
             shootingDownCell.add(coordinate);
             ship.add(coordinate);
             x = 1;
+        } else if(direction == Direction.NORTH){
+            coordinate = new Coordinate(cc.getX(), cc.getY()-1);
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
+            y = -1;
+        } else if(direction == Direction.SOUTH) {
+            coordinate = new Coordinate(cc.getX(), cc.getY()+1);
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
+            y = 1;
+        } else if(direction == Direction.WEST) {
+            coordinate = new Coordinate(cc.getX()-1, cc.getY());
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
+            x = -1;
         }
 
 

@@ -236,16 +236,16 @@ public class SeaBattleAlg {
 //        System.out.println(seaBattle);
 //        System.out.println(seaBattle.getResult());
 
-//        for (int i = 0; i < 10000; i++) {
-//            SeaBattle seaBattle = new SeaBattle();
-//            new SeaBattleAlg().battleAlgorithm(seaBattle);
-////            System.out.println(seaBattle);
-//            if((int) seaBattle.getResult() == 0) {
-//                System.exit(1);
-//            }
+        for (int i = 0; i < 100; i++) {
+            SeaBattle seaBattle = new SeaBattle();
+            new SeaBattleAlg().battleAlgorithm(seaBattle);
+//            System.out.println(seaBattle);
+            if((int) seaBattle.getResult() == 0) {
+                System.exit(1);
+            }
 //            results.add((int) seaBattle.getResult());
-//            System.out.println(seaBattle.getResult());
-//        }
+            System.out.println(seaBattle.getResult());
+        }
 //
 //        System.out.println();
 //        System.out.println("MAX ");
@@ -275,7 +275,7 @@ public class SeaBattleAlg {
         EAST
     }
 
-    static class Coordinate {
+    class Coordinate {
         int x, y;
 
         public Coordinate(int x, int y) {

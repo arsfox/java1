@@ -230,7 +230,6 @@ public class SeaBattleAlg {
         }
     }
 
-
     private static ArrayList<Integer> results = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -240,7 +239,7 @@ public class SeaBattleAlg {
 //        System.out.println(seaBattle);
 //        System.out.println(seaBattle.getResult());
 
-        for (int i = 0; i < 100_000_000; i++) {
+        for (int i = 0; i < 10000; i++) {
             SeaBattle seaBattle = new SeaBattle();
             new SeaBattleAlg().battleAlgorithm(seaBattle);
 //            System.out.println(seaBattle);
@@ -254,6 +253,19 @@ public class SeaBattleAlg {
         System.out.println();
         System.out.println("MIN ");
         System.out.print(Collections.min(results));
+        System.out.println();
+        System.out.println("AVG ");
+        System.out.print(getAVG(results));
+    }
+
+    static int getAVG(ArrayList<Integer> li){
+        int total = 0;
+        int avg = 0;
+        for(int i = 0; i < li.size(); i++){
+            total += li.get(i);
+            avg = total / li.size();
+        }
+        return avg;
     }
 
     public enum Direction{

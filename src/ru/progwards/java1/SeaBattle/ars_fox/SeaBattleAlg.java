@@ -5,6 +5,8 @@ import ru.progwards.java1.SeaBattle.SeaBattle;
 import ru.progwards.java1.SeaBattle.SeaBattle.FireResult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class SeaBattleAlg {
     // Тестовое поле создаётся конструктором
@@ -39,10 +41,45 @@ public class SeaBattleAlg {
     private ArrayList<Coordinate> coordinateForShoot = new ArrayList<>();
     private ArrayList<Coordinate> shootingDownCell = new ArrayList<>();
 
+    public void generateMatrixCoordinate() {
+        // четырёхпалубный
+        moveSightDiagonally(0, 3);
+        moveSightDiagonally(0, 7);
+        moveSightDiagonally(2, 9);
+        moveSightDiagonally(6, 9);
+        // трёхпалубные и двухпалубные
+        moveSightDiagonally(0, 1);
+        moveSightDiagonally(0, 5);
+        moveSightDiagonally(0, 9);
+        moveSightDiagonally(4, 9);
+        moveSightDiagonally(8, 9);
+        // однопалубные
+        // - перебор всего за исключением
+        moveSightDiagonally(0,0 );
+        moveSightDiagonally(0,2);
+        moveSightDiagonally(0,4);
+        moveSightDiagonally(0,6);
+        moveSightDiagonally(0,8);
+        moveSightDiagonally(1,9);
+        moveSightDiagonally(3,9);
+        moveSightDiagonally(5,9);
+        moveSightDiagonally(7,9);
+        moveSightDiagonally(9,9);
+    }
+
+    // form left bottom to right top
+    void moveSightDiagonally(int x, int y){
+        while ((x < 10)&(y > -1)) {
+            coordinateForShoot.add(new Coordinate(x, y));
+            y--;
+            x++;
+        }
+    }
+
     FireResult fire(int x, int y) {
         if(isValidCoordsToFier(new Coordinate(x, y))){
             SeaBattle.FireResult fireResult = seaBattle.fire(x, y);
-            System.out.println(seaBattle);
+//            System.out.println(seaBattle);
             if(fireResult != SeaBattle.FireResult.MISS){
                 this.counterRightShoot++;
             }
@@ -142,8 +179,10 @@ public class SeaBattleAlg {
         while (true) {
             int xc = coordinate.getX() + x;
             int yc = coordinate.getY() + y;
-            if(x!=0){x++;}
-            if(y!=0){y++;}
+            if(x>0){x++;}
+            if(y>0){y++;}
+            if(x<0){x--;}
+            if(y<0){y--;}
             SeaBattle.FireResult fireResult = fire(xc, yc);
             if(fireResult == FireResult.DESTROYED){
                 for (Coordinate ccBoat : ship) {
@@ -172,11 +211,13 @@ public class SeaBattleAlg {
     public void battleAlgorithm(SeaBattle seaBattle) {
         this.seaBattle = seaBattle;
 
-        for (int y = 0; y < seaBattle.getSizeX(); y++) {
-            for (int x = 0; x < seaBattle.getSizeY(); x++) {
-                this.coordinateForShoot.add(new Coordinate(x, y));
-            }
-        }
+//        for (int y = 0; y < seaBattle.getSizeX(); y++) {
+//            for (int x = 0; x < seaBattle.getSizeY(); x++) {
+//                this.coordinateForShoot.add(new Coordinate(x, y));
+//            }
+//        }
+
+        generateMatrixCoordinate();
 
         for (Coordinate cc : coordinateForShoot) {
             SeaBattle.FireResult fireResult = fire(cc.getX(), cc.getY());
@@ -190,21 +231,29 @@ public class SeaBattleAlg {
     }
 
 
-
+    private static ArrayList<Integer> results = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("Sea battle");
-        SeaBattle seaBattle = new SeaBattle(true);
-        new SeaBattleAlg().battleAlgorithm(seaBattle);
-        System.out.println(seaBattle);
-        System.out.println(seaBattle.getResult());
+//        System.out.println("Sea battle");
+//        SeaBattle seaBattle = new SeaBattle(true);
+//        new SeaBattleAlg().battleAlgorithm(seaBattle);
+//        System.out.println(seaBattle);
+//        System.out.println(seaBattle.getResult());
 
-//        for (int i = 0; i < 1000; i++) {
-//            SeaBattle seaBattle = new SeaBattle();
-//            new SeaBattleAlg().battleAlgorithm(seaBattle);
-////            System.out.println(seaBattle);
-//            System.out.println(seaBattle.getResult());
-//        }
+        for (int i = 0; i < 100_000_000; i++) {
+            SeaBattle seaBattle = new SeaBattle();
+            new SeaBattleAlg().battleAlgorithm(seaBattle);
+//            System.out.println(seaBattle);
+            results.add((int) seaBattle.getResult());
+            System.out.println(seaBattle.getResult());
+        }
+
+        System.out.println();
+        System.out.println("MAX ");
+        System.out.print(Collections.max(results));
+        System.out.println();
+        System.out.println("MIN ");
+        System.out.print(Collections.min(results));
     }
 
     public enum Direction{

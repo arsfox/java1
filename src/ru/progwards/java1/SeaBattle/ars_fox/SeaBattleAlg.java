@@ -59,39 +59,102 @@ public class SeaBattleAlg {
     }
 
     private Direction trackingDirection(Coordinate cc) {
+        FireResult fireResultNORTH = fire(cc.getX(), cc.getY()-1);
 
-        if(fire(cc.getX(), cc.getY()-1)!=FireResult.MISS) return Direction.NORTH;
-        if(fire(cc.getX(), cc.getY()+1)!=FireResult.MISS) return Direction.SOUTH;
-        if(fire(cc.getX()-1, cc.getY())!=FireResult.MISS) return Direction.WEST;
-        if(fire(cc.getX()+1, cc.getY())!=FireResult.MISS) return Direction.EAST;
+        if(fireResultNORTH==FireResult.DESTROYED) {
+            outline(cc);
+            outline(new Coordinate(cc.getX(), cc.getY()-1));
+            return null;
+        } else if(fireResultNORTH==FireResult.HIT) {
+            return Direction.NORTH;
+        }
+
+        FireResult fireResultSOUTH = fire(cc.getX(), cc.getY()+1);
+
+        if(fireResultSOUTH==FireResult.DESTROYED) {
+            outline(cc);
+            outline(new Coordinate(cc.getX(), cc.getY()+1));
+            return null;
+        } else if(fireResultSOUTH == FireResult.HIT) {
+            return Direction.SOUTH;
+        }
+
+        FireResult fireResultWEST = fire(cc.getX()-1, cc.getY());
+
+        if(fireResultWEST==FireResult.DESTROYED) {
+            outline(cc);
+            outline(new Coordinate(cc.getX()-1, cc.getY()));
+            return null;
+        } else if(fireResultWEST == FireResult.HIT) {
+            return Direction.WEST;
+        }
+
+        FireResult fireResultEAST = fire(cc.getX()+1, cc.getY());
+
+        if(fireResultEAST==FireResult.DESTROYED) {
+            outline(cc);
+            outline(new Coordinate(cc.getX()+1, cc.getY()));
+            return null;
+        } else if(fireResultEAST == FireResult.HIT) {
+            return Direction.EAST;
+        }
+
         return null;
     }
 
     private void trackingShip(Coordinate cc) {
+        ArrayList<Coordinate> ship = new ArrayList<>();
+        Coordinate coordinate = new Coordinate(cc.getX(), cc.getY());
         int x = 0, y = 0;
-        if(trackingDirection(cc) == Direction.NORTH){
-            shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()-1));
+
+        Direction direction = trackingDirection(cc);
+
+        if(direction == null) {
+            return;
+        }
+
+        if(direction == Direction.NORTH){
+            coordinate = new Coordinate(cc.getX(), cc.getY()-1);
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
             y = -1;
         } else
-        if(trackingDirection(cc) == Direction.SOUTH) {
-            shootingDownCell.add(new Coordinate(cc.getX(), cc.getY()+1));
+        if(direction == Direction.SOUTH) {
+            coordinate = new Coordinate(cc.getX(), cc.getY()+1);
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
             y = 1;
         } else
-        if(trackingDirection(cc) == Direction.WEST) {
-            shootingDownCell.add(new Coordinate(cc.getX()-1, cc.getY()));
+        if(direction == Direction.WEST) {
+            coordinate = new Coordinate(cc.getX()-1, cc.getY());
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
             x = -1;
         } else
-        if(trackingDirection(cc) == Direction.EAST) {
-            shootingDownCell.add(new Coordinate(cc.getX()+1, cc.getY()));
+        if(direction == Direction.EAST) {
+            coordinate = new Coordinate(cc.getX()+1, cc.getY());
+            shootingDownCell.add(coordinate);
+            ship.add(coordinate);
             x = 1;
         }
 
+
         while (true) {
-            SeaBattle.FireResult fireResult = fire(cc.getX() + x, cc.getY() + y);
-            if(fireResult != FireResult.HIT){
+            int xc = coordinate.getX() + x;
+            int yc = coordinate.getY() + y;
+            if(x!=0){x++;}
+            if(y!=0){y++;}
+            SeaBattle.FireResult fireResult = fire(xc, yc);
+            if(fireResult == FireResult.DESTROYED){
+                for (Coordinate ccBoat : ship) {
+                    outline(ccBoat);
+                }
                 break;
             }
-
+            if(fireResult == FireResult.MISS){
+                break;
+            }
+            ship.add(new Coordinate(xc, yc));
         }
     }
 
@@ -137,7 +200,7 @@ public class SeaBattleAlg {
         System.out.println(seaBattle.getResult());
 
 //        for (int i = 0; i < 1000; i++) {
-//            SeaBattle seaBattle = new SeaBattle(true);
+//            SeaBattle seaBattle = new SeaBattle();
 //            new SeaBattleAlg().battleAlgorithm(seaBattle);
 ////            System.out.println(seaBattle);
 //            System.out.println(seaBattle.getResult());

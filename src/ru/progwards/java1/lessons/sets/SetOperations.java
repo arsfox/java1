@@ -24,8 +24,11 @@ public class SetOperations {
     }
 
     public static Set<Integer> symDifference(Set<Integer> set1, Set<Integer> set2) {
-        HashSet<Integer> result = new HashSet<>(set1);
-
+        Set<Integer> result = new HashSet<>(set1);
+        result.addAll(set2);
+        Set<Integer> tmp = new HashSet<>(set1);
+        tmp.retainAll(set2);
+        result.removeAll(tmp);
         return result;
     }
 

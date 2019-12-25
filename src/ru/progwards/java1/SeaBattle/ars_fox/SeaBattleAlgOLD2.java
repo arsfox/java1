@@ -5,10 +5,8 @@ import ru.progwards.java1.SeaBattle.SeaBattle;
 import ru.progwards.java1.SeaBattle.SeaBattle.FireResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
-public class SeaBattleAlg {
+public class SeaBattleAlgOLD2 {
     // Тестовое поле создаётся конструктором
     //     SeaBattle seaBattle = new SeaBattle(true);
     //
@@ -238,7 +236,7 @@ public class SeaBattleAlg {
 
 public static double fight() {
     SeaBattle b = new SeaBattle();
-    SeaBattleAlg ba = new SeaBattleAlg();
+    SeaBattleAlgOLD2 ba = new SeaBattleAlgOLD2();
     ba.battleAlgorithm(b);
     double result = b.getResult();
     return result;
@@ -250,7 +248,7 @@ public static double fight() {
     }
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        System.out.println(fightMany(10));
+        System.out.println(fightMany(100));
         System.out.println(System.currentTimeMillis() - startTime);
     }
 

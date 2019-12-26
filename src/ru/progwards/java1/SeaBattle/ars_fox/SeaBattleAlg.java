@@ -41,7 +41,7 @@ public class SeaBattleAlg {
     private static final int PLUS = 0b10; // стреляем в увеличение координаты
 
     public static boolean printField = false; // печатать поле на каждом шаге
-    FieldState[][] field; // поле боя. ' ' - пустая ячейка, '*' - выстрел, 'X' - попали в корабль, '.' - отметили, что нет смысла стрелять
+    FieldState[][] field; // поле боя. ' ' - пустая ячейка (EMPTY), '*' - выстрел (MISS), 'X' - попали в корабль (BOAT), '.' - отметили, что нет смысла стрелять (LOCK)
     SeaBattle seaBattle; // seaBattle, что бы не таскать его везде параметром
     int hits; // общее количество попаданий
     int direction; // направление стрельбы - PLUS | MINUS
@@ -62,7 +62,19 @@ public class SeaBattleAlg {
         for (int y = 0; y < seaBattle.getSizeY(); y++) {
             String str = "|";
             for (int x = 0; x < seaBattle.getSizeX(); x++) {
-                str += field[x][y] + "|";
+                FieldState state = field[x][y];
+                if(state == FieldState.EMPTY){
+                    str += " " + "|";
+                } else
+                if(state == FieldState.MISS){
+                    str += "*" + "|";
+                } else
+                if(state == FieldState.BOAT){
+                    str += "X" + "|";
+                } else
+                if(state == FieldState.LOCK){
+                    str += "." + "|";
+                }
             }
             System.out.println(str);
         }
@@ -124,17 +136,17 @@ public class SeaBattleAlg {
     // пометить ячейку корабль или мимо
     void markFire(int x, int y, SeaBattle.FireResult result) {
         if (result != SeaBattle.FireResult.MISS)
-            field[x][y] = 'X';
+            field[x][y] = FieldState.BOAT;
         else
-            field[x][y] = '*';
+            field[x][y] = FieldState.MISS;
     }
 
     // пометить ячейку как не не имеющую смысл для стрельбы
     void markDot(int x, int y) {
         if(x<0 || y<0 || x>=seaBattle.getSizeX() || y>=seaBattle.getSizeY())
             return;
-        if (field[x][y] == ' ')
-            field[x][y] = '.';
+        if (field[x][y] == FieldState.EMPTY)
+            field[x][y] = FieldState.LOCK;
     }
 
     // пометить попадание в корабль "по кругу"
@@ -153,7 +165,7 @@ public class SeaBattleAlg {
     void markDestroyed() {
         for (int y = 0; y < seaBattle.getSizeY(); y++) {
             for (int x = 0; x < seaBattle.getSizeX(); x++) {
-                if (field[x][y] == 'X')
+                if (field[x][y] == FieldState.BOAT)
                     markHit(x, y);
             }
         }
@@ -167,7 +179,7 @@ public class SeaBattleAlg {
     // "интеллектуальный" выстрел - проверяет попадание в границы поля и что имеет смысл стрелять в ячейку
     SeaBattle.FireResult fire(int x, int y) {
         if(x<0 || y<0 || x>=seaBattle.getSizeX() || y>=seaBattle.getSizeY() ||
-                hits >= 20 || field[x][y] != ' ')
+                hits >= 20 || field[x][y] != FieldState.EMPTY)
             return SeaBattle.FireResult.MISS;
 
         SeaBattle.FireResult result = seaBattle.fire(x, y);
@@ -228,9 +240,57 @@ public class SeaBattleAlg {
         stepFire(2);
     }
 
+//    void moveDiagonally(int step) {
+//////        int x = 0;
+//////        int y = step;
+//////        for (int i = 0; i <= step; i++) {
+//////            System.out.println(x+" "+y);
+//////            x++;
+//////            y--;
+//////            if(y < 0){
+//////                i
+//////            }
+//////        }
+////        int b = 0;
+////        for (int ix = 0; ix < seaBattle.getSizeX(); ix+=1) {
+////            b++;
+////            if(b == step) {
+////                b = 0;
+////                System.out.println(ix);
+////            }
+////        }
+////
+////
+////    }
+
+    void moveDiagonally(int step) {
+        int ix = 0;
+        int iy = 0;
+        for (int i = 0; i < 19; i++) {
+            System.out.println(ix+" "+iy);
+            iy++;
+            if (iy > 9) {
+                iy = 9;
+                ix++;
+            }
+        }
+    }
+
+    void moveSightDiagonally(int x, int y){
+        while ((x < 10)&(y > -1)) {
+            System.out.println(x+" "+y);
+            y--;
+            x++;
+        }
+    }
+
+    void algorithm4() {
+        moveDiagonally(4);
+    }
+
     public void battleAlgorithm(SeaBattle seaBattle) {
         init(seaBattle);
-        algorithm3();
+        algorithm4();
     }
 
     static void fullTest() {

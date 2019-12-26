@@ -266,12 +266,17 @@ public class SeaBattleAlg {
     void moveDiagonally(int step) {
         int ix = 0;
         int iy = 0;
+        int b = 1;
         for (int i = 0; i < 19; i++) {
-            System.out.println(ix+" "+iy);
             iy++;
             if (iy > 9) {
                 iy = 9;
                 ix++;
+            }
+            b++;
+            if(b == step) {
+                b = 0;
+                System.out.println(ix+" "+iy);
             }
         }
     }
@@ -285,7 +290,7 @@ public class SeaBattleAlg {
     }
 
     void algorithm4() {
-        moveDiagonally(4);
+        moveDiagonally(2);
     }
 
     public void battleAlgorithm(SeaBattle seaBattle) {

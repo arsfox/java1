@@ -240,57 +240,41 @@ public class SeaBattleAlg {
         stepFire(2);
     }
 
-//    void moveDiagonally(int step) {
-//////        int x = 0;
-//////        int y = step;
-//////        for (int i = 0; i <= step; i++) {
-//////            System.out.println(x+" "+y);
-//////            x++;
-//////            y--;
-//////            if(y < 0){
-//////                i
-//////            }
-//////        }
-////        int b = 0;
-////        for (int ix = 0; ix < seaBattle.getSizeX(); ix+=1) {
-////            b++;
-////            if(b == step) {
-////                b = 0;
-////                System.out.println(ix);
-////            }
-////        }
-////
-////
-////    }
-
     void moveDiagonally(int step) {
-        int ix = 0;
-        int iy = 0;
+        int x = 0;
+        int y = 0;
         int b = 1;
         for (int i = 0; i < 19; i++) {
-            iy++;
-            if (iy > 9) {
-                iy = 9;
-                ix++;
+            y++;
+            if (y > 9) {
+                y = 9;
+                x++;
             }
             b++;
             if(b == step) {
                 b = 0;
-                System.out.println(ix+" "+iy);
+                System.out.println(x+" "+y);
+//                moveSightDiagonally(x, y);
+            } else if (step == 1) {
+                //TODO each step fier
             }
         }
     }
 
     void moveSightDiagonally(int x, int y){
         while ((x < 10)&(y > -1)) {
-            System.out.println(x+" "+y);
+//            System.out.println(x+" "+y);
+            fireAndKill(x, y);
             y--;
             x++;
         }
     }
 
     void algorithm4() {
-        moveDiagonally(2);
+//        moveDiagonally(4);
+//        moveDiagonally(2);
+        moveDiagonally(1);
+//        moveDiagonally(0);
     }
 
     public void battleAlgorithm(SeaBattle seaBattle) {

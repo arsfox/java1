@@ -1,6 +1,6 @@
 package ru.progwards.java1.SeaBattle.ars_fox;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+
 import ru.progwards.java1.SeaBattle.SeaBattle;
 
 public class SeaBattleAlg {
@@ -45,6 +45,7 @@ public class SeaBattleAlg {
     SeaBattle seaBattle; // seaBattle, что бы не таскать его везде параметром
     int hits; // общее количество попаданий
     int direction; // направление стрельбы - PLUS | MINUS
+    private ArrayList<Ship> ships;
 
     // процедура инициализации, используется вместо конструктора
     void init(SeaBattle seaBattle) {
@@ -53,6 +54,7 @@ public class SeaBattleAlg {
         field = new FieldState[seaBattle.getSizeX()][seaBattle.getSizeY()];
         for (int x = 0; x < seaBattle.getSizeX(); x++)
             Arrays.fill(field[x], FieldState.EMPTY);
+        ships = new ArrayList<>();
     }
 
     // печать поля для отладки алгоритмов
@@ -79,6 +81,12 @@ public class SeaBattleAlg {
             System.out.println(str);
         }
         System.out.println("----------------------");
+    }
+
+    int getMaxFloatingShip() {
+        ArrayList<Ship> etalonShips = new Ship(0).getShipSquadron();
+        etalonShips.removeAll(ships);
+        return Collections.max(etalonShips).size;
     }
 
     // добить корабль горизонтально; возвращает true если корабль убит
@@ -240,58 +248,21 @@ public class SeaBattleAlg {
         stepFire(2);
     }
 
-    void moveDiagonally(int step) {
-        int x = 0;
-        int y = 0;
-        int b = 1;
-        for (int i = 0; i < 19; i++) {
-            y++;
-            if (y > 9) {
-                y = 9;
-                x++;
-            }
-            b++;
-            if(b == step) {
-                b = 0;
-                System.out.println(x+" "+y);
-//                moveSightDiagonally(x, y);
-            } else if (step == 1) {
-                //TODO each step fier
-            }
-        }
-    }
-
-    void moveSightDiagonally(int x, int y){
-        while ((x < 10)&(y > -1)) {
-//            System.out.println(x+" "+y);
-            fireAndKill(x, y);
-            y--;
-            x++;
-        }
-    }
-
-    void algorithm4() {
-//        moveDiagonally(4);
-//        moveDiagonally(2);
-        moveDiagonally(1);
-//        moveDiagonally(0);
-    }
-
     public void battleAlgorithm(SeaBattle seaBattle) {
         init(seaBattle);
-        algorithm4();
+        algorithm3();
     }
 
     static void fullTest() {
         SeaBattleAlg.printField = false;
         double result = 0;
         SeaBattleAlg alg = new SeaBattleAlg();
-        for(int i=0; i<1000; i++) {
+        for(int i=0; i<10000; i++) {
             SeaBattle seaBattle = new SeaBattle();
             alg.battleAlgorithm(seaBattle);
             result += seaBattle.getResult();
         }
-        System.out.println(result/1000);
+        System.out.println(result/10000);
     }
 
     static void oneTest() {
@@ -304,8 +275,59 @@ public class SeaBattleAlg {
     // функция для отладки
     public static void main(String[] args) {
         System.out.println("Sea battle");
+//        fullTest();
         oneTest();
     }
+
+    class Ship implements Comparable<Ship> {
+
+        int size;
+
+        Ship(int size) {
+            this.size = size;
+        }
+
+        @Override
+        public int compareTo(Ship ship) {
+            if (this.size < ship.size) {
+                return -1;
+            }
+            else if (this.size > ship.size){
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Ship s = (Ship) o;
+            if (this.size == s.size) {
+                    return true;
+            }
+            return false;
+        }
+
+        public ArrayList<Ship> getShipSquadron() {
+            ArrayList<Ship> ships = new ArrayList<Ship>(){};
+            ships.add(new Ship(4));
+            ships.add(new Ship(3));
+            ships.add(new Ship(3));
+            ships.add(new Ship(2));
+            ships.add(new Ship(2));
+            ships.add(new Ship(2));
+            ships.add(new Ship(1));
+            ships.add(new Ship(1));
+            ships.add(new Ship(1));
+            ships.add(new Ship(1));
+            return ships;
+        }
+    }
+
+
 }
 
 

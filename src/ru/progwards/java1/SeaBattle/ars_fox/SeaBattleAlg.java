@@ -81,6 +81,8 @@ public class SeaBattleAlg {
             System.out.println(str);
         }
         System.out.println("----------------------");
+        System.out.println(Arrays.toString(ships.toArray()));
+        System.out.println("----------------------");
     }
 
     int getMaxFloatingShip() {
@@ -194,9 +196,9 @@ public class SeaBattleAlg {
         markFire(x, y, result);
         if (result != SeaBattle.FireResult.MISS)
             countHits();
-        if (result == SeaBattle.FireResult.DESTROYED)
+        if (result == SeaBattle.FireResult.DESTROYED) {
             markDestroyed();
-
+        }
         print(printField);
         return result;
     }
@@ -285,6 +287,11 @@ public class SeaBattleAlg {
 
         Ship(int size) {
             this.size = size;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(size);
         }
 
         @Override

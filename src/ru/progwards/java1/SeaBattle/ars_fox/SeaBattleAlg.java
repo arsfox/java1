@@ -92,10 +92,15 @@ public class SeaBattleAlg {
         ArrayList<Ship> etalonShips = new Ship(0).getShipSquadron();
         ArrayList<Ship> nowShips = new ArrayList<>(ships);
         for (int i = 4; i > 0; i--) {
-            for (Ship s : ships) {
-                if(s.size == i) {
-                    return
-                }
+            int result = 0;
+//            for (Ship s : ships) {
+//                if(s.size != i) {
+//                    result = i;
+//                }
+//            }
+            if(!nowShips.contains(i)){
+                System.out.println("true");
+                return i;
             }
         }
 

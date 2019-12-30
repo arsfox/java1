@@ -46,6 +46,8 @@ public class SeaBattleAlg {
     int hits; // общее количество попаданий
     int direction; // направление стрельбы - PLUS | MINUS
     private ArrayList<Ship> ships;
+    private static boolean shipDetectionMode = false; // режим добивания коробля
+    private ArrayList<Coordinate> detectedShip;  //координаты коробля по котору идет обстрел
 
     // процедура инициализации, используется вместо конструктора
     void init(SeaBattle seaBattle) {
@@ -55,6 +57,7 @@ public class SeaBattleAlg {
         for (int x = 0; x < seaBattle.getSizeX(); x++)
             Arrays.fill(field[x], FieldState.EMPTY);
         ships = new ArrayList<>();
+        detectedShip = new ArrayList<>();
     }
 
     // печать поля для отладки алгоритмов
@@ -186,6 +189,14 @@ public class SeaBattleAlg {
         hits++;
     }
 
+    void countShips(ArrayList<Coordinate> ship) {
+        int count = 0;
+        for (Coordinate cc : ship){
+            count++;
+        }
+        ships.add(new Ship(count));
+    }
+
     // "интеллектуальный" выстрел - проверяет попадание в границы поля и что имеет смысл стрелять в ячейку
     SeaBattle.FireResult fire(int x, int y) {
         if(x<0 || y<0 || x>=seaBattle.getSizeX() || y>=seaBattle.getSizeY() ||
@@ -194,14 +205,20 @@ public class SeaBattleAlg {
 
         SeaBattle.FireResult result = seaBattle.fire(x, y);
         markFire(x, y, result);
-        if (result != SeaBattle.FireResult.MISS)
+        if (result != SeaBattle.FireResult.MISS) {
             countHits();
+            detectedShip.add(new Coordinate(x, y));
+        }
         if (result == SeaBattle.FireResult.DESTROYED) {
             markDestroyed();
+            countShips(detectedShip);
+            detectedShip = new ArrayList<>();
         }
         print(printField);
         return result;
     }
+
+
 
     // выстрел с добиванием корабля. Используется из основного алгоритма для избегания рекурсии
     SeaBattle.FireResult fireAndKill(int x, int y) {
@@ -331,6 +348,41 @@ public class SeaBattleAlg {
             ships.add(new Ship(1));
             ships.add(new Ship(1));
             return ships;
+        }
+    }
+
+    class Coordinate {
+        int x, y;
+
+        public Coordinate(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        @Override
+        public String toString() {
+            return x + " " + y;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Coordinate сoordinate = (Coordinate) o;
+            if (Integer.compare(this.getX(), сoordinate.getX()) == 0) {
+                if (Integer.compare(this.getY(), сoordinate.getY()) == 0) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

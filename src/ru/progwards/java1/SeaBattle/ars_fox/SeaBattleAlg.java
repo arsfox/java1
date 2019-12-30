@@ -43,7 +43,6 @@ public class SeaBattleAlg {
     public static boolean printField = false; // печатать поле на каждом шаге
     FieldState[][] field; // поле боя. ' ' - пустая ячейка (EMPTY), '*' - выстрел (MISS), 'X' - попали в корабль (BOAT), '.' - отметили, что нет смысла стрелять (LOCK)
     SeaBattle seaBattle; // seaBattle, что бы не таскать его везде параметром
-    int hits; // общее количество попаданий
     int direction; // направление стрельбы - PLUS | MINUS
     private ArrayList<Ship> ships;
     private static boolean shipDetectionMode = false; // режим добивания коробля
@@ -51,7 +50,6 @@ public class SeaBattleAlg {
 
     // процедура инициализации, используется вместо конструктора
     void init(SeaBattle seaBattle) {
-        hits = 0;
         this.seaBattle = seaBattle;
         field = new FieldState[seaBattle.getSizeX()][seaBattle.getSizeY()];
         for (int x = 0; x < seaBattle.getSizeX(); x++)
@@ -85,13 +83,24 @@ public class SeaBattleAlg {
         }
         System.out.println("----------------------");
         System.out.println(Arrays.toString(ships.toArray()));
+        System.out.println("--");
+        System.out.println(getMaxFloatingShip());
         System.out.println("----------------------");
     }
 
     int getMaxFloatingShip() {
         ArrayList<Ship> etalonShips = new Ship(0).getShipSquadron();
-        etalonShips.removeAll(ships);
-        return Collections.max(etalonShips).size;
+        ArrayList<Ship> nowShips = new ArrayList<>(ships);
+        for (int i = 4; i > 0; i--) {
+            for (Ship s : ships) {
+                if(s.size == i) {
+                    return
+                }
+            }
+        }
+
+//        return Collections.max(etalonShips).size;
+        return 0;
     }
 
     // добить корабль горизонтально; возвращает true если корабль убит
@@ -174,24 +183,18 @@ public class SeaBattleAlg {
         markDot(x, y+1);
     }
 
-    // пометить вокруг убитых кораблей
-    void markDestroyed() {
-        for (int y = 0; y < seaBattle.getSizeY(); y++) {
-            for (int x = 0; x < seaBattle.getSizeX(); x++) {
-                if (field[x][y] == FieldState.BOAT)
-                    markHit(x, y);
-            }
+    int getHits() {
+        int count = 0;
+        for (Ship s : ships) {
+            count += s.size;
         }
-    }
-
-    // увеличить счетчик попаданий
-    void countHits() {
-        hits++;
+        return count;
     }
 
     void countShips(ArrayList<Coordinate> ship) {
         int count = 0;
         for (Coordinate cc : ship){
+            markHit(cc.x, cc.y);
             count++;
         }
         ships.add(new Ship(count));
@@ -200,17 +203,15 @@ public class SeaBattleAlg {
     // "интеллектуальный" выстрел - проверяет попадание в границы поля и что имеет смысл стрелять в ячейку
     SeaBattle.FireResult fire(int x, int y) {
         if(x<0 || y<0 || x>=seaBattle.getSizeX() || y>=seaBattle.getSizeY() ||
-                hits >= 20 || field[x][y] != FieldState.EMPTY)
+                getHits() >= 20 || field[x][y] != FieldState.EMPTY)
             return SeaBattle.FireResult.MISS;
 
         SeaBattle.FireResult result = seaBattle.fire(x, y);
         markFire(x, y, result);
         if (result != SeaBattle.FireResult.MISS) {
-            countHits();
             detectedShip.add(new Coordinate(x, y));
         }
         if (result == SeaBattle.FireResult.DESTROYED) {
-            markDestroyed();
             countShips(detectedShip);
             detectedShip = new ArrayList<>();
         }
@@ -246,7 +247,7 @@ public class SeaBattleAlg {
     }
 
     void algorithm2() {
-        while(hits < 20)
+        while(getHits() < 20)
             fireAndKill(getRandom(), getRandom());
     }
 

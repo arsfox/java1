@@ -273,20 +273,53 @@ public class SeaBattleAlg {
         stepFire(2);
     }
 
+    void stepFireArea(ArrayList<Coordinate> cca) {
+        for(Coordinate cc : cca) {
+            int x = cc.x;
+            int y = cc.y;
+            if(x<0 || y<0 || x>=seaBattle.getSizeX() || y>=seaBattle.getSizeY()){
+                return;
+            }
+//            fireAndKill(x, y);
+            markDot(x, y);
+            print(printField);
+        }
+    }
+
+    void algorithm4() {
+        for (int i = 4; i > 0; i--) {
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,0)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,0)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,0)));
+
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,4)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,4)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,4)));
+
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
+        }
+    }
+
     public void battleAlgorithm(SeaBattle seaBattle) {
         init(seaBattle);
-        algorithm3();
+        algorithm4();
     }
 
     static void fullTest() {
         SeaBattleAlg.printField = false;
         double result = 0;
         SeaBattleAlg alg = new SeaBattleAlg();
+        ArrayList<Double> resultarr = new ArrayList<>();
         for(int i=0; i<10000; i++) {
             SeaBattle seaBattle = new SeaBattle();
             alg.battleAlgorithm(seaBattle);
+            resultarr.add(seaBattle.getResult());
             result += seaBattle.getResult();
         }
+        System.out.println(Collections.max(resultarr));
+        System.out.println(Collections.min(resultarr));
         System.out.println(result/10000);
     }
 
@@ -392,6 +425,36 @@ public class SeaBattleAlg {
         }
     }
 
+    ArrayList<Coordinate> getFourArenaCoordinate(int step, Coordinate start) {
+        ArrayList<Coordinate> cc = new ArrayList<>();
+        switch (step) {
+            case (1):
+                cc.add(new Coordinate(start.x, start.y));
+                cc.add(new Coordinate(start.x + 2, start.y));
+                cc.add(new Coordinate(start.x + 1, start.y + 1));
+                cc.add(new Coordinate(start.x + 3, start.y + 2));
+                break;
+            case (2):
+                cc.add(new Coordinate(start.x + 3, start.y + 1));
+                cc.add(new Coordinate(start.x + 1, start.y + 2));
+                cc.add(new Coordinate(start.x, start.y + 3));
+                cc.add(new Coordinate(start.x + 2, start.y + 3));
+                break;
+            case (3):
+                cc.add(new Coordinate(start.x + 1, start.y));
+                cc.add(new Coordinate(start.x, start.y + 1));
+                cc.add(new Coordinate(start.x + 2, start.y + 2));
+                cc.add(new Coordinate(start.x + 3, start.y + 3));
+                break;
+            case (4):
+                cc.add(new Coordinate(start.x,start.y + 2));
+                cc.add(new Coordinate(start.x + 1,start.y + 3));
+                cc.add(new Coordinate(start.x + 2,start.y + 1));
+                cc.add(new Coordinate(start.x + 3, start.y));
+                break;
+        }
+        return cc;
+    }
 
 }
 

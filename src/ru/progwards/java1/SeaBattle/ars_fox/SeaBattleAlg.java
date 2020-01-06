@@ -88,6 +88,31 @@ public class SeaBattleAlg {
         System.out.println("----------------------");
     }
 
+    String printVar() {
+        String result = "";
+        for (int y = 0; y < seaBattle.getSizeY(); y++) {
+            String str = "|";
+            for (int x = 0; x < seaBattle.getSizeX(); x++) {
+                FieldState state = field[x][y];
+                if(state == FieldState.EMPTY){
+                    str += " " + "|";
+                } else
+                if(state == FieldState.MISS){
+                    str += "*" + "|";
+                } else
+                if(state == FieldState.BOAT){
+                    str += "X" + "|";
+                } else
+                if(state == FieldState.LOCK){
+                    str += "." + "|";
+                }
+            }
+            result += str;
+            result += "\n";
+        }
+        return result;
+    }
+
     int getMaxFloatingShip() {
         ArrayList<Ship> etalonShips = new Ship(0).getShipSquadron();
         ArrayList<Ship> nowShips = new ArrayList<>(ships);
@@ -127,18 +152,18 @@ public class SeaBattleAlg {
     boolean killVertical(int x, int y) {
         int i = 1;
         boolean destroyed = false;
-        direction = PLUS | MINUS;
+        direction = MINUS | PLUS;
         do {
-            if ((direction&MINUS) != 0)
-                destroyed = checkHit(fire(x, y-i), MINUS);
             if ((direction&PLUS) != 0)
                 destroyed = checkHit(fire(x, y+i), PLUS);
+            if ((direction&MINUS) != 0)
+                destroyed = checkHit(fire(x, y-i), MINUS);
             i++;
         } while(direction != 0);
         return destroyed;
     }
 
-    // добить корабль, вызывается только после попадания
+   //  добить корабль, вызывается только после попадания
     void killShip(int x, int y) {
         boolean destroyed = killHorisontal(x, y);
         if (!destroyed)
@@ -312,19 +337,23 @@ public class SeaBattleAlg {
         double result = 0;
         SeaBattleAlg alg = new SeaBattleAlg();
         ArrayList<Double> resultarr = new ArrayList<>();
+        ArrayList<String> resultbullte = new ArrayList<>();
         for(int i=0; i<10000; i++) {
             SeaBattle seaBattle = new SeaBattle();
             alg.battleAlgorithm(seaBattle);
             resultarr.add(seaBattle.getResult());
+//            resultbullte.add(seaBattle.getResult();
             result += seaBattle.getResult();
         }
         System.out.println(Collections.max(resultarr));
         System.out.println(Collections.min(resultarr));
+        int index = resultarr.indexOf(Collections.min(resultarr));
+        System.out.print(resultbullte.get(index));
         System.out.println(result/10000);
     }
 
     static void oneTest() {
-        SeaBattleAlg.printField = true;
+//        SeaBattleAlg.printField = true;
         SeaBattle seaBattle = new SeaBattle(true);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
         System.out.println(seaBattle.getResult());
@@ -333,8 +362,8 @@ public class SeaBattleAlg {
     // функция для отладки
     public static void main(String[] args) {
         System.out.println("Sea battle");
-        fullTest();
-//        oneTest();
+//        fullTest();
+        oneTest();
     }
 
     class Ship implements Comparable<Ship> {

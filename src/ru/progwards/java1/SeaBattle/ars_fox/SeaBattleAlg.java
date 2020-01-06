@@ -278,16 +278,18 @@ public class SeaBattleAlg {
             int x = cc.x;
             int y = cc.y;
             if(x<0 || y<0 || x>=seaBattle.getSizeX() || y>=seaBattle.getSizeY()){
-                return;
+                continue;
             }
-//            fireAndKill(x, y);
-            markDot(x, y);
-            print(printField);
+            fireAndKill(x, y);
         }
     }
 
     void algorithm4() {
         for (int i = 4; i > 0; i--) {
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
+
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,0)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,0)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,0)));
@@ -296,9 +298,7 @@ public class SeaBattleAlg {
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,4)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,4)));
 
-            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,8)));
-            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
-            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
+
         }
     }
 
@@ -333,8 +333,8 @@ public class SeaBattleAlg {
     // функция для отладки
     public static void main(String[] args) {
         System.out.println("Sea battle");
-//        fullTest();
-        oneTest();
+        fullTest();
+//        oneTest();
     }
 
     class Ship implements Comparable<Ship> {

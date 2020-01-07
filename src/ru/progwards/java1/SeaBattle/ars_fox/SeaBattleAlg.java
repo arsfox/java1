@@ -329,6 +329,11 @@ public class SeaBattleAlg {
     }
 
     void algorithm5() {
+        ArrayList<Coordinate> ccr = new ArrayList<>();
+
+
+        stepFireArea(new Coordinate(0,0));
+
         for (int i = 4; i > 3; i--) {
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,0)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,0)));
@@ -343,7 +348,7 @@ public class SeaBattleAlg {
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
         }
 
-        ArrayList<Coordinate> ccr = new ArrayList<>();
+
         ccr.add(new Coordinate(0,4));
         ccr.add(new Coordinate(0,8));
         ccr.add(new Coordinate(1,0));

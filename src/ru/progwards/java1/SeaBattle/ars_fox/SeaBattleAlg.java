@@ -81,11 +81,11 @@ public class SeaBattleAlg {
             }
             System.out.println(str);
         }
-        System.out.println("----------------------");
-        System.out.println(Arrays.toString(ships.toArray()));
-        System.out.println("--");
-        System.out.println(getMaxFloatingShip());
-        System.out.println("----------------------");
+        System.out.println("---------end----------");
+//        System.out.println(Arrays.toString(ships.toArray()));
+//        System.out.println("--");
+//        System.out.println(getMaxFloatingShip());
+//        System.out.println("----------------------");
     }
 
     String printVar() {
@@ -154,10 +154,10 @@ public class SeaBattleAlg {
         boolean destroyed = false;
         direction = MINUS | PLUS;
         do {
-            if ((direction&PLUS) != 0)
-                destroyed = checkHit(fire(x, y+i), PLUS);
             if ((direction&MINUS) != 0)
                 destroyed = checkHit(fire(x, y-i), MINUS);
+            if ((direction&PLUS) != 0)
+                destroyed = checkHit(fire(x, y+i), PLUS);
             i++;
         } while(direction != 0);
         return destroyed;
@@ -165,9 +165,9 @@ public class SeaBattleAlg {
 
    //  добить корабль, вызывается только после попадания
     void killShip(int x, int y) {
-        boolean destroyed = killHorisontal(x, y);
+        boolean destroyed = killVertical(x, y);
         if (!destroyed)
-            killVertical(x, y);
+            killHorisontal(x, y);
     }
 
     // проверить попадание при добивании; возвращает true если корабль убит
@@ -218,6 +218,9 @@ public class SeaBattleAlg {
         for (Ship s : ships) {
             count += s.size;
         }
+//        if(count > 19) {
+//            print(printField);
+//        }
         return count;
     }
 
@@ -311,10 +314,6 @@ public class SeaBattleAlg {
 
     void algorithm4() {
         for (int i = 4; i > 0; i--) {
-            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,8)));
-            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
-            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
-
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,0)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,0)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,0)));
@@ -323,13 +322,78 @@ public class SeaBattleAlg {
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,4)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,4)));
 
-
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
         }
+    }
+
+    void algorithm5() {
+        for (int i = 4; i > 3; i--) {
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,0)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,0)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,0)));
+
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,4)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,4)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,4)));
+
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
+            stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
+        }
+
+        ArrayList<Coordinate> ccr = new ArrayList<>();
+        ccr.add(new Coordinate(0,4));
+        ccr.add(new Coordinate(0,8));
+        ccr.add(new Coordinate(1,0));
+        ccr.add(new Coordinate(1,4));
+        ccr.add(new Coordinate(2,2));
+        ccr.add(new Coordinate(2,7));
+        ccr.add(new Coordinate(3,3));
+        ccr.add(new Coordinate(3,6));
+        ccr.add(new Coordinate(4,1));
+        ccr.add(new Coordinate(4,5));
+        ccr.add(new Coordinate(4,9));
+        ccr.add(new Coordinate(5,0));
+        ccr.add(new Coordinate(5,4));
+        ccr.add(new Coordinate(5,8));
+        ccr.add(new Coordinate(6,3));
+        ccr.add(new Coordinate(6,7));
+        ccr.add(new Coordinate(7,2));
+        ccr.add(new Coordinate(7,6));
+        ccr.add(new Coordinate(8,1));
+        ccr.add(new Coordinate(8,5));
+        ccr.add(new Coordinate(8,9));
+        ccr.add(new Coordinate(9,0));
+        ccr.add(new Coordinate(9,4));
+
+        ccr.add(new Coordinate(0,1));
+        ccr.add(new Coordinate(1,2));
+        ccr.add(new Coordinate(1,5));
+        ccr.add(new Coordinate(1,6));
+        ccr.add(new Coordinate(1,8));
+        ccr.add(new Coordinate(1,9));
+        ccr.add(new Coordinate(2,4));
+        ccr.add(new Coordinate(3,1));
+        ccr.add(new Coordinate(4,4));
+        ccr.add(new Coordinate(4,7));
+        ccr.add(new Coordinate(5,2));
+        ccr.add(new Coordinate(5,6));
+        ccr.add(new Coordinate(8,3));
+        ccr.add(new Coordinate(8,7));
+        ccr.add(new Coordinate(9,1));
+        ccr.add(new Coordinate(9,5));
+        ccr.add(new Coordinate(9,8));
+
+        stepFireArea(ccr);
+
+        algorithm1();
     }
 
     public void battleAlgorithm(SeaBattle seaBattle) {
         init(seaBattle);
-        algorithm4();
+        algorithm5();
     }
 
     static void fullTest() {
@@ -337,23 +401,21 @@ public class SeaBattleAlg {
         double result = 0;
         SeaBattleAlg alg = new SeaBattleAlg();
         ArrayList<Double> resultarr = new ArrayList<>();
-        ArrayList<String> resultbullte = new ArrayList<>();
         for(int i=0; i<10000; i++) {
             SeaBattle seaBattle = new SeaBattle();
             alg.battleAlgorithm(seaBattle);
             resultarr.add(seaBattle.getResult());
-//            resultbullte.add(seaBattle.getResult();
+//            System.out.println(seaBattle.getResult());
             result += seaBattle.getResult();
         }
+        System.out.println("----------");
         System.out.println(Collections.max(resultarr));
         System.out.println(Collections.min(resultarr));
-        int index = resultarr.indexOf(Collections.min(resultarr));
-        System.out.print(resultbullte.get(index));
         System.out.println(result/10000);
     }
 
     static void oneTest() {
-//        SeaBattleAlg.printField = true;
+        SeaBattleAlg.printField = true;
         SeaBattle seaBattle = new SeaBattle(true);
         new SeaBattleAlg().battleAlgorithm(seaBattle);
         System.out.println(seaBattle.getResult());
@@ -362,8 +424,8 @@ public class SeaBattleAlg {
     // функция для отладки
     public static void main(String[] args) {
         System.out.println("Sea battle");
-//        fullTest();
-        oneTest();
+        fullTest();
+//        oneTest();
     }
 
     class Ship implements Comparable<Ship> {

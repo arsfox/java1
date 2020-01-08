@@ -331,8 +331,16 @@ public class SeaBattleAlg {
     void algorithm5() {
         ArrayList<Coordinate> ccr = new ArrayList<>();
 
+        ccr.add(new Coordinate(9,3));
+        ccr.add(new Coordinate(9,7));
+        ccr.add(new Coordinate(0,2));
+        ccr.add(new Coordinate(0,6));
+        ccr.add(new Coordinate(2,9));
+        ccr.add(new Coordinate(6,9));
+        ccr.add(new Coordinate(3,0));
+        ccr.add(new Coordinate(7,0));
 
-        stepFireArea(new Coordinate(0,0));
+        stepFireArea(ccr);
 
         for (int i = 4; i > 3; i--) {
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(0,0)));
@@ -347,7 +355,6 @@ public class SeaBattleAlg {
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(4,8)));
             stepFireArea(getFourArenaCoordinate(i, new Coordinate(8,8)));
         }
-
 
         ccr.add(new Coordinate(0,4));
         ccr.add(new Coordinate(0,8));
@@ -429,6 +436,9 @@ public class SeaBattleAlg {
     // функция для отладки
     public static void main(String[] args) {
         System.out.println("Sea battle");
+        fullTest();
+        fullTest();
+        fullTest();
         fullTest();
 //        oneTest();
     }

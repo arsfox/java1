@@ -331,6 +331,7 @@ public class SeaBattleAlg {
     void algorithm5() {
         ArrayList<Coordinate> ccr = new ArrayList<>();
 
+        // вычислим 4п по кругу
         ccr.add(new Coordinate(9,3));
         ccr.add(new Coordinate(9,7));
         ccr.add(new Coordinate(0,2));
@@ -339,6 +340,8 @@ public class SeaBattleAlg {
         ccr.add(new Coordinate(6,9));
         ccr.add(new Coordinate(3,0));
         ccr.add(new Coordinate(7,0));
+
+
 
         stepFireArea(ccr);
 

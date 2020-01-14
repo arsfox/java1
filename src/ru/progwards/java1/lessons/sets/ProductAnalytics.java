@@ -5,29 +5,6 @@ import java.util.Set;
 
 public class ProductAnalytics {
 
-    class Product {
-
-        private String code;
-
-        public String getCode() {
-            return this.code;
-        }
-
-    }
-
-    class Shop {
-
-        private List<Product> products;
-
-        public Shop(List<Product> products) {
-            this.products = products;
-        }
-
-        public List<Product> getProducts() {
-            return this.products;
-        }
-    }
-
     private List<Shop> shops;
     private List<Product> products;
 
@@ -37,8 +14,18 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existInAll() {
-        Set<Product> product = null;
-        return product;
+        Set<Product> productResult = null;
+        Set<Product> allProduct;
+
+        for (int i = 0; i < this.shops.size(); i++) {
+            for (int j = 0; j < products.size(); j++) {
+                if(shops.get(i).getProducts().contains(products.get(j))) {
+
+                }
+            }
+        }
+
+        return productResult;
     }
 
     public Set<Product> existAtListInOne() {

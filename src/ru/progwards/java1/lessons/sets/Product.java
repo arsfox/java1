@@ -4,8 +4,8 @@ class Product {
 
     private String code;
 
-    public Product() {
-
+    public Product(String code) {
+        this.code = code;
     }
 
     public String getCode() {

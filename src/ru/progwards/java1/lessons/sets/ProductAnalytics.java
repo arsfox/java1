@@ -17,22 +17,19 @@ public class ProductAnalytics {
 
     public Set<Product> existInAll() { // товары из products, которые имеются во всех магазинах
         List<Product> intersection = new ArrayList<>();
-//      Set<Product> tmp = new HashSet<>();
-        List<Product> tmp = new ArrayList<>();
-
 
         for (int i = 0; i < this.shops.size(); i++) {
             for (int j = 0; j < this.shops.size(); j++) {
                 if(i == j) continue;
                 for (Product p : this.shops.get(i).getProducts()) {
                     if (this.shops.get(j).getProducts().contains(p)) {
-                        tmp.add(p);
+                        intersection.add(p);
                     }
                 }
             }
         }
 
-        Set<Product> productResult = new HashSet<>(tmp);
+        Set<Product> productResult = new HashSet<>(intersection);
         return productResult;
     }
 

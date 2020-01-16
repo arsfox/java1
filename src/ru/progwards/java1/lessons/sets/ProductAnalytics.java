@@ -16,7 +16,6 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existInAll() { // товары из products, которые имеются во всех магазинах
-        Set<Product> productResult = null;
         List<Product> intersection = this.products;
 
         for (int i = 0; i <= this.shops.size(); i++) {
@@ -26,7 +25,7 @@ public class ProductAnalytics {
                 }
             }
         }
-
+        Set<Product> productResult = new HashSet<>(intersection);
         return productResult;
     }
 

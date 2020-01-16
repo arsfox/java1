@@ -1,5 +1,7 @@
 package ru.progwards.java1.lessons.sets;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,14 +15,16 @@ public class ProductAnalytics {
         this.shops = shops;
     }
 
-    public Set<Product> existInAll() {
+    public Set<Product> existInAll() { // товары из products, которые имеются во всех магазинах
         Set<Product> productResult = null;
-        Set<Product> allProduct;
+        List<Product> intersection = new ArrayList<>();
 
-        for (int i = 0; i < this.shops.size(); i++) {
-            for (int j = 0; j < products.size(); j++) {
-                if(shops.get(i).getProducts().contains(products.get(j))) {
-
+        for (int i = 0; i <= this.shops.size(); i++) {
+            for (int j = 0; j < this.products.size(); j++) {
+                if(this.shops.get(i).getProducts().contains(this.products.get(j))){
+                    intersection.add(this.products.get(j));
+                } else {
+                    intersection.remove(this.products.get(j));
                 }
             }
         }

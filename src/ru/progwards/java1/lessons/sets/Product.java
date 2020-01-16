@@ -1,5 +1,7 @@
 package ru.progwards.java1.lessons.sets;
 
+import java.util.Objects;
+
 class Product {
 
     private String code;
@@ -12,4 +14,11 @@ class Product {
         return this.code;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return this.code.equals(product.getCode());
+    }
 }

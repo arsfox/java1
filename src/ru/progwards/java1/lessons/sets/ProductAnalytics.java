@@ -16,15 +16,20 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existInAll() { // товары из products, которые имеются во всех магазинах
-        List<Product> intersection = this.products;
+        List<Product> intersection = new ArrayList<>();
 
         for (int i = 0; i < this.shops.size(); i++) {
             for (int j = 0; j < this.products.size(); j++) {
+                if(this.shops.get(i).getProducts().contains(this.products.get(j))){
+                    intersection.add(this.products.get(j));
+                }
+
                 if(!this.shops.get(i).getProducts().contains(this.products.get(j))){
                     intersection.remove(this.products.get(j));
                 }
             }
         }
+
         Set<Product> productResult = new HashSet<>(intersection);
         return productResult;
     }
@@ -43,6 +48,4 @@ public class ProductAnalytics {
         Set<Product> product = null;
         return product;
     }
-
-
 }

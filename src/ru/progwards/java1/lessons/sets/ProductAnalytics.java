@@ -56,8 +56,8 @@ public class ProductAnalytics {
         }
         Set<Product> products = new HashSet<>(allProductsList);
         Set<Product> productResult = new HashSet<>();
-        for (Product p : products) {
-            if(!allProductsList.contains(p)){
+        for (Product p : this.products) {
+            if(!products.contains(p)) {
                 productResult.add(p);
             }
         }

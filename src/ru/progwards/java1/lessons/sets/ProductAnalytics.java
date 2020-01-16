@@ -17,13 +17,11 @@ public class ProductAnalytics {
 
     public Set<Product> existInAll() { // товары из products, которые имеются во всех магазинах
         Set<Product> productResult = null;
-        List<Product> intersection = new ArrayList<>();
+        List<Product> intersection = this.products;
 
         for (int i = 0; i <= this.shops.size(); i++) {
             for (int j = 0; j < this.products.size(); j++) {
-                if(this.shops.get(i).getProducts().contains(this.products.get(j))){
-                    intersection.add(this.products.get(j));
-                } else {
+                if(!this.shops.get(i).getProducts().contains(this.products.get(j))){
                     intersection.remove(this.products.get(j));
                 }
             }

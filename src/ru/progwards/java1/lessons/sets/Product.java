@@ -4,6 +4,10 @@ class Product {
 
     private String code;
 
+    public Product() {
+
+    }
+
     public String getCode() {
         return this.code;
     }

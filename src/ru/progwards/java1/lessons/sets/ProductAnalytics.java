@@ -33,8 +33,17 @@ public class ProductAnalytics {
         return productResult;
     }
 
-    public Set<Product> existAtListInOne() {
-        Set<Product> product = null;
+    public Set<Product> existAtListInOne() { //товары из products, которые имеются хотя бы в одном магазине
+        List<Product> productsList = new ArrayList<>();
+        for (Shop s : this.shops) {
+            for (Product p: this.products) {
+                if(s.getProducts().contains(p)) {
+                    productsList.add(p);
+                }
+            }
+        }
+
+        Set<Product> product = new HashSet<>(productsList);
         return product;
     }
 

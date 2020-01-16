@@ -20,13 +20,13 @@ public class ProductAnalytics {
 //      Set<Product> tmp = new HashSet<>();
         List<Product> tmp = new ArrayList<>();
 
+
         for (int i = 0; i < this.shops.size(); i++) {
             for (int j = 0; j < this.shops.size(); j++) {
-                for (Product productOne : this.shops.get(i).getProducts()) {
-                    for (Product productTwo : this.shops.get(j).getProducts()) {
-                        if(productOne.equals(productTwo)) {
-                            tmp.add(productOne);
-                        }
+                if(i == j) continue;
+                for (Product p : this.shops.get(i).getProducts()) {
+                    if (this.shops.get(j).getProducts().contains(p)) {
+                        tmp.add(p);
                     }
                 }
             }

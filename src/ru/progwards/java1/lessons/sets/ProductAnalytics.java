@@ -47,9 +47,21 @@ public class ProductAnalytics {
         return product;
     }
 
-    public Set<Product> notExistInShops() {
-        Set<Product> product = null;
-        return product;
+    public Set<Product> notExistInShops() { // товары из products, которых нет ни в одном магазине
+        List<Product> allProductsList = new ArrayList<>();
+        for (Shop s : this.shops) {
+            for (Product p : s.getProducts()) {
+                allProductsList.add(p);
+            }
+        }
+        Set<Product> products = new HashSet<>(allProductsList);
+        Set<Product> productResult = new HashSet<>();
+        for (Product p : products) {
+            if(!allProductsList.contains(p)){
+                productResult.add(p);
+            }
+        }
+        return productResult;
     }
 
     public Set<Product> existOnlyInOne() {

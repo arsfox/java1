@@ -16,10 +16,10 @@ public class LettersInFile {
         int symbol = bufferedReader.read();
         while (symbol != -1) {
             char c = (char) symbol;
-            System.out.println(c);
             if(Character.isAlphabetic(c)) {
                 character.add(c);
             }
+            symbol = bufferedReader.read();
         }
         bufferedReader.close();
 

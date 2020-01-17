@@ -65,20 +65,33 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existOnlyInOne() {
-        List<Product> intersection = new ArrayList<>();
+        List<Product> appProducts = new ArrayList<>();
+        List<Product> unicornProducts = new ArrayList<>();
 
-        for (int i = 0; i < this.shops.size(); i++) {
-            for (int j = 0; j < this.shops.size(); j++) {
+        for (Shop s : this.shops) {
+            for (Product p : s.getProducts()) {
+                appProducts.add(p);
+            }
+        }
+
+        List<Product> unUnicornProducts = new ArrayList<>();
+
+        for (int i = 0; i < appProducts.size(); i++) {
+            for (int j = 0; j < appProducts.size(); j++) {
                 if(i == j) continue;
-                for (Product p : this.shops.get(i).getProducts()) {
-                    if (!this.shops.get(j).getProducts().contains(p)) {
-                        intersection.add(p);
-                    }
+                if(appProducts.get(i).equals(appProducts.get(j))) {
+                    unUnicornProducts.add(appProducts.get(i));
                 }
             }
         }
 
-        Set<Product> productResult = new HashSet<>(intersection);
+        for (Product p : appProducts) {
+            if(!unUnicornProducts.contains(p)) {
+                unicornProducts.add(p);
+            }
+        }
+
+        Set<Product> productResult = new HashSet<>(unicornProducts);
         return productResult;
     }
 }

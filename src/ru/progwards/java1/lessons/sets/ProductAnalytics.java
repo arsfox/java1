@@ -65,7 +65,20 @@ public class ProductAnalytics {
     }
 
     public Set<Product> existOnlyInOne() {
-        Set<Product> product = null;
-        return product;
+        List<Product> intersection = new ArrayList<>();
+
+        for (int i = 0; i < this.shops.size(); i++) {
+            for (int j = 0; j < this.shops.size(); j++) {
+                if(i == j) continue;
+                for (Product p : this.shops.get(i).getProducts()) {
+                    if (!this.shops.get(j).getProducts().contains(p)) {
+                        intersection.add(p);
+                    }
+                }
+            }
+        }
+
+        Set<Product> productResult = new HashSet<>(intersection);
+        return productResult;
     }
 }

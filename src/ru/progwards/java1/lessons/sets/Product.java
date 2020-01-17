@@ -21,17 +21,4 @@ class Product {
         Product product = (Product) o;
         return this.code.equals(product.getCode());
     }
-
-    @Override
-    public int compareTo(Product animal) {
-        if (getWeight() < animal.getWeight()) {
-            return -1;
-        }
-        else if (getWeight() > animal.getWeight()){
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
 }

@@ -27,7 +27,7 @@ public class StackCalc {
     }
 }
 
-public class Calculate {
+class Calculate {
 
     public static double calculation1() {
         return 1.0;

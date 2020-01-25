@@ -7,11 +7,14 @@ public class CollectionsSort {
     public static void mySort(Collection<Integer> data) {
         ArrayDeque<Integer> result = new ArrayDeque<>();
 
-        for(int i = 0; i < data.size(); i++){
+        Iterator iterator = data.iterator();
+
+        while (iterator.hasNext()) {
             int min = Collections.min(data);
             data.remove(min);
             result.offer(min);
         }
+
         data.removeAll(data);
         data.addAll(result);
     }

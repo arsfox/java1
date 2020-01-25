@@ -13,14 +13,10 @@ public class CollectionsSort {
             {
                 if (arrayList.get(i) > arrayList.get(j))
                 {
-                    int var = arrayList.get(j);
-                    arrayList.add(j, arrayList.get(i));
-                    arrayList.add(i, var);
+                    Collections.swap((List<?>) data, i, j);
                 }
             }
         }
-        data.removeAll(data);
-        data.addAll(arrayList);
     }
 
     public static void minSort(Collection<Integer> data) {

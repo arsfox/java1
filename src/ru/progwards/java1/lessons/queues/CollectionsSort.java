@@ -13,7 +13,7 @@ public class CollectionsSort {
             {
                 if (arrayList.get(i) > arrayList.get(j))
                 {
-                    Collections.swap((List<?>) data, i, j);
+                    Collections.swap((List<Integer>) data, i, j);
                 }
             }
         }
@@ -33,7 +33,7 @@ public class CollectionsSort {
     }
 
     static void collSort(Collection<Integer> data) {
-
+        Collections.sort((List<Integer>) data);
     }
 
     public static Collection<String> compareSort() {

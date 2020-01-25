@@ -5,15 +5,15 @@ import java.util.*;
 public class CollectionsSort {
 
     public static void mySort(Collection<Integer> data) {
-        ArrayDeque<Integer> list = new ArrayDeque<>(data);
+        ArrayDeque<Integer> result = new ArrayDeque<>();
 
         for(int i = 0; i < data.size(); i++){
-            int min = Collections.min(list);
-            list.remove(min);
-            list.offer(min);
+            int min = Collections.min(data);
+            data.remove(min);
+            result.offer(min);
         }
         data.removeAll(data);
-        data.addAll(list);
+        data.addAll(result);
     }
 
     public static void minSort(Collection<Integer> data) {

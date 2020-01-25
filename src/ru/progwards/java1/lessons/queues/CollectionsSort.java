@@ -12,7 +12,8 @@ public class CollectionsSort {
             list.remove(min);
             list.offer(min);
         }
-        data = list;
+        data.removeAll(data);
+        data.addAll(list);
     }
 
     public static void minSort(Collection<Integer> data) {

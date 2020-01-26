@@ -11,12 +11,13 @@ public class CollectionsSort {
         {
             for (int j = i + 1; j < arrayList.size(); j++)
             {
-                if (arrayList.get(i) > arrayList.get(j))
-                {
-                    Collections.swap((List<Integer>) data, i, j);
-                }
+                System.out.println();
+//                if (arrayList.get(i).compareTo(arrayList.get(j)) > 0) {
+//                    Collections.swap((List<Integer>) data, i, j);
+//                }
             }
         }
+        System.out.println(data);
     }
 
     public static void minSort(Collection<Integer> data) {

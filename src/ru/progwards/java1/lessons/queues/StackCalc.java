@@ -1,13 +1,19 @@
 package ru.progwards.java1.lessons.queues;
 
+import java.util.ArrayDeque;
+
 public class StackCalc {
 
-    public void push(double value) {
+    private ArrayDeque<Double> stack = new ArrayDeque<>();
 
+    public void push(double value) {
+        stack.offerFirst(value);
     }
 
     public double pop() {
-        return 1.0;
+        if(stack.peekFirst() != null) {
+            return stack.pollFirst();
+        }
     }
 
     public void add() {

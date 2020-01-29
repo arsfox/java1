@@ -21,12 +21,20 @@ class Order {
 
 public class OrderQueue {
 
-    ArrayDeque<Order> firstOrdersQueue = new ArrayDeque<>();
-    ArrayDeque<Order> secondOrdersQueue = new ArrayDeque<>();
-    ArrayDeque<Order> thirdOrdersQueue = new ArrayDeque<>();
+    private ArrayDeque<Order> firstOrdersQueue = new ArrayDeque<>();
+    private ArrayDeque<Order> secondOrdersQueue = new ArrayDeque<>();
+    private ArrayDeque<Order> thirdOrdersQueue = new ArrayDeque<>();
 
     public void add(Order order) {
-
+        if(order.getSum() <= 10_000){
+            thirdOrdersQueue.offerLast(order);
+        } else
+        if((order.getSum() > 10_000)&&(order.getSum() <= 20_000)) {
+            secondOrdersQueue.offerLast(order);
+        } else
+        if(order.getSum() > 20_000){
+            firstOrdersQueue.offerLast(order);
+        }
     }
 
     public Order get() {

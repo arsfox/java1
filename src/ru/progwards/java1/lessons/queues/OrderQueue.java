@@ -1,15 +1,6 @@
 package ru.progwards.java1.lessons.queues;
 
-public class OrderQueue {
-
-    public void add(Order order) {
-
-    }
-
-    public Order get() {
-        return new Order(1.0);
-    }
-}
+import java.util.ArrayDeque;
 
 class Order {
     private double sum;
@@ -27,3 +18,28 @@ class Order {
         return this.num;
     }
 }
+
+public class OrderQueue {
+
+    ArrayDeque<Order> firstOrdersQueue = new ArrayDeque<>();
+    ArrayDeque<Order> secondOrdersQueue = new ArrayDeque<>();
+    ArrayDeque<Order> thirdOrdersQueue = new ArrayDeque<>();
+
+    public void add(Order order) {
+
+    }
+
+    public Order get() {
+        if(firstOrdersQueue.peekFirst() != null) {
+            return firstOrdersQueue.pollFirst();
+        } else
+        if(secondOrdersQueue.peekFirst() != null) {
+            return secondOrdersQueue.pollFirst();
+        } else
+        if(thirdOrdersQueue.peekFirst() != null){
+            return thirdOrdersQueue.pollFirst();
+        }
+        return null;
+    }
+}
+

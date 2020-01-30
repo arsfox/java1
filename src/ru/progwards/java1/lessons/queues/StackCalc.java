@@ -11,9 +11,7 @@ public class StackCalc {
     }
 
     public double pop() {
-        if(stack.peekFirst() != null) {
-            return stack.pollFirst();
-        }
+        return stack.pollFirst();
     }
 
     public void add() {

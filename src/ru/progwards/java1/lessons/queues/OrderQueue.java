@@ -3,11 +3,13 @@ package ru.progwards.java1.lessons.queues;
 import java.util.ArrayDeque;
 
 class Order {
+    static int numBuffer = 1;
     private double sum;
     private int num;
 
     public Order(double sum) {
         this.sum = sum;
+        this.num = numBuffer++;
     }
 
     public double getSum() {
@@ -50,4 +52,5 @@ public class OrderQueue {
         return null;
     }
 }
+
 

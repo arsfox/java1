@@ -1,7 +1,11 @@
 package ru.progwards.java1.lessons.maps;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Arseniy on 05.02.2020.
@@ -9,17 +13,43 @@ import java.util.Map;
 public class FiboMapCache {
 
     private Map<Integer, BigDecimal> fiboCache;
+    private boolean cacheOn = false;
 
     public FiboMapCache(boolean cacheOn) {
+        this.cacheOn = cacheOn;
+        fiboCache = new HashMap<>();
 
     }
 
     public BigDecimal fiboNumber(int n) {
+        if(cacheOn) {
+            return
+        }
         return null;
     }
 
     public void clearCahe() {
 
+    }
+
+    private static BigDecimal fibonacci(int n) {
+
+        BigInteger n0 = new BigInteger("1");
+        BigInteger n1 = new BigInteger("1");
+        BigInteger n2 = new BigInteger("0");
+
+        if (n < 0){
+            return new BigDecimal("0");
+        } else if(n == 1 || n == 2) {
+            return new BigDecimal("1");
+        } else {
+            for(int i = 3; i <= n; i++){
+                n2 = n0.add(n1);
+                n0 = n1;
+                n1 = n2;
+            }
+            return new BigDecimal(n2);
+        }
     }
 
     public static void test() {

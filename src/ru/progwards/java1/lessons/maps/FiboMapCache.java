@@ -13,23 +13,29 @@ import java.util.Set;
 public class FiboMapCache {
 
     private Map<Integer, BigDecimal> fiboCache;
-    private boolean cacheOn = false;
+    private boolean cacheOn;
 
     public FiboMapCache(boolean cacheOn) {
         this.cacheOn = cacheOn;
         fiboCache = new HashMap<>();
-
     }
 
     public BigDecimal fiboNumber(int n) {
         if(cacheOn) {
-            return null;
+            if(fiboCache.containsKey(n)){
+                return fiboCache.get(n);
+            } else {
+                BigDecimal dm = fibonacci(n);
+                fiboCache.put(n, dm);
+                return dm;
+            }
+        } else {
+            return fibonacci(n);
         }
-        return null;
     }
 
     public void clearCahe() {
-
+        fiboCache.clear();
     }
 
     private static BigDecimal fibonacci(int n) {

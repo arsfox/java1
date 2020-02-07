@@ -23,7 +23,7 @@ public class FiboMapCache {
 
     public BigDecimal fiboNumber(int n) {
         if(cacheOn) {
-            return
+            return null;
         }
         return null;
     }

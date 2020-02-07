@@ -48,7 +48,6 @@ public class UsageFrequency {
                 }
 
             }
-            System.out.println(words);
             bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,14 +55,22 @@ public class UsageFrequency {
     }
 
     public Map<Character, Integer> getLetters() {
-        Map<String, Integer> lettersCounter = new HashMap<String, Integer>();
-        HashSet<Character> letters = new HashSet<>();
-//        for(letters)
-        return null;
+        Map<Character, Integer> lettersCounter = new HashMap<>();
+        for (String word : words) {
+            for (char a : word.toCharArray()) {
+                if(lettersCounter.containsKey(a)){
+                    int count = lettersCounter.get(a);
+                    lettersCounter.put(a, count + 1);
+                } else {
+                    lettersCounter.put(a, 1);
+                }
+            }
+        }
+        return lettersCounter;
     }
 
     public Map<String, Integer> getWords() {
-        Map<String, Integer> wordsCounter = new HashMap<String, Integer>();
+        Map<String, Integer> wordsCounter = new HashMap<>();
 
         for (String word : words) {
             if(wordsCounter.containsKey(word)){
@@ -85,7 +92,7 @@ public class UsageFrequency {
 
     public static void main(String[] args) {
         UsageFrequency a = new UsageFrequency();
-        a.processFile("wiki.test.tokens");
-        System.out.println(a.getWords());
+        a.processFile("wiki.train.tokens");
+        System.out.println(a.getLetters());
     }
 }

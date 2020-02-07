@@ -14,22 +14,6 @@ public class UsageFrequency {
     private ArrayList<String> words = new ArrayList<>();
 
     public void processFile(String fileName) {
-//        try {
-//            FileReader fileReader = new FileReader(fileName);
-//            Scanner scanner = new Scanner(fileReader);
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                String[] bufferWordsSymbols = line.split(" ");
-//
-//                for (String word : bufferWordsSymbols) {
-//                    String clearWord = clearOut(word);
-//                        System.out.println(clearWord);
-//                }
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             int symbol = bufferedReader.read();
@@ -46,7 +30,6 @@ public class UsageFrequency {
                         bufferWord = "";
                     }
                 }
-
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -79,13 +62,6 @@ public class UsageFrequency {
             } else {
                 wordsCounter.put(word, 1);
             }
-//            int counter = 1;
-//            for (String wordSearch : words) {
-//                if(wordSearch.equals(word)){
-//                    counter ++;
-//                }
-//            }
-//            wordsCounter.putIfAbsent(word, counter);
         }
         return wordsCounter;
     }

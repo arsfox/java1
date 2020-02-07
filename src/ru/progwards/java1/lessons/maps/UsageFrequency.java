@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Arseniy on 05.02.2020.
@@ -59,24 +56,36 @@ public class UsageFrequency {
     }
 
     public Map<Character, Integer> getLetters() {
+        Map<String, Integer> lettersCounter = new HashMap<String, Integer>();
+        HashSet<Character> letters = new HashSet<>();
+//        for(letters)
         return null;
     }
 
     public Map<String, Integer> getWords() {
-        return null;
-    }
+        Map<String, Integer> wordsCounter = new HashMap<String, Integer>();
 
-    private static String clearOut (String s) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            if (Character .isLetterOrDigit(s.charAt(i)))
-                sb.append(s.charAt(i));
+        for (String word : words) {
+            if(wordsCounter.containsKey(word)){
+                int count = wordsCounter.get(word);
+                wordsCounter.put(word, count + 1);
+            } else {
+                wordsCounter.put(word, 1);
+            }
+//            int counter = 1;
+//            for (String wordSearch : words) {
+//                if(wordSearch.equals(word)){
+//                    counter ++;
+//                }
+//            }
+//            wordsCounter.putIfAbsent(word, counter);
         }
-        return sb.toString();
+        return wordsCounter;
     }
 
     public static void main(String[] args) {
         UsageFrequency a = new UsageFrequency();
         a.processFile("wiki.test.tokens");
+        System.out.println(a.getWords());
     }
 }

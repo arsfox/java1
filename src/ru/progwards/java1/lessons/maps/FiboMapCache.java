@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static java.lang.System.currentTimeMillis;
+
 /**
  * Created by Arseniy on 05.02.2020.
  */
@@ -59,6 +61,17 @@ public class FiboMapCache {
     }
 
     public static void test() {
+        long start;
+        FiboMapCache f;
 
+        start = currentTimeMillis();
+        f = new FiboMapCache(false);
+        for (int i = 1; i <= 1000; i++) f.fiboNumber(i);
+        System.out.println("fiboNumber cacheOn=" + false + " время выполнения " + (currentTimeMillis() - start));
+
+        start = currentTimeMillis();
+        f = new FiboMapCache(true);
+        for (int i = 1; i <= 1000; i++) f.fiboNumber(i);
+        System.out.println("fiboNumber cacheOn=" + true + " время выполнения " + (currentTimeMillis() - start));
     }
 }

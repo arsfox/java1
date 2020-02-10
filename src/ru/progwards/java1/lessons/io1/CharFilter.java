@@ -12,7 +12,6 @@ public class CharFilter {
         FileReader fileReader = new FileReader(inFileName);
         FileWriter writer = new FileWriter(outFileName, false);
         try {
-
         Scanner scanner = new Scanner(fileReader);
         String outFileString = "";
         while ((scanner.hasNextLine())) {

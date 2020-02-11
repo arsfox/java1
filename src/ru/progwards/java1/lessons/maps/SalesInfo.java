@@ -31,7 +31,7 @@ public class SalesInfo {
                     Double priceGood = getDouble(lineSeparator[3]);
                     if(countGood != -1 && priceGood != -1d){
                         this.addGood(lineSeparator[1], countGood, priceGood);
-                        this.addCustomers(lineSeparator[1], countGood, priceGood);
+                        this.addCustomers(lineSeparator[0], countGood, priceGood);
                         successLoadingLine++;
                     }
                 }

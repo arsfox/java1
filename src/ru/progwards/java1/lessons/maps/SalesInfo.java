@@ -15,7 +15,7 @@ public class SalesInfo {
 
     public SalesInfo() {
         goods = new TreeMap<>();
-        customers = new HashMap<>();
+        customers = new TreeMap<>();
     }
 
     public int loadOrders(String fileName) {
@@ -72,11 +72,15 @@ public class SalesInfo {
         }
     }
 
+    private void addCustomers(){
+
+    }
+
     public Map<String, Double> getGoods() {
         return this.goods;
     }
 
     public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers() {
-        return null;
+        return this.customers;
     }
 }

@@ -31,6 +31,7 @@ public class SalesInfo {
                     Double priceGood = getDouble(lineSeparator[3]);
                     if(countGood != -1 && priceGood != -1d){
                         this.addGood(lineSeparator[1], countGood, priceGood);
+                        this.addCustomers(lineSeparator[1], countGood, priceGood);
                         successLoadingLine++;
                     }
                 }
@@ -72,8 +73,18 @@ public class SalesInfo {
         }
     }
 
-    private void addCustomers(){
-
+    private void addCustomers(String name, int count, double price) {
+        if(customers.containsKey(name)) {
+            AbstractMap.SimpleEntry<Double, Integer> customer = customers.get(name);
+            Double summ = customer.getKey();
+            Integer counter = customer.getValue();
+            counter += count;
+            summ += count * price;
+            customers.put(name, new AbstractMap.SimpleEntry<>(summ, counter));
+        } else {
+            Double summ = count * price;
+            customers.put(name, new AbstractMap.SimpleEntry<>(summ, count));
+        }
     }
 
     public Map<String, Double> getGoods() {

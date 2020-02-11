@@ -14,7 +14,7 @@ public class SalesInfo {
     Map<String, AbstractMap.SimpleEntry<Double, Integer>> customers;
 
     public SalesInfo() {
-        goods = new HashMap<>();
+        goods = new TreeMap<>();
         customers = new HashMap<>();
     }
 
@@ -27,13 +27,18 @@ public class SalesInfo {
                 String lineText = scanner.nextLine();
                 String[] lineSeparator = lineText.split(", ", 4);
                 if(lineSeparator.length == 4) {
-                    System.out.println(Arrays.toString(lineSeparator));
+                    int countGood = getInt(lineSeparator[2]);
+                    Double priceGood = getDouble(lineSeparator[3]);
+                    if(countGood != -1 && priceGood != -1d){
+                        this.addGood(lineSeparator[1], countGood, priceGood);
+                        successLoadingLine++;
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return successLoadingLine;
     }
 
     private int getInt(String string) {
@@ -46,8 +51,29 @@ public class SalesInfo {
         return -1;
     }
 
+    private Double getDouble(String string) {
+        try {
+            Double num = Double.valueOf(string);
+            return num;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1d;
+    }
+
+    private void addGood(String name, int count, double price) {
+        if(goods.containsKey(name)){
+            Double summ = goods.get(name);
+            summ += price * count;
+            goods.put(name, summ);
+        } else {
+            Double summ = price * count;
+            goods.put(name, summ);
+        }
+    }
+
     public Map<String, Double> getGoods() {
-        return null;
+        return this.goods;
     }
 
     public Map<String, AbstractMap.SimpleEntry<Double, Integer>> getCustomers() {

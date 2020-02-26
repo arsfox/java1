@@ -25,7 +25,7 @@ public class SessionManager {
     }
 
     public UserSession get(int sessionHandle) {
-
+        return null;
     }
 
     public void delete(int sessionHandle) {

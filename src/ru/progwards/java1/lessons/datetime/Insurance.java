@@ -54,8 +54,9 @@ public class Insurance {
                 this.duration = Duration.ofMillis(Integer.parseInt(strDuration));
                 break;
             case LONG:
-                LocalDateTime ltd = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-//                this.duration =
+                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME).plusMonths(1).plusDays(1);;
+                LocalDateTime localDateTimeZero = LocalDateTime.parse("0000-01-01T00:00:00");
+                this.duration = Duration.between(localDateTimeZero, localDateTime);
                 break;
             case FULL:
 

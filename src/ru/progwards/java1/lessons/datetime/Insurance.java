@@ -54,22 +54,33 @@ public class Insurance {
                 this.duration = Duration.ofMillis(Integer.parseInt(strDuration));
                 break;
             case LONG:
-                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME).plusMonths(1).plusDays(1);;
+                LocalDateTime localDateTime = LocalDateTime.parse(strDuration, DateTimeFormatter.ISO_LOCAL_DATE_TIME).plusMonths(1).plusDays(1);
                 LocalDateTime localDateTimeZero = LocalDateTime.parse("0000-01-01T00:00:00");
                 this.duration = Duration.between(localDateTimeZero, localDateTime);
                 break;
             case FULL:
-
+                this.duration = Duration.parse(strDuration);
                 break;
         }
     }
 
     public boolean checkValid(ZonedDateTime dateTime) {
+        if(this.duration == null) return false;
+        if(dateTime.isAfter(start)) {
+            if(dateTime.isBefore(start.plus(duration))){
+                return true;
+            }
+        }
         return false;
     }
 
     public String toString() {
-        return  "Insurance issued on is valid";
+//        return "Insurance issued on " + start + " is " + (checkValid(ZonedDateTime.now()) ? "" : "not ") + "valid";
+        String validStr = " is not valid";
+        if(checkValid(ZonedDateTime.now())) {
+            validStr = " is valid";
+        }
+        return "Insurance issued on " + start + validStr;
     }
 
 

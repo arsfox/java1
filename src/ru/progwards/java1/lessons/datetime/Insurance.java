@@ -75,10 +75,9 @@ public class Insurance {
     }
 
     public String toString() {
-//        return "Insurance issued on " + start + " is " + (checkValid(ZonedDateTime.now()) ? "" : "not ") + "valid";
-        String validStr = " is not valid";
+        String validStr = " is valid";
         if(checkValid(ZonedDateTime.now())) {
-            validStr = " is valid";
+            validStr = " is not valid";
         }
         return "Insurance issued on " + start + validStr;
     }

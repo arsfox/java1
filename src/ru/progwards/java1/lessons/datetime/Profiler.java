@@ -12,10 +12,10 @@ public class Profiler {
 //    public static List<StatisticInfo> statisticInfo = new ArrayList<>();
 
     static HashMap<String, StatisticInfo> statisticInfoHashMap = new HashMap<>();
-    static HashMap<String, Integer> sections = new HashMap<>();
+    static HashMap<String, Statistic> sections = new HashMap<>();
 
     public static void enterSection(String name) {
-        sections.put(name, (int) System.currentTimeMillis());
+
 
     }
 
@@ -48,10 +48,11 @@ public class Profiler {
 
 }
 
-class StatisticInfoManager {
+
+class Statistic {
+    String name;
     Integer time;
-    public StatisticInfo statisticInfo;
-    public List<StatisticInfoManager> statisticInfoManagerChildren;
+    HashMap<String, Statistic> statistic;
 }
 
 class StatisticInfo {

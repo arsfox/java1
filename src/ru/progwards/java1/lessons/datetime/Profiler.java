@@ -25,22 +25,24 @@ public class Profiler {
     }
 
     public static void exitSection(String name) {
-        int time = (int) (System.currentTimeMillis() - sections.get(name).startTime);
+        Statistic s = sections.get(name);
+        int time = (int) (System.currentTimeMillis() - s.startTime);
 
         if(statisticInfoHashMap.containsKey(name)){
             StatisticInfo stf = statisticInfoHashMap.get(name);
             stf.fullTime += time;
-            stf.selfTime += time;
+            stf.selfTime += time - s.childrenSumTime;
             stf.count += 1;
         } else {
-            StatisticInfo s = new StatisticInfo();
-            s.sectionName = name;
-            s.fullTime = time;
-            s.selfTime = time;
-            s.count = 1;
+            StatisticInfo sinfo = new StatisticInfo();
+            sinfo.sectionName = name;
+            sinfo.fullTime = time;
+            sinfo.selfTime = time;
+            sinfo.count = 1;
             statisticInfoHashMap.put(name, s);
         }
 
+        addChildrenTime(s.parentName, time);
         sections.remove(name);
         sectionsNameStack.remove(name);
     }
@@ -57,9 +59,11 @@ public class Profiler {
     }
 
     private static void addChildrenTime(String name, int time) {
-        Statistic s = sections.get(name);
-        s.childrenSumTime += time;
-        sections.put(name, s);
+        if(sections.containsKey(name)){
+            Statistic s = sections.get(name);
+            s.childrenSumTime += time;
+            sections.put(name, s);
+        }
     }
 
 }

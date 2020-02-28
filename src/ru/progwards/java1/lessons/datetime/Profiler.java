@@ -12,8 +12,6 @@ import static java.lang.Thread.sleep;
  */
 public class Profiler {
 
-//    public static List<StatisticInfo> statisticInfo = new ArrayList<>();
-
     static HashMap<String, StatisticInfo> statisticInfoHashMap = new HashMap<>();
     static HashMap<String, Statistic> sections = new HashMap<>();
     static List<String> sectionsNameStack = new ArrayList<>();
@@ -74,22 +72,30 @@ public class Profiler {
         }
     }
 
-//    public static void main(String[] args) throws InterruptedException {
-//        enterSection("s1");
-//        sleep(100);
-//        enterSection("s2");
-//        sleep(200);
-//        exitSection("s2");
-//        enterSection("s2");
-//        sleep(200);
-//        exitSection("s2");
-////        enterSection("s2");
-////        sleep(200);
-////        exitSection("s2");
-////        sleep(100);
-//        exitSection("s1");
-//        System.out.println(getStatisticInfo());
-//    }
+    public static void main(String[] args) throws InterruptedException {
+        enterSection("s1");
+        sleep(100);
+            enterSection("s2");
+            sleep(200);
+            exitSection("s2");
+            enterSection("s2");
+            sleep(200);
+                enterSection("s3");
+                sleep(200);
+                    enterSection("s4");
+                    sleep(200);
+                    exitSection("s4");
+                sleep(200);
+                exitSection("s3");
+            sleep(200);
+            exitSection("s2");
+            enterSection("s2");
+            sleep(200);
+            exitSection("s2");
+        sleep(100);
+        exitSection("s1");
+        System.out.println(getStatisticInfo());
+    }
 }
 
 class Statistic {
@@ -105,8 +111,8 @@ class StatisticInfo {
     public int selfTime;
     public int count;
 
-//    @Override
-//    public String toString() {
-//        return "\n"+sectionName + " total: " + fullTime + " self: " + selfTime + " count: " + count;
-//    }
+    @Override
+    public String toString() {
+        return "\n"+sectionName + " total: " + fullTime + " self: " + selfTime + " count: " + count;
+    }
 }

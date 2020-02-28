@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by Arseniy on 25.02.2020.
  */
@@ -50,15 +52,18 @@ public class Profiler {
     }
 
     public static List<StatisticInfo> getStatisticInfo() {
+        for (Map.Entry s : statisticInfoHashMap.entrySet()) {
+            statisticInfo.add((StatisticInfo) s.getValue());
+        }
 
-        return new ArrayList<>();
+        return statisticInfo;
     }
 
     private static String getParent() {
-        for (Map.Entry s : statisticInfoHashMap.entrySet()) {
-            statisticInfo.add((StatisticInfo) s);
+        if(sectionsNameStack.size() > 0) {
+            return sectionsNameStack.get(sectionsNameStack.size() - 1);
         }
-            return null;
+        return null;
     }
 
     private static void addChildrenTime(String name, int time) {
@@ -67,6 +72,23 @@ public class Profiler {
             s.childrenSumTime += time;
             sections.put(name, s);
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        enterSection("s1");
+        sleep(100);
+        enterSection("s2");
+        sleep(200);
+        exitSection("s2");
+        enterSection("s2");
+        sleep(200);
+        exitSection("s2");
+//        enterSection("s2");
+//        sleep(200);
+//        exitSection("s2");
+//        sleep(100);
+        exitSection("s1");
+        System.out.println(getStatisticInfo());
     }
 }
 
@@ -82,4 +104,9 @@ class StatisticInfo {
     public int fullTime;
     public int selfTime;
     public int count;
+
+    @Override
+    public String toString() {
+        return "\n"+sectionName + " total: " + fullTime + " self: " + selfTime + " count: " + count;
+    }
 }

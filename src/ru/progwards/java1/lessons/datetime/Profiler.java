@@ -72,30 +72,24 @@ public class Profiler {
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        enterSection("s1");
-        sleep(100);
-            enterSection("s2");
-            sleep(200);
-            exitSection("s2");
-            enterSection("s2");
-            sleep(200);
-                enterSection("s3");
-                sleep(200);
-                    enterSection("s4");
-                    sleep(200);
-                    exitSection("s4");
-                sleep(200);
-                exitSection("s3");
-            sleep(200);
-            exitSection("s2");
-            enterSection("s2");
-            sleep(200);
-            exitSection("s2");
-        sleep(100);
-        exitSection("s1");
-        System.out.println(getStatisticInfo());
-    }
+//    public static void main(String[] args) throws InterruptedException {
+//        enterSection("Process2");
+//        sleep(200);
+//        exitSection("Process2");
+//
+//        enterSection("Process2");
+//        sleep(200);
+//        exitSection("Process2");
+//
+//        enterSection("Process2");
+//        sleep(200);
+//        exitSection("Process2");
+////        enterSection("Process1");
+////        sleep(100);
+////        sleep(100);
+////        exitSection("Process1");
+//        System.out.println(getStatisticInfo());
+//    }
 }
 
 class Statistic {

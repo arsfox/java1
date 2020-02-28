@@ -39,7 +39,7 @@ public class Profiler {
             StatisticInfo sinfo = new StatisticInfo();
             sinfo.sectionName = name;
             sinfo.fullTime = time;
-            sinfo.selfTime = time;
+            sinfo.selfTime += time - s.childrenSumTime;
             sinfo.count = 1;
             statisticInfoHashMap.put(name, sinfo);
         }
@@ -72,24 +72,42 @@ public class Profiler {
         }
     }
 
-//    public static void main(String[] args) throws InterruptedException {
-//        enterSection("Process2");
-//        sleep(200);
-//        exitSection("Process2");
+    public static void main(String[] args) throws InterruptedException {
+        enterSection("Process1");
+        sleep(100);
+
+            enterSection("Process2");
+            sleep(200);
+            exitSection("Process2");
+
+            enterSection("Process2");
+            sleep(200);
+            exitSection("Process2");
+
+            enterSection("Process2");
+            sleep(200);
+
+                enterSection("Process3");
+                sleep(200);
+                exitSection("Process3");
+
+            exitSection("Process2");
+
+        sleep(100);
+        exitSection("Process1");
+
+//        enterSection("Process1");
+//        sleep(100);
 //
-//        enterSection("Process2");
-//        sleep(200);
-//        exitSection("Process2");
+//        enterSection("Process3");
+//        sleep(300);
+//        exitSection("Process3");
 //
-//        enterSection("Process2");
-//        sleep(200);
-//        exitSection("Process2");
-////        enterSection("Process1");
-////        sleep(100);
-////        sleep(100);
-////        exitSection("Process1");
-//        System.out.println(getStatisticInfo());
-//    }
+//        sleep(100);
+//        exitSection("Process1");
+
+        System.out.println(getStatisticInfo());
+    }
 }
 
 class Statistic {

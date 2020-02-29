@@ -1,30 +1,35 @@
 package ru.progwards.java1.lessons.datetime;
 
+import sun.invoke.empty.Empty;
+
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Arseniy on 25.02.2020.
  */
 public class SessionManager {
 
-    private TreeMap<Integer, UserSession> sessionHandleCollection;
-    private TreeMap<String, UserSession> sessionUserNameCollection;
+    private TreeMap<Integer, UserSession> sessionCollection;
+
     private int sessionValid;
 
     public SessionManager(int sessionValid) {
-
+        this.sessionValid = sessionValid;
+        sessionCollection = new TreeMap<>();
     }
 
     public void add(UserSession userSession) {
-
-
+        sessionCollection.put(userSession.getSessionHandle(), userSession);
     }
 
     public UserSession find(String userName) {
+        for(Map.Entry s : this.sessionCollection.entrySet()) {
+            UserSession us = (UserSession) s.getValue();
+            if(us.getUserName().equals(userName)) {
+
+            }
+        }
         return new UserSession("");
     }
 
@@ -66,5 +71,9 @@ class UserSession {
 
     public void updateLastAccess() {
         this.lastAccess = LocalDateTime.now();
+    }
+
+    public boolean isValid(int sessionValid) {
+        return lastAccess.plusSeconds(sessionValid).isAfter(LocalDateTime.now());
     }
 }

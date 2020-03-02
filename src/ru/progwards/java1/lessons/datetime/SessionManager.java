@@ -28,7 +28,6 @@ public class SessionManager {
             UserSession us = (UserSession) s.getValue();
             if(us.getUserName().equals(userName)) {
                 us.updateLastAccess();
-                sessionCollection.put(us.getSessionHandle(), us);
                 return us;
             }
         }
@@ -40,7 +39,6 @@ public class SessionManager {
         if(us != null){
             if (us.isValid(sessionValid)) {
                 us.updateLastAccess();
-                this.sessionCollection.put(us.getSessionHandle(), us);
                 return us;
             }
         }
@@ -52,12 +50,19 @@ public class SessionManager {
     }
 
     public void deleteExpired() {
-        for(Map.Entry s : this.sessionCollection.entrySet()) {
-            UserSession us = (UserSession) s.getValue();
+        Iterator<Map.Entry<Integer, UserSession>> usb = this.sessionCollection.entrySet().iterator();
+        while (usb.hasNext()) {
+            UserSession us = usb.next().getValue();
             if (!us.isValid(sessionValid)) {
-                this.sessionCollection.remove(us.getSessionHandle());
+                usb.remove();
             }
         }
+//        for(Map.Entry s : this.sessionCollection.entrySet()) {
+//            UserSession us = (UserSession) s.getValue();
+//            if (!us.isValid(sessionValid)) {
+//                this.sessionCollection.remove(us.getSessionHandle());
+//            }
+//        }
     }
 
     public static void main(String[] args) {

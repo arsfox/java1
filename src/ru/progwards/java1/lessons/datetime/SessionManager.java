@@ -5,6 +5,7 @@ import java.util.*;
 
 import static java.lang.Thread.sleep;
 
+
 /**
  * Created by Arseniy on 25.02.2020.
  */
@@ -62,13 +63,13 @@ public class SessionManager {
     }
 
     public static void main(String[] args) throws Exception {
-        SessionManager mgr = new SessionManager(1);
+        SessionManager mgr = new SessionManager(3);
         UserSession u1 = new UserSession("user");
         if (mgr.find("user") == null) mgr.add(u1);
 //        System.out.println(mgr.get(u1.getSessionHandle()));
 //        System.out.println(mgr.get(u1.getSessionHandle()));
 //        System.out.println(mgr.get(u1.getSessionHandle()));
-        sleep(3);
+        sleep(2000);
         System.out.println(mgr.get(u1.getSessionHandle()));
     }
 }

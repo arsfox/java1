@@ -51,9 +51,11 @@ public class Profiler {
 
     public static List<StatisticInfo> getStatisticInfo() {
         for (Map.Entry s : statisticInfoHashMap.entrySet()) {
-            statisticInfo.add((StatisticInfo) s.getValue());
+            StatisticInfo si = (StatisticInfo) s.getValue();
+            if(!statisticInfo.contains(si)) {
+                statisticInfo.add((StatisticInfo) s.getValue());
+            }
         }
-
         return statisticInfo;
     }
 
@@ -106,7 +108,7 @@ public class Profiler {
 //        sleep(100);
 //        exitSection("Process1");
 
-        System.out.println(getStatisticInfo());
+//        System.out.println(getStatisticInfo());
     }
 }
 

@@ -6,6 +6,7 @@ import java.util.*;
 /**
  * Created by Arseniy on 25.02.2020.
  */
+
 public class SessionManager {
 
     private TreeMap<Integer, UserSession> sessionCollection;

@@ -3,8 +3,6 @@ package ru.progwards.java1.lessons.datetime;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static java.lang.Thread.sleep;
-
 
 /**
  * Created by Arseniy on 25.02.2020.
@@ -69,7 +67,6 @@ public class SessionManager {
 //        System.out.println(mgr.get(u1.getSessionHandle()));
 //        System.out.println(mgr.get(u1.getSessionHandle()));
 //        System.out.println(mgr.get(u1.getSessionHandle()));
-        sleep(2000);
         System.out.println(mgr.get(u1.getSessionHandle()));
     }
 }

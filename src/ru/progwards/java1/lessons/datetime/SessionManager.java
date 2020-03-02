@@ -62,7 +62,7 @@ public class SessionManager {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SessionManager mgr = new SessionManager(3);
         UserSession u1 = new UserSession("user");
         if (mgr.find("user") == null) mgr.add(u1);

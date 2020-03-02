@@ -3,6 +3,8 @@ package ru.progwards.java1.lessons.datetime;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by Arseniy on 25.02.2020.
  */
@@ -37,9 +39,11 @@ public class SessionManager {
     public UserSession get(int sessionHandle) {
         UserSession us = this.sessionCollection.get(sessionHandle);
         if(us != null){
-            us.updateLastAccess();
-            this.sessionCollection.put(us.getSessionHandle(), us);
-            return us;
+            if (us.isValid(sessionValid)) {
+                us.updateLastAccess();
+                this.sessionCollection.put(us.getSessionHandle(), us);
+                return us;
+            }
         }
         return null;
     }
@@ -58,13 +62,14 @@ public class SessionManager {
     }
 
     public static void main(String[] args) throws Exception {
-        SessionManager mgr = new SessionManager(3);
+        SessionManager mgr = new SessionManager(1);
         UserSession u1 = new UserSession("user");
         if (mgr.find("user") == null) mgr.add(u1);
+//        System.out.println(mgr.get(u1.getSessionHandle()));
+//        System.out.println(mgr.get(u1.getSessionHandle()));
+//        System.out.println(mgr.get(u1.getSessionHandle()));
+        sleep(3);
         System.out.println(mgr.get(u1.getSessionHandle()));
-        System.out.println(mgr.get(u1.getSessionHandle()));
-        System.out.println(mgr.get(u1.getSessionHandle()));
-
     }
 }
 

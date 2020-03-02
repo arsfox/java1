@@ -27,22 +27,35 @@ public class SessionManager {
         for(Map.Entry s : this.sessionCollection.entrySet()) {
             UserSession us = (UserSession) s.getValue();
             if(us.getUserName().equals(userName)) {
-
+                us.updateLastAccess();
+                sessionCollection.put(us.getSessionHandle(), us);
+                return us;
             }
         }
-        return new UserSession("");
+        return null;
     }
 
     public UserSession get(int sessionHandle) {
+        UserSession us = this.sessionCollection.get(sessionHandle);
+        if(us != null){
+            us.updateLastAccess();
+            this.sessionCollection.put(us.getSessionHandle(), us);
+            return us;
+        }
         return null;
     }
 
     public void delete(int sessionHandle) {
-
+        this.sessionCollection.remove(sessionHandle);
     }
 
     public void deleteExpired() {
-
+        for(Map.Entry s : this.sessionCollection.entrySet()) {
+            UserSession us = (UserSession) s.getValue();
+            if (!us.isValid(sessionValid)) {
+                this.sessionCollection.remove(us.getSessionHandle());
+            }
+        }
     }
 }
 

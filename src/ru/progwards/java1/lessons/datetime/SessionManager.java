@@ -56,6 +56,16 @@ public class SessionManager {
             }
         }
     }
+
+    public static void main(String[] args) throws Exception {
+        SessionManager mgr = new SessionManager(3);
+        UserSession u1 = new UserSession("user");
+        if (mgr.find("user") == null) mgr.add(u1);
+        System.out.println(mgr.get(u1.getSessionHandle()));
+        System.out.println(mgr.get(u1.getSessionHandle()));
+        System.out.println(mgr.get(u1.getSessionHandle()));
+
+    }
 }
 
 class UserSession {
@@ -87,5 +97,10 @@ class UserSession {
 
     public boolean isValid(int sessionValid) {
         return lastAccess.plusSeconds(sessionValid).isAfter(LocalDateTime.now());
+    }
+
+    @Override
+    public String toString() {
+        return userName + " " + sessionHandle + " " + lastAccess;
     }
 }

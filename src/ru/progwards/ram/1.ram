@@ -1,86 +1,103 @@
-<input> 5 4 4 2 1 5
+<input> 5 2 1 5 5 60
+; 1 - count const
+; 2 - lobal:  only for nextersloop
+; 3 - counter
+; 4 - i
+; 5 - j 
+; 6 - buffer
 
-; 1 - lobal: count only for nextersloop
-; 2 - counter
-; 3 - i
-; 4 - j 
-; 5 - buffer
-
-read 1 
-load 1 
+read 1
+load 1
 store 1
-sub =1
 store 2
-add =2
-store 3  
-load =6
+sub =1
+store 3
+
+load =7
 store 4
-load =0
+load =8
 store 5
+load =0
+store 6
 
 loader:
   read *4
   load 4
   add =1
   store 4
-  load 1
+  load 2
   sub =1
-  store 1
+  store 2
   jgtz loader
 
-load 2
-store 1
-load =6
+load 1
+sub =1
+store 2
 store 3
-add =1
+
+load =6
 store 4
+add =1
+store 5
 
 loopFirst:
-  load *3
-  sub *4
+  load *4
+  sub *5
   ;
   jgtz replacerForLoopFirst
   jmp incrimentor
 
 incrimentor:
   ;incriment j counter
-  load 4
+  load 5
   add =1
-  store 4
+  store 5
   ;dicrement array counter 
-  load 2
+  load 3
   sub =1
   jz nextersloop
-  store 2
+  store 3
   jgtz loopFirst
 
 replacerForLoopFirst:
-  load *3
-  store 5
   load *4
-  store *3
-  load 5
+  store 6
+  load *5
   store *4
+  load 6
+  store *5
   load =0
-  store 5
+  store 6
   jmp incrimentor
 
 nextersloop:
   ;restore i and j
-  load 3
-  add =1
-  store 3
-  ;load 4
+  load 4
   add =1
   store 4
+  ;load 5
+  add =1
+  store 5
   ;incriment global and local counter
-  load 1
+  load 2
   sub =1
-  store 1
   store 2
+  store 3
   jz exit
   jgtz loopFirst
   
 exit:
+  load =7
+  store 4
+  
+export:
+  write *4
+  load 4
+  add =1
+  store 4
+  load 1
+  sub =1
+  store 1
+  jgtz export
   halt
   

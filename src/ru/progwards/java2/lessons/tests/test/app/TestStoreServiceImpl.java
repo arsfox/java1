@@ -6,6 +6,7 @@ import ru.progwards.java2.lessons.tests.app.model.Account;
 import ru.progwards.java2.lessons.tests.app.service.impl.StoreServiceImpl;
 
 import java.util.Collection;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -29,15 +30,10 @@ public class TestStoreServiceImpl {
     public void testAccountGet() {
         for(Account acc : accounts) {
             assertTrue(acc.getId().length() > 0);
-            assertTrue(acc.getId() instanceof String);
-
             assertTrue(acc.getHolder().length() > 0);
-            assertTrue(acc.getHolder() instanceof String);
-
             assertTrue(acc.getAmount() >= 0.0);
-
-//            Double amount =
-//            acc.setAmount(1.111666);
+            assertTrue(acc.getDate() instanceof Date);
+            assertTrue(acc.getPin() >= 1000);
         }
     }
 }

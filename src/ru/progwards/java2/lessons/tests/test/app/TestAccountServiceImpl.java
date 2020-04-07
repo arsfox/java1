@@ -61,4 +61,24 @@ public class TestAccountServiceImpl {
         assertTrue(amoumtAfterWithdraw.compareTo(summAcc - summ) == 0);
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testTransferExeption() {
+        Account accExpected = (Account) storeServiceImpl.get().toArray()[new Random().nextInt(storeServiceImpl.get().size())];
+        Account acc = (Account) storeServiceImpl.get().toArray()[new Random().nextInt(storeServiceImpl.get().size())];
+        accountServiceImpl.transfer(accExpected, acc, Double.MAX_VALUE);
+    }
+
+    @Test
+    public void testTransfer() {
+        Double transferSumm = Math.random()*1_000_000;
+        Account accExpected = (Account) storeServiceImpl.get().toArray()[new Random().nextInt(storeServiceImpl.get().size())];
+        Double summExpected = accExpected.getAmount() + transferSumm;
+        Account acc = (Account) storeServiceImpl.get().toArray()[new Random().nextInt(storeServiceImpl.get().size())];
+        acc.setAmount(transferSumm);
+
+        accountServiceImpl.transfer(acc, accExpected, transferSumm);
+
+        assertTrue(summExpected.compareTo(accExpected.getAmount()) == 0);
+    }
+
 }

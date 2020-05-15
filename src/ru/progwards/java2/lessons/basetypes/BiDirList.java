@@ -39,10 +39,28 @@ public class BiDirList<T> implements Iterable<T>{
 
     public void addLast(T item) { // - добавить в конец списка
         BiDirItem<T> bdItem = new BiDirItem<T>(item);
+        if(head == null){
+            head = bdItem;
+            tail = bdItem;
+        } else {
+            BiDirItem<T> tail_buffer = tail;
+            tail.setNext(bdItem);
+            tail = bdItem;
+            tail.setPrev(tail_buffer);
+        }
     }
 
     public void addFirst(T item) { //- добавить в начало списка
-
+        BiDirItem<T> bdItem = new BiDirItem<T>(item);
+        if(head == null){
+            head = bdItem;
+            tail = bdItem;
+        } else {
+            BiDirItem<T> head_buffer = head;
+            head.setPrev(bdItem);
+            head = bdItem;
+            head.setNext(head_buffer);
+        }
     }
 
     public void remove(T item){ // - удалить

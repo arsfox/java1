@@ -17,13 +17,8 @@ public class DynamicArray<T>  {
 
     public void add(T item) {
         updateArray();
-        if(array==null){
-            array[offset++] = item;
-            length++;
-        } else {
-            add(item);
-        }
-
+        array[offset++] = item;
+        length++;
     }
 
     public void insert(int pos, T item ){

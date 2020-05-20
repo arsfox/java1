@@ -1,5 +1,4 @@
 package ru.progwards.java2.lessons.basetypes;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class BiDirList<T>  {
@@ -88,13 +87,13 @@ public class BiDirList<T>  {
         int count = 0;
         BiDirItem<T> bditem = head;
         while (bditem.next != null) {
-            if (count == i){
+            if (count == i) {
                 return bditem.item;
             }
             count++;
             bditem = bditem.next;
         }
-        return null;
+        return bditem.item;
     }
 
     public int size(){ // - получить количество элементов
@@ -143,6 +142,22 @@ public class BiDirList<T>  {
         @Override
         public T next() {
             return item.item;
+        }
+    }
+
+    public static void main(String[] args) {
+//        BiDirList<Integer> items = BiDirList.of(3,1,4,6);
+
+        BiDirList<Integer> items = new BiDirList<>();
+        items.addLast(1);
+
+
+        items.addLast(3);
+
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println(i);
+            System.out.println(items.at(i));
+            System.out.println();
         }
     }
 
